@@ -1,11 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Resources;
 using UnityEngine;
 
 public class Managers : MonoBehaviour
 {
     static Managers s_instance;
-    public static Managers Instance { get { Init(); return s_instance; } }
+    static Managers Instance { get { Init(); return s_instance; } }
+
+	UIManager _ui = new UIManager();
+	ResourceManager _resource = new ResourceManager();
+
+	public static UIManager UI { get { return Instance._ui; } }
+	public static ResourceManager Resource { get { return Instance._resource; } }
 
 	[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
 	private static void InitializeOnLoad()
