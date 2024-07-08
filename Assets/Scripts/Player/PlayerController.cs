@@ -11,13 +11,15 @@ public class PlayerController : MonoBehaviour
 
     public float moveSpeed = 7f;
     public float jumpForce = 13f;
+    private int jumpCount = 0;
+
     private Vector2 inputVector;
     private Vector3 moveVector;
+    private bool isRightDirection;
 
     public Transform groundCheck; //플레이어 발위치 체크
     public LayerMask groundLayer;
     private bool isGrounded;
-    private int jumpCount = 0;
 
 
     private void Awake()
@@ -72,6 +74,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed);
+
+        FlipPlayerDirection();
     }
 
     public void OnMove(InputAction.CallbackContext value)
@@ -107,5 +111,26 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("스킬");
         }
+    }
+
+    private void FlipPlayerDirection()
+    {
+        if (moveVector.x < 0 && !isRightDirection)
+        {
+            Flip();
+        }
+        else if (moveVector.x > 0 && isRightDirection)
+        {
+            Flip();
+        }
+    }
+
+    private void Flip()
+    {
+        Vector3 scale = transform.localScale;
+
+        isRightDirection = !isRightDirection;
+        scale.x *= -1; // x축 반전
+        transform.localScale = scale;
     }
 }
