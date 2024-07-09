@@ -15,7 +15,9 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 inputVector;
     private Vector3 moveVector;
-    private bool isRightDirection;
+
+    private bool isRightDirection; // 바라보는 방향 기본 오른쪽
+    public Vector2 returnDirection => isRightDirection ? Vector2.left : Vector2.right; //방향 반환 프로퍼티
 
     public Transform groundCheck; //플레이어 발위치 체크
     public LayerMask groundLayer;
