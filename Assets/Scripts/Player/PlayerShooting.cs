@@ -21,8 +21,6 @@ public class PlayerShooting : MonoBehaviour
         {
             StartCoroutine(AutoFire());
         }
-
-
     }
 
     private IEnumerator AutoFire()

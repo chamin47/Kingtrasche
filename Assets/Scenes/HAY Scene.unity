@@ -123,6 +123,52 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &93773711
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 93773712}
+  - component: {fileID: 93773713}
+  m_Layer: 0
+  m_Name: BonePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &93773712
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 93773711}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4.6269045, y: 3.1682703, z: -0.097842716}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1080172405}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &93773713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 93773711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5defd21bc2493bf4f9ec963109694465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 2620448996677365076, guid: 6ef8cf1a487a11946a872f4dee4d5034, type: 3}
+  poolSize: 30
 --- !u!1 &221586692
 GameObject:
   m_ObjectHideFlags: 0
@@ -564,7 +610,6 @@ GameObject:
   - component: {fileID: 1080172408}
   - component: {fileID: 1080172410}
   - component: {fileID: 1080172409}
-  - component: {fileID: 1080172411}
   - component: {fileID: 1080172412}
   m_Layer: 0
   m_Name: Player
@@ -589,6 +634,7 @@ Transform:
   - {fileID: 868440170}
   - {fileID: 253556258}
   - {fileID: 1940234600}
+  - {fileID: 93773712}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -751,20 +797,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &1080172411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1080172404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5defd21bc2493bf4f9ec963109694465, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 2620448996677365076, guid: 6ef8cf1a487a11946a872f4dee4d5034, type: 3}
-  poolSize: 30
 --- !u!114 &1080172412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1115,7 +1147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ba47ce4ccf2ab4dbd39ed3a985931f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolList: []
+  poolList:
+  - {fileID: 93773713}
 --- !u!4 &1773998421
 Transform:
   m_ObjectHideFlags: 0
