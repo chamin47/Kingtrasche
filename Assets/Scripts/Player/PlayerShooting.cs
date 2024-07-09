@@ -9,9 +9,12 @@ public class PlayerShooting : MonoBehaviour
 
     private bool isFiring = false;
 
+    private PlayerController playerController;
+
 
     void Start()
     {
+        playerController = GetComponent<PlayerController>();
         // [todo] 러닝씬에서는 스크립트 비활성화
     }
 
@@ -37,11 +40,10 @@ public class PlayerShooting : MonoBehaviour
     {
         // 이름받아와서 생성
         GameObject bone = ObjectPoolManager.instance.GetObjectFromPool(bonePoolName, firePoint.position);
+        DogBone dogBone = bone.GetComponent<DogBone>();
+        dogBone.direction = playerController.returnDirection;
 
-        if (bone != null)
-        {
-            //DogBone dogBone = bone.GetComponent<DogBone>();
-            bone.SetActive(true);
-        }
+        bone.SetActive(true);
+
     }
 }
