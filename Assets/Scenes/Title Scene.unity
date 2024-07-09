@@ -323,13 +323,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5716473161623132381, guid: 34f91a371cd72db419d5e3eaa471df20, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5716473161623132381, guid: 34f91a371cd72db419d5e3eaa471df20, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5716473161623132381, guid: 34f91a371cd72db419d5e3eaa471df20, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1545145925}
+    - target: {fileID: 5716473161623132381, guid: 34f91a371cd72db419d5e3eaa471df20, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5716473161623132381, guid: 34f91a371cd72db419d5e3eaa471df20, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 5716473161623132381, guid: 34f91a371cd72db419d5e3eaa471df20, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI_TitleScene, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5716473161623132381, guid: 34f91a371cd72db419d5e3eaa471df20, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1681336739711490980, guid: 34f91a371cd72db419d5e3eaa471df20, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1545145921}
+      addedObject: {fileID: 1545145925}
   m_SourcePrefab: {fileID: 100100000, guid: 34f91a371cd72db419d5e3eaa471df20, type: 3}
 --- !u!1 &356425887
 GameObject:
@@ -367,7 +395,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1681336739711490980, guid: 34f91a371cd72db419d5e3eaa471df20, type: 3}
   m_PrefabInstance: {fileID: 238690346}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1545145921
+--- !u!114 &1545145925
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -376,7 +404,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1545145920}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b6534f43e95e6b4984220c88506f86d, type: 3}
+  m_Script: {fileID: 11500000, guid: d3d79c20f9458db4e98c9e01fe632ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1883217924
