@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DogBone : MonoBehaviour
 {
-    public float boneSpeed = 10f;
+    public float boneSpeed;
     public Vector2 direction;
 
     void Start()

@@ -7,6 +7,8 @@ public class PlayerShooting : MonoBehaviour
     public Transform firePoint;
     public float fireRate = 0.5f;
 
+    public float _boneSpeed = 10f;
+
     private bool isFiring = false;
 
     private PlayerController playerController;
@@ -41,6 +43,7 @@ public class PlayerShooting : MonoBehaviour
         // 이름받아와서 생성
         GameObject bone = ObjectPoolManager.instance.GetObjectFromPool(bonePoolName, firePoint.position);
         DogBone dogBone = bone.GetComponent<DogBone>();
+        dogBone.boneSpeed = _boneSpeed;
         dogBone.direction = playerController.returnDirection;
 
         bone.SetActive(true);
