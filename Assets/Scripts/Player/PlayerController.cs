@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
         skillAction.performed += OnSkill;
 
         // 씬 확정될때 활성화
-        ExceptKey();
+        //ExceptKey();
     }
 
     private void OnDisable()
@@ -81,14 +81,14 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // 씬 확정될때 활성화
-        if (SceneManager.GetActiveScene().name == "HAY Scene")
-        {
-            transform.position += Vector3.right * moveSpeed * Time.deltaTime;
-        }
-        else if (SceneManager.GetActiveScene().name == "CDM Scene")
-        {
-            transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed);
-        }
+        //if (SceneManager.GetActiveScene().name == "HAY Scene")
+        //{
+        //    transform.position += Vector3.right * moveSpeed * Time.deltaTime;
+        //}
+        //else if (SceneManager.GetActiveScene().name == "CDM Scene")
+        //{
+        transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed);
+        //}
 
         FlipPlayerDirection();
     }
