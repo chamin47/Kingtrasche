@@ -9,7 +9,7 @@ public class PlayerShooting : MonoBehaviour
 
     public float boneSpeed = 10f;
 
-    private bool isFiring = false;
+    public bool isFiring = true;
 
     private PlayerController playerController;
 
@@ -17,12 +17,11 @@ public class PlayerShooting : MonoBehaviour
     void Start()
     {
         playerController = GetComponent<PlayerController>();
-        // [todo] 러닝씬에서는 스크립트 비활성화
     }
 
     void Update()
     {
-        if (!isFiring)
+        if (isFiring)
         {
             StartCoroutine(AutoFire());
         }
@@ -30,7 +29,6 @@ public class PlayerShooting : MonoBehaviour
 
     private IEnumerator AutoFire()
     {
-        isFiring = true;
         while (isFiring)
         {
             ShootingBone();

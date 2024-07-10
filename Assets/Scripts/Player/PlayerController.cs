@@ -8,7 +8,9 @@ public class PlayerController : MonoBehaviour
     private InputAction moveAction;
     private InputAction jumpAction;
     private InputAction skillAction;
+
     private Rigidbody2D rigid;
+    private PlayerShooting playerShooting;
 
     public float moveSpeed = 7f;
     public float jumpForce = 13f;
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        playerShooting = GetComponent<PlayerShooting>();
 
         var playerActionMap = inputActionAsset.FindActionMap("PlayerActions");
         moveAction = playerActionMap.FindAction("Move");
@@ -61,8 +64,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-
-
+        ExceptKey();
     }
 
     private void FixedUpdate()
@@ -76,7 +78,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //ExceptKey();
         transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed);
 
         FlipPlayerDirection();
@@ -144,9 +145,11 @@ public class PlayerController : MonoBehaviour
         {
             moveAction.Disable();
             skillAction.Disable();
+            playerShooting.isFiring = false;
         }
         else if (SceneManager.GetActiveScene().name == "CDM Scene") // ½´ÆÃ¾À
         {
+            playerShooting.isFiring = true;
             return;
         }
         else // ±× ¿Ü ¾ÀÀÌ¸é
