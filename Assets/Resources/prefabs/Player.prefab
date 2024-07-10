@@ -123,7 +123,7 @@ Transform:
   - {fileID: 794781984547039315}
   - {fileID: 709730794464625653}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7667741385852740411
 MonoBehaviour:
@@ -278,7 +278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputActionAsset: {fileID: -944628639613478452, guid: 3a5b297f41428404fa57b20ec308058b, type: 3}
-  moveSpeed: 7
+  moveSpeed: 6
   jumpForce: 13
   groundCheck: {fileID: 794781984547039315}
   groundLayer:
@@ -300,6 +300,7 @@ MonoBehaviour:
   firePoint: {fileID: 2096601399550647035}
   fireRate: 0.3
   boneSpeed: 15
+  isFiring: 1
 --- !u!1 &4822862970668766323
 GameObject:
   m_ObjectHideFlags: 0
