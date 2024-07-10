@@ -759,7 +759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7efa75fa07c401a469ec2a1542cad129, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 2061425898}
+  Player: {fileID: 1502120045}
 --- !u!1 &1207805107
 GameObject:
   m_ObjectHideFlags: 0
@@ -1150,6 +1150,11 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &1502120045 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3292661982725336173, guid: 5de0fa6ff1149204994c9a9432ec7fbd, type: 3}
+  m_PrefabInstance: {fileID: 8261678312599570950}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1645866844
 GameObject:
   m_ObjectHideFlags: 0
@@ -1846,17 +1851,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2061425898 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 380868993215676589, guid: 5de0fa6ff1149204994c9a9432ec7fbd, type: 3}
-  m_PrefabInstance: {fileID: 8261678312599570950}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66c93e4cc527c75438500caf83d3d1f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2142767571
 GameObject:
   m_ObjectHideFlags: 0

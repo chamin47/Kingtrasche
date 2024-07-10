@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CamereMove : MonoBehaviour
 {
-    public PlayerController controller;
+    public GameObject Player;
 
     void Start()
     {
@@ -11,6 +11,6 @@ public class CamereMove : MonoBehaviour
 
     void Update()
     {
-        transform.position += Vector3.right * controller.moveSpeed * Time.deltaTime;
+        transform.position = new Vector3(Player.transform.position.x + 7.24f, 0, -10f);
     }
 }
