@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -75,6 +76,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        //ExceptKey();
         transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed);
 
         FlipPlayerDirection();
@@ -134,6 +136,25 @@ public class PlayerController : MonoBehaviour
         isRightDirection = !isRightDirection;
         scale.x *= -1; // xÃà ¹ÝÀü
         transform.localScale = scale;
+    }
+
+    private void ExceptKey()
+    {
+        if (SceneManager.GetActiveScene().name == "HAY Scene") // ·¯´×¾À
+        {
+            moveAction.Disable();
+            skillAction.Disable();
+        }
+        else if (SceneManager.GetActiveScene().name == "CDM Scene") // ½´ÆÃ¾À
+        {
+            return;
+        }
+        else // ±× ¿Ü ¾ÀÀÌ¸é
+        {
+            moveAction.Disable();
+            skillAction.Disable();
+            jumpAction.Disable();
+        }
     }
 
 }
