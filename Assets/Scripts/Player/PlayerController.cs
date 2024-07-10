@@ -48,6 +48,9 @@ public class PlayerController : MonoBehaviour
         moveAction.canceled += OnMove;
         jumpAction.performed += OnJump;
         skillAction.performed += OnSkill;
+
+        // ¾À È®Á¤µÉ¶§ È°¼ºÈ­
+        //ExceptKey();
     }
 
     private void OnDisable()
@@ -64,7 +67,6 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        ExceptKey();
     }
 
     private void FixedUpdate()
@@ -78,7 +80,15 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        // ¾À È®Á¤µÉ¶§ È°¼ºÈ­
+        //if (SceneManager.GetActiveScene().name == "HAY Scene")
+        //{
+        //    transform.position += Vector3.right * moveSpeed * Time.deltaTime;
+        //}
+        //else if (SceneManager.GetActiveScene().name == "CDM Scene")
+        //{
         transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed);
+        //}
 
         FlipPlayerDirection();
     }
@@ -149,7 +159,6 @@ public class PlayerController : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().name == "CDM Scene") // ½´ÆÃ¾À
         {
-            playerShooting.isFiring = true;
             return;
         }
         else // ±× ¿Ü ¾ÀÀÌ¸é

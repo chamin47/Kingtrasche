@@ -17,14 +17,16 @@ public class PlayerShooting : MonoBehaviour
     void Start()
     {
         playerController = GetComponent<PlayerController>();
-    }
 
-    void Update()
-    {
         if (isFiring)
         {
             StartCoroutine(AutoFire());
         }
+    }
+
+    void Update()
+    {
+
     }
 
     private IEnumerator AutoFire()
