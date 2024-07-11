@@ -1,18 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class SceneManagerEx : MonoBehaviour
+public class SceneManagerEx
 {
-    // Start is called before the first frame update
-    void Start()
+	private Dictionary<Define.Scene, string> sceneNameMap = new Dictionary<Define.Scene, string>()
+	{
+		{ Define.Scene.Unknown, "UnknownScene" },
+		{ Define.Scene.Title, "Title Scene" },
+		{ Define.Scene.Lobby, "Lobby Scene" },
+		{ Define.Scene.Game, "HAY Scene" }
+	};
+
+	public BaseScene CurrentScene { get { return GameObject.FindAnyObjectByType<BaseScene>(); } }  
+
+    public void LoadScene(Define.Scene type)
     {
-        
+        CurrentScene.Clear();
+        SceneManager.LoadScene(GetSceneName(type));
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	string GetSceneName(Define.Scene type)
+	{
+		if (sceneNameMap.TryGetValue(type, out string name))
+		{
+			return name;
+		}
+		return null;
+	}
+
+	//string GetSceneName(Define.Scene type)
+ //   {
+ //       string name = System.Enum.GetName(typeof(Define.Scene), type);
+ //       return name;
+ //   }
 }

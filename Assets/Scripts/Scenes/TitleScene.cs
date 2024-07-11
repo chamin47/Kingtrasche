@@ -15,6 +15,6 @@ public class TitleScene : BaseScene
 
 	public override void Clear()
 	{
-		
+		Debug.Log("TiltleScene Clear!");
 	}
 }

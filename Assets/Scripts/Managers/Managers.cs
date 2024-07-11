@@ -14,10 +14,12 @@ public class Managers : MonoBehaviour
 	// Core
 	UIManager _ui = new UIManager();
 	ResourceManager _resource = new ResourceManager();
+	SceneManagerEx _scene = new SceneManagerEx();
 
 	public static GameManager Game { get { return Instance._game; } }
 	public static UIManager UI { get { return Instance._ui; } }
 	public static ResourceManager Resource { get { return Instance._resource; } }
+	public static SceneManagerEx Scene { get { return Instance._scene; } }
 
 	[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
 	private static void InitializeOnLoad()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 using TMPro;
 using static Define;
 using UnityEngine.EventSystems;
@@ -38,7 +39,7 @@ public class UI_TitleScene : UI_Scene
 
 	private void OnButtonClicked(PointerEventData eventData)
 	{
-		SceneManager.LoadScene("HAY Scene");
+		Managers.Scene.LoadScene(Define.Scene.Lobby);
 	}
 
 	#region
