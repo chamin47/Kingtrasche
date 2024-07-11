@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CamereMove : MonoBehaviour
+public class CameraMove : MonoBehaviour
 {
     public GameObject Player;
 
