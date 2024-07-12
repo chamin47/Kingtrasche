@@ -20,7 +20,7 @@ public class Board : MonoBehaviour
 			float x = (i % numCols) * 1.4f - 1.5f;  // 열 인덱스를 계산하여 x 위치 설정
 			float y = (i / numCols) * 1.4f - 2.0f;  // 행 인덱스를 계산하여 y 위치 설정
 			go.transform.position = new Vector2(x, y);
-			go.GetComponent<Card>().Setting(arr[i]);
+			go.GetComponent<Card>().Setting(arr[i], x, y); // 위치 정보를 Setting 함수에 전달
 		}
 
 		CardGameManager.Instance.cardCount = arr.Length;

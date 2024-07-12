@@ -12,18 +12,21 @@ public class UI_TitleScene : UI_Scene
 {
    enum GameObjects
 	{
-		Slider,
+		
 	}
 
 	enum Buttons
 	{
 		StartButton,
+		OptionButton,
+		MissionButton,
 	}
 
 	enum Texts
 	{
-		TitleText,
 		StartText,
+		OptionText,
+		MissionText,
 	}
 
 	private void Start()
@@ -34,37 +37,10 @@ public class UI_TitleScene : UI_Scene
 		Bind<GameObject>(typeof(GameObjects));
 
 		Get<Button>((int)Buttons.StartButton).gameObject.BindEvent(OnButtonClicked);
-		StartCoroutine(BlinkTextCoroutine(Get<TMP_Text>((int)Texts.StartText)));
 	}
 
 	private void OnButtonClicked(PointerEventData eventData)
 	{
 		Managers.Scene.LoadScene(Define.Scene.Lobby);
 	}
-
-	#region
-	private IEnumerator BlinkTextCoroutine(TMP_Text textComponent)
-	{
-		float duration = 0.5f; // 깜빡이는 속도를 조절
-
-		while (true)
-		{
-			// 텍스트 페이드 아웃
-			while (textComponent.alpha > 0)
-			{
-				textComponent.alpha -= Time.deltaTime / duration;
-				yield return null;
-			}
-			textComponent.alpha = 0;
-
-			// 텍스트 페이드 인
-			while (textComponent.alpha < 1)
-			{
-				textComponent.alpha += Time.deltaTime / duration;
-				yield return null;
-			}
-			textComponent.alpha = 1;
-		}
-	}
-	#endregion
 }

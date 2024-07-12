@@ -511,9 +511,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16e0fda269de4764a8a2958066fa6b18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  idx: 0
   front: {fileID: 5570749251309745253}
   back: {fileID: 6801347304961796960}
   frontImage: {fileID: 1478976074726814453}
+  x: 0
+  y: 0
+  angle: 0
+  rotationSpeed: 300
+  maxRadius: 8
+  orbitSpeed: 5
 --- !u!95 &1425217978816196257
 Animator:
   serializedVersion: 5
