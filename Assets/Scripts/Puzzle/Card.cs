@@ -26,7 +26,7 @@ public class Card : MonoBehaviour
 	private float delay;
 
 	// 카드가 모두 원래 위치로 돌아갔는지 체크하는 플래그
-	private static bool allCardsReturned = false;
+	private static bool allCardsReturned;
 	private static int cardsToReturn = 0;
 	private static int cardsReturned = 0;
 
