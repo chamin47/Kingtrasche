@@ -57,6 +57,7 @@ namespace GameBalance
 /* Fields. */
 
 		public System.Int32 index;
+		public System.String playerID;
 		public System.Single moveSpeed;
 		public System.Single jumpForce;
 		public System.Single boneSpeed;
