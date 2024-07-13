@@ -5,24 +5,24 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagerEx
 {
-	private Dictionary<Define.Scene, string> sceneNameMap = new Dictionary<Define.Scene, string>()
+	private Dictionary<Scene, string> sceneNameMap = new Dictionary<Scene, string>()
 	{
-		{ Define.Scene.Unknown, "UnknownScene" },
-		{ Define.Scene.Title, "Title Scene" },
-		{ Define.Scene.Lobby, "Lobby Scene" },
-		{ Define.Scene.Game, "HAY Scene" }
+		{ Scene.Unknown, "UnknownScene" },
+		{ Scene.Title, "Title Scene" },
+		{ Scene.Stage, "Stage Scene" },
+		{ Scene.Game, "HAY Scene" }
 	};
 
 	public BaseScene CurrentScene { get { return GameObject.FindAnyObjectByType<BaseScene>(); } }  
 
-    public void LoadScene(Define.Scene type)
+    public void LoadScene(Scene type)
     {
 		Managers.Clear();
 
         SceneManager.LoadScene(GetSceneName(type));
     }
 
-	string GetSceneName(Define.Scene type)
+	string GetSceneName(Scene type)
 	{
 		if (sceneNameMap.TryGetValue(type, out string name))
 		{

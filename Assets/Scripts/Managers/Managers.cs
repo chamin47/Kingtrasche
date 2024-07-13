@@ -16,12 +16,14 @@ public class Managers : MonoBehaviour
 	UIManager _ui = new UIManager();
 	ResourceManager _resource = new ResourceManager();
 	SceneManagerEx _scene = new SceneManagerEx();
+	DataManager _data = new DataManager();
 
 	public static GameManager Game { get { return Instance._game; } }
 	public static SoundManager Sound { get { return Instance._sound; } }
 	public static UIManager UI { get { return Instance._ui; } }
 	public static ResourceManager Resource { get { return Instance._resource; } }
 	public static SceneManagerEx Scene { get { return Instance._scene; } }
+	public static DataManager Data { get { return Instance._data; } }
 
 	[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
 	private static void InitializeOnLoad()
@@ -45,6 +47,7 @@ public class Managers : MonoBehaviour
 			s_instance = go.GetComponent<Managers>();
 
 			s_instance._sound.Init();
+			s_instance._data.Init();
 		}
 	}
 

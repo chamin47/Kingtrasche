@@ -5,9 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using TMPro;
-using static Define;
 using UnityEngine.EventSystems;
-
 
 public class UI_LobbyScene : UI_Scene
 {
@@ -37,6 +35,6 @@ public class UI_LobbyScene : UI_Scene
 
 	private void OnButtonClicked(PointerEventData eventData)
 	{
-		Managers.Scene.LoadScene(Define.Scene.Game);
+		Managers.Scene.LoadScene(Scene.Game);
 	}
 }
