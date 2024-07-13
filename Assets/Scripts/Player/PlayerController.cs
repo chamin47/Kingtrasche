@@ -1,3 +1,4 @@
+using GameBalance;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -36,7 +37,9 @@ public class PlayerController : MonoBehaviour
         moveAction = playerActionMap.FindAction("Move");
         jumpAction = playerActionMap.FindAction("Jump");
         skillAction = playerActionMap.FindAction("Skill");
-    }
+
+        InitPlayerData();
+	}
 
     private void OnEnable()
     {
@@ -68,8 +71,15 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
     }
+	public void InitPlayerData()
+	{
+		int playerid = 0;
+		PlayerData data = PlayerData.PlayerDataMap[playerid];
+		this.moveSpeed = data.moveSpeed;
+		this.jumpForce = data.jumpForce;
+	}
 
-    private void FixedUpdate()
+	private void FixedUpdate()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer); // 발이 땅에 닿아있는지 체크
         if (isGrounded)
