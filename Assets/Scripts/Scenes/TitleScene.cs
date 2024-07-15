@@ -11,7 +11,7 @@ public class TitleScene : BaseScene
 
 		SceneType = Scene.Title;
 
-		// Managers.UI.ShowSceneUI<UI_Inven>();
+		Managers.UI.ShowSceneUI<UI_TitleScene>();
 	}
 
 	public override void Clear()

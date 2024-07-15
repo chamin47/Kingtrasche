@@ -9,7 +9,7 @@ public class SceneManagerEx
 	{
 		{ Scene.Unknown, "UnknownScene" },
 		{ Scene.Title, "Title Scene" },
-		{ Scene.Stage, "HAY Scene" },
+		{ Scene.StageSelect, "StageScene" },
 		{ Scene.Game, "HAY Scene" }
 	};
 
