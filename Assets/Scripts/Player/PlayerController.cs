@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
         skillAction = playerActionMap.FindAction("Skill");
 
         InitPlayerData();
-	}
+    }
 
     private void OnEnable()
     {
@@ -53,7 +53,13 @@ public class PlayerController : MonoBehaviour
         skillAction.performed += OnSkill;
 
         // ¾À È®Á¤µÉ¶§ È°¼ºÈ­
-        ExceptKey();
+        //ExceptKey();
+        if (SceneManager.GetActiveScene().name == "HAY Scene")
+        {
+            moveAction.Disable();
+            skillAction.Disable();
+            playerShooting.isFiring = false;
+        } //ÃßÈÄ »èÁ¦
     }
 
     private void OnDisable()
@@ -71,15 +77,15 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
     }
-	public void InitPlayerData()
-	{
-		int playerid = 0;
-		PlayerData data = PlayerData.PlayerDataMap[playerid];
-		this.moveSpeed = data.moveSpeed;
-		this.jumpForce = data.jumpForce;
-	}
+    public void InitPlayerData()
+    {
+        int playerid = 0;
+        PlayerData data = PlayerData.PlayerDataMap[playerid];
+        this.moveSpeed = data.moveSpeed;
+        this.jumpForce = data.jumpForce;
+    }
 
-	private void FixedUpdate()
+    private void FixedUpdate()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer); // ¹ßÀÌ ¶¥¿¡ ´ê¾ÆÀÖ´ÂÁö Ã¼Å©
         if (isGrounded)
@@ -91,14 +97,16 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // ¾À È®Á¤µÉ¶§ È°¼ºÈ­
-        if (SceneManager.GetActiveScene().name == "HAY Scene")
+        if (SceneManager.GetActiveScene().name == "HAY Scene") //·¯´×¾À
         {
             transform.position += Vector3.right * moveSpeed * Time.deltaTime;
         }
-        else if (SceneManager.GetActiveScene().name == "CDM Scene")
-        {
-            transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed);
-        }
+        //else if (SceneManager.GetActiveScene().name == "CDM Scene") //½´ÆÃ¾À
+        //{
+        //    transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed);
+        //}
+
+        transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed); //TestPlayer
 
         FlipPlayerDirection();
     }
@@ -173,9 +181,10 @@ public class PlayerController : MonoBehaviour
         }
         else // ±× ¿Ü ¾ÀÀÌ¸é
         {
-            moveAction.Disable();
-            skillAction.Disable();
-            jumpAction.Disable();
+            //moveAction.Disable();
+            //skillAction.Disable();
+            //jumpAction.Disable();
+            return;
         }
     }
 
