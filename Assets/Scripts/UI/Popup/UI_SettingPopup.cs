@@ -51,7 +51,7 @@ public class UI_SettingPopup : UI_Popup
 
 		Get<Button>((int)Buttons.SoundEffectButton).gameObject.BindEvent(EffectSoundOnOff);
 		Get<Button>((int)Buttons.BGMButton).gameObject.BindEvent(BackgroundSoundOnOff);
-		Get<Button>((int)(Buttons.MakePeopleButton)).gameObject.BindEvent(MakePeople);
+		Get<Button>((int)Buttons.MakePeopleButton).gameObject.BindEvent(MakePeople);
 		Get<Button>((int)Buttons.ClosePopupButton).gameObject.BindEvent(OnClickCloseButton);
 
 		Refresh();
