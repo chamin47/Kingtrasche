@@ -11,7 +11,8 @@ public class RunningMapManager : MonoBehaviour
 
     void Start()
     {
-        chunkData = MapChunkData.MapChunkDataMap[currentStage];
+		currentStage = PlayerPrefs.GetInt("StageNumber");
+		chunkData = MapChunkData.MapChunkDataMap[currentStage];
         List<string> prefabPaths = chunkData.MapChunksPath;
         GameObject[] mapChunk = new GameObject[prefabPaths.Count];
         for (int i = 0; i < prefabPaths.Count; i++)
