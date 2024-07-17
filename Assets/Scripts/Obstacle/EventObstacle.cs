@@ -2,15 +2,17 @@ using UnityEngine;
 
 public class EventObstacle : MonoBehaviour
 {
-    private GameObject Event;
+    private GameObject EventObj;
     private string puzzlePath = "Puzzle/Board";
+    private string BeeHivePath = " ";
+    private string QuizPath = " ";
+    // [todo] 장애물에 따라서 path전달 -> Enum으로 관리해보기
 
     public GameObject player;
     private PlayerController playerController;
 
     private float tempSpeed;
     private float eventDistance = 2f;
-    Vector3 spawnPuzzlePosition;
 
     private void Start()
     {
@@ -21,26 +23,22 @@ public class EventObstacle : MonoBehaviour
     void Update()
     {
         float distance = Vector3.Distance(transform.position, player.transform.position);
-        if (distance <= tempSpeed && Event == null)
+        if (distance <= tempSpeed && EventObj == null)
         {
-            StarttPuzzle();
+            StartEvent(puzzlePath);
         }
     }
 
-    private void StarttPuzzle()
+    private void StartEvent(string path)
     {
         playerController.moveSpeed = 0f;
-        spawnPuzzlePosition = new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2);
-        Event = Managers.Resource.Load<GameObject>(puzzlePath);
-        Instantiate(Event, spawnPuzzlePosition, Quaternion.identity);
+        EventObj = Managers.Resource.Load<GameObject>(path);
+        Instantiate(EventObj);
     }
 
-    private void EndPuzzle()
+    private void EndEvent()
     {
+        Destroy(this.gameObject);
         playerController.moveSpeed = tempSpeed;
     }
-
-
-
-
 }
