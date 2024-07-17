@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class HoneyBeeEvent : MonoBehaviour
 {
-    private GameObject Player;
+    public GameObject player;
+    private PlayerController playerController;
     private Transform[] childTransform;
     private GameObject honeyBee;
 
+    private float tempSpeed;
+    private float eventDistance = 7f;
     private int randomBeeNumbers;
     private string beePath = "Puzzle/HoneyBee";
 
@@ -13,24 +16,36 @@ public class HoneyBeeEvent : MonoBehaviour
     void Start()
     {
         childTransform = GetComponentsInChildren<Transform>();
-        SpawnBee();
+        playerController = player.GetComponent<PlayerController>();
+        tempSpeed = playerController.moveSpeed;
     }
 
 
     void Update()
     {
-
+        float distance = Vector3.Distance(transform.position, player.transform.position);
+        if (distance <= eventDistance && honeyBee == null)
+        {
+            SpawnBee();
+        }
     }
 
     private void SpawnBee()
     {
+        playerController.moveSpeed = 0f;
         honeyBee = Managers.Resource.Load<GameObject>(beePath);
 
         randomBeeNumbers = Random.Range(5, 10);
         for (int i = 0; i < randomBeeNumbers; i++)
         {
             Instantiate(honeyBee, childTransform[3]);
-            Debug.Log($"{i}锅 国 积己");
+            Debug.Log($"{i}锅掳 国 积己");
         }
+    }
+
+    private void EndEvent()
+    {
+        Destroy(this.gameObject);
+        playerController.moveSpeed = tempSpeed;
     }
 }

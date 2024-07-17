@@ -6,13 +6,12 @@ public class EventObstacle : MonoBehaviour
     private string puzzlePath = "Puzzle/Board";
     private string BeeHivePath = " ";
     private string QuizPath = " ";
-    // [todo] 장애물에 따라서 path전달 -> Enum으로 관리해보기
 
     public GameObject player;
     private PlayerController playerController;
 
     private float tempSpeed;
-    private float eventDistance = 2f;
+    private float eventDistance = 7f;
 
     private void Start()
     {
@@ -22,8 +21,9 @@ public class EventObstacle : MonoBehaviour
 
     void Update()
     {
-        float distance = Vector3.Distance(transform.position, player.transform.position);
-        if (distance <= tempSpeed && EventObj == null)
+        float distance = Vector3.Distance(this.transform.position, player.transform.position);
+        Debug.Log(distance);
+        if (distance <= eventDistance && EventObj == null)
         {
             StartEvent(puzzlePath);
         }
