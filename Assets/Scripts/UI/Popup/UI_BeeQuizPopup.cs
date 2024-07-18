@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -15,6 +16,8 @@ public class UI_BeeQuizPopup : UI_Popup
         SecletButton01Text,
         SecletButton02Text
     }
+
+    public Action OnEndEvent;
 
     private void Awake()
     {
@@ -37,6 +40,7 @@ public class UI_BeeQuizPopup : UI_Popup
 
     public void OnClickSelcctButton(PointerEventData eventData)
     {
+        OnEndEvent?.Invoke();
         Destroy(this.gameObject);
     }
 }

@@ -28,15 +28,16 @@ public class HoneyBeeEvent : MonoBehaviour
         float distance = Vector3.Distance(transform.position, player.transform.position);
         if (distance <= eventDistance && honeyBeePrefab == null)
         {
-            Invoke("QuizPopup", 4f);
+            Invoke("QuizPopup", 3.5f);
             SpawnBee();
-
         }
     }
 
     private void QuizPopup()
     {
         beeQuizPopup = Managers.Resource.Load<GameObject>("UI/Popup/UI_BeeQuizPopup");
+        UI_BeeQuizPopup popupScript = beeQuizPopup.GetComponent<UI_BeeQuizPopup>();
+        popupScript.OnEndEvent = EndEvent;
         Instantiate(beeQuizPopup);
     }
 
@@ -97,7 +98,7 @@ public class HoneyBeeEvent : MonoBehaviour
 
     private void EndEvent()
     {
-        Destroy(this.gameObject);
         playerController.moveSpeed = tempSpeed;
+        Destroy(this.gameObject);
     }
 }
