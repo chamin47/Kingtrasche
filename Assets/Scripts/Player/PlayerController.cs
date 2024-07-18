@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rigid;
     private PlayerShooting playerShooting;
 
-    public float moveSpeed { get; set; }
+    public float moveSpeed = 3f;
     public float jumpForce = 13f;
     private int jumpCount = 0;
 
