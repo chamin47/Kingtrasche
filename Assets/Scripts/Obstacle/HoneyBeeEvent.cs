@@ -43,6 +43,20 @@ public class HoneyBeeEvent : MonoBehaviour
         }
     }
 
+    private Vector3 GetRandomFlyPosition()
+    {
+        // BeeSpawnRange의 범위 계산
+        Transform BeeSpawnRange = childTransform[2];
+        RectTransform rangeTransform = BeeSpawnRange.GetComponent<RectTransform>();
+        float halfwidth = rangeTransform.rect.width / 2;
+        float halfHeight = rangeTransform.rect.height / 2;
+
+        // 랜덤 백터값 계산
+        Vector3 randomPosition = new Vector3(Random.Range(-halfwidth, halfwidth), Random.Range(-halfHeight, halfHeight), 0);
+
+        return BeeSpawnRange.position + randomPosition;
+    }
+
     private void EndEvent()
     {
         Destroy(this.gameObject);
