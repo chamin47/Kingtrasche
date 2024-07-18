@@ -1,5 +1,6 @@
 using System;
 using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -40,7 +41,9 @@ public class UI_BeeQuizPopup : UI_Popup
 
     public void OnClickSelcctButton(PointerEventData eventData)
     {
-        OnEndEvent?.Invoke();
+        Debug.Log("ÆË¾÷ ´ÝÈû");
+        OnEndEvent.Invoke();
+        Debug.Log("ÄÝ¹éÈ£Ãâ");
         Destroy(this.gameObject);
     }
 }

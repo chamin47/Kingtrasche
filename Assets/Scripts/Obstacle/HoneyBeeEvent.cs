@@ -36,9 +36,10 @@ public class HoneyBeeEvent : MonoBehaviour
     private void QuizPopup()
     {
         beeQuizPopup = Managers.Resource.Load<GameObject>("UI/Popup/UI_BeeQuizPopup");
-        UI_BeeQuizPopup popupScript = beeQuizPopup.GetComponent<UI_BeeQuizPopup>();
-        popupScript.OnEndEvent = EndEvent;
-        Instantiate(beeQuizPopup);
+        GameObject go = Instantiate(beeQuizPopup);
+        UI_BeeQuizPopup popupScript = go.GetComponent<UI_BeeQuizPopup>();
+        popupScript.OnEndEvent += EndEvent;
+        Debug.Log("콜백설정");
     }
 
     private void SpawnBee()
@@ -98,6 +99,7 @@ public class HoneyBeeEvent : MonoBehaviour
 
     private void EndEvent()
     {
+        Debug.Log("End");
         playerController.moveSpeed = tempSpeed;
         Destroy(this.gameObject);
     }
