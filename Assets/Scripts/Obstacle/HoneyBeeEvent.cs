@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class HoneyBeeEvent : MonoBehaviour
 {
-    public GameObject player;
+    private GameObject player;
     private PlayerController playerController;
     private Transform[] childTransform;
     private GameObject honeyBeePrefab;
@@ -17,6 +17,7 @@ public class HoneyBeeEvent : MonoBehaviour
 
     void Start()
     {
+        player = GameObject.FindWithTag("Player");
         childTransform = GetComponentsInChildren<Transform>();
         playerController = player.GetComponent<PlayerController>();
         tempSpeed = playerController.moveSpeed;
@@ -39,7 +40,6 @@ public class HoneyBeeEvent : MonoBehaviour
         GameObject go = Instantiate(beeQuizPopup);
         UI_BeeQuizPopup popupScript = go.GetComponent<UI_BeeQuizPopup>();
         popupScript.OnEndEvent += EndEvent;
-        Debug.Log("콜백설정");
     }
 
     private void SpawnBee()
@@ -99,7 +99,6 @@ public class HoneyBeeEvent : MonoBehaviour
 
     private void EndEvent()
     {
-        Debug.Log("End");
         playerController.moveSpeed = tempSpeed;
         Destroy(this.gameObject);
     }
