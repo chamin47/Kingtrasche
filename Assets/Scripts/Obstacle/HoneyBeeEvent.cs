@@ -7,6 +7,7 @@ public class HoneyBeeEvent : MonoBehaviour
     private PlayerController playerController;
     private Transform[] childTransform;
     private GameObject honeyBeePrefab;
+    private GameObject beeQuizPopup;
 
     private float tempSpeed;
     private float eventDistance = 7f;
@@ -27,8 +28,16 @@ public class HoneyBeeEvent : MonoBehaviour
         float distance = Vector3.Distance(transform.position, player.transform.position);
         if (distance <= eventDistance && honeyBeePrefab == null)
         {
+            Invoke("QuizPopup", 4f);
             SpawnBee();
+
         }
+    }
+
+    private void QuizPopup()
+    {
+        beeQuizPopup = Managers.Resource.Load<GameObject>("UI/Popup/UI_BeeQuizPopup");
+        Instantiate(beeQuizPopup);
     }
 
     private void SpawnBee()
