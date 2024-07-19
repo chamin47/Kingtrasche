@@ -18,6 +18,7 @@ public class FishboneAttack : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            Destroy(this.gameObject);
             collision.gameObject.GetComponent<PlayerController>().TakeDamage(boneDamage);
         }
     }
