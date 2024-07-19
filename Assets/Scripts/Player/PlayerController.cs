@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rigid;
     private PlayerShooting playerShooting;
+    private PlayerAnimationController animation;
 
     public float moveSpeed = 3f;
     public float jumpForce = 13f;
@@ -27,11 +28,13 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     private bool isGrounded;
 
+    private bool isJumpig = false;
 
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         playerShooting = GetComponent<PlayerShooting>();
+        animation = GetComponent<PlayerAnimationController>();
 
         var playerActionMap = inputActionAsset.FindActionMap("PlayerActions");
         moveAction = playerActionMap.FindAction("Move");
@@ -54,12 +57,13 @@ public class PlayerController : MonoBehaviour
 
         // 씬 확정될때 활성화
         //ExceptKey();
-        if (SceneManager.GetActiveScene().name == "HAY Scene")
-        {
-            moveAction.Disable();
-            skillAction.Disable();
-            playerShooting.isFiring = false;
-        } //추후 삭제
+
+        //if (SceneManager.GetActiveScene().name == "HAY Scene")
+        //{
+        //    moveAction.Disable();
+        //    skillAction.Disable();
+        //    playerShooting.isFiring = false;
+        //} //추후 삭제
     }
 
     private void OnDisable()
@@ -97,25 +101,35 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // 씬 확정될때 활성화
-        if (SceneManager.GetActiveScene().name == "HAY Scene") //러닝씬
-        {
-            transform.position += Vector3.right * moveSpeed * Time.deltaTime;
-        }
+        //if (SceneManager.GetActiveScene().name == "HAY Scene") //러닝씬
+        //{
+        //    transform.position += Vector3.right * moveSpeed * Time.deltaTime;
+        //}
         //else if (SceneManager.GetActiveScene().name == "CDM Scene") //슈팅씬
         //{
         //    transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed);
         //}
 
-        transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed); //TestPlayer
+        transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed); //Test
 
         FlipPlayerDirection();
     }
 
     public void OnMove(InputAction.CallbackContext value)
     {
-        //rigid.velocity = new Vector2(moveInput.x * moveSpeed, rigid.velocity.y);
         inputVector = value.ReadValue<Vector2>();
         moveVector = new Vector3(inputVector.x, 0f, 0f);
+
+        if (moveVector.x != 0)
+        {
+            animation.StartRunningAnim();
+            animation.StopIdleAnim();
+        }
+        else
+        {
+            animation.StartIdleAnim();
+            animation.StopRunningAnim();
+        }
     }
 
     public void OnJump(InputAction.CallbackContext value)
@@ -124,17 +138,16 @@ public class PlayerController : MonoBehaviour
         {
             if (isGrounded) //바닥이거나
             {
-                //rigid.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
                 rigid.velocity = new Vector2(rigid.velocity.x, jumpForce);
                 jumpCount = 1;
             }
             else if (jumpCount < 2) // jumpCount가 2회미만일때만 점프 가능
             {
                 rigid.velocity = new Vector2(rigid.velocity.x, 0f); // y 축 속도 초기화 -> 일정한 높이의 점프
-                //rigid.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
                 rigid.velocity = new Vector2(rigid.velocity.x, jumpForce);
                 jumpCount = 2;
             }
+            animation.JumpAnim();
         }
     }
 
