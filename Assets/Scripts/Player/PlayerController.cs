@@ -158,9 +158,13 @@ public class PlayerController : MonoBehaviour
         if (life <= 0)
         {
             life = 0;
-            //animation.DyingAnim();
-            gameObject.SetActive(false);
+            DirectDying();
         }
+    }
+
+    public void DirectDying()
+    {
+        animation.DyingAnim();
     }
 
     public void OnSkill(InputAction.CallbackContext value)

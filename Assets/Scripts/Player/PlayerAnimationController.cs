@@ -45,6 +45,11 @@ public class PlayerAnimationController : MonoBehaviour
         animator.SetTrigger(_Dying);
     }
 
+    public void AfterAnimationNExtAction()
+    {
+        gameObject.SetActive(false);
+    }
+
     public void BiteAnim()
     {
         animator.SetTrigger(_Bite);
