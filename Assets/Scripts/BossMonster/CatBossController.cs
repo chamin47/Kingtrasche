@@ -257,7 +257,7 @@ public class CatBossController : MonoBehaviour
 		skillList.Add(new Skill(() => FishboneAttack(), 2.0f, Random.Range(4, 6)));
 	}
 
-	private void TakeDamage(int damage)
+	public void TakeDamage(int damage)
 	{
 		if (currentState == BossState.Dead)
 			return;
