@@ -19,8 +19,8 @@ public class UI_PausePopup : UI_Popup
 		ContinueButton,
 		RetryButton,
 		StopButton,
-		BGMOnOffButton,
-		SoundEffectOnOffButton
+		BGMOnOff,
+		SoundEffectOnOff
 	}
 
     enum Texts
@@ -35,8 +35,8 @@ public class UI_PausePopup : UI_Popup
 
     enum Images
     {
-		BGMOnOffButton,
-		SoundEffectOnOffButton
+		BGMOnOff,
+		SoundEffectOnOff
 	}
 	#endregion
 
@@ -53,8 +53,8 @@ public class UI_PausePopup : UI_Popup
 		Bind<Button>(typeof(Buttons));
 		Bind<Image>(typeof(Images));
 
-		Get<Button>((int)Buttons.SoundEffectOnOffButton).gameObject.BindEvent(EffectSoundOnOff);
-		Get<Button>((int)Buttons.BGMOnOffButton).gameObject.BindEvent(BackgroundSoundOnOff);
+		Get<Button>((int)Buttons.SoundEffectOnOff).gameObject.BindEvent(EffectSoundOnOff);
+		Get<Button>((int)Buttons.BGMOnOff).gameObject.BindEvent(BackgroundSoundOnOff);
 		Get<Button>((int)Buttons.ContinueButton).gameObject.BindEvent(OnClickContinueButton);
 		Get<Button>((int)Buttons.RetryButton).gameObject.BindEvent(OnClickRetryButton);
 		Get<Button>((int)Buttons.StopButton).gameObject.BindEvent(OnClickStopButton);
@@ -84,8 +84,7 @@ public class UI_PausePopup : UI_Popup
 	private void OnClickContinueButton(PointerEventData eventdata)
 	{
 		Managers.UI.ClosePopupUI(this);
-		// 게임 다시 진행하는 로직 추가 필요
-		// 멈췄던 시간이 다시 돌아가게
+		Time.timeScale = 1.0f;
 	}
 
 	private void OnClickRetryButton(PointerEventData eventdata)
