@@ -55,8 +55,8 @@ public class Managers : MonoBehaviour
 
 	public static void Clear()
 	{
-		Sound.Clear();
-		Scene.Clear();
-		UI.Clear();
+		Sound?.Clear();
+		Scene?.Clear();
+		UI?.Clear();
 	}
 }

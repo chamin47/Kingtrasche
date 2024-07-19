@@ -44,7 +44,9 @@ public class Card : MonoBehaviour
 	IEnumerator StartRotationWithDelay()
 	{
 		yield return new WaitForSeconds(delay);
-		StartCoroutine(RotationCo());
+
+		// 카드의 원래 위치로 이동하는 코루틴 호출
+		StartCoroutine(CardOriginalLocationMoveCo());
 	}
 
 	public void Setting(int number, float x, float y)
@@ -72,7 +74,7 @@ public class Card : MonoBehaviour
 		{
 			// secondCard에 내 정보를 넘겨준다.
 			CardGameManager.Instance.secondCard = this;
-			// Mached 함수를 호출해준다.
+			// Matched 함수를 호출해준다.
 			CardGameManager.Instance.Matched();
 		}
 	}
@@ -92,30 +94,6 @@ public class Card : MonoBehaviour
 		anim.SetBool("isOpen", false);
 		front.SetActive(false);
 		back.SetActive(true);
-	}
-
-	IEnumerator RotationCo()
-	{
-		while (currentRadius > 0)
-		{
-			transform.RotateAround(Vector3.zero, Vector3.forward, Time.deltaTime * rotationSpeed);
-			transform.position = GetPosition();
-			currentRadius -= Time.deltaTime * 1.5f;
-			currentRadius = Mathf.Clamp(currentRadius, 0, maxRadius);
-			yield return null;
-		}
-		transform.rotation = Quaternion.Euler(0, 0, 0);
-
-		// 카드의 원래 위치로 이동하는 코루틴 호출
-		StartCoroutine(CardOriginalLocationMoveCo());
-	}
-
-	Vector2 GetPosition()
-	{
-		angle += Time.deltaTime * orbitSpeed;
-		float x = Mathf.Cos(angle) * currentRadius;
-		float y = Mathf.Sin(angle) * currentRadius;
-		return new Vector2(x, y);
 	}
 
 	IEnumerator CardOriginalLocationMoveCo()
