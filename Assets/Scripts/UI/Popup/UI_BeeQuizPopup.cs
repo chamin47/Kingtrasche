@@ -55,7 +55,7 @@ public class UI_BeeQuizPopup : UI_Popup
 
         if (incorrectNumber == correctNumber)
         {
-            while (correctNumber != incorrectNumber)
+            while (correctNumber == incorrectNumber)
             {
                 incorrectNumber = UnityEngine.Random.Range(5, 10);
             }
