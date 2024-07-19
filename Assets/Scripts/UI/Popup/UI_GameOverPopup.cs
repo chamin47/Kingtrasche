@@ -68,6 +68,7 @@ public class UI_GameOverPopup : UI_Popup
 	private void OnClickRetryButton(PointerEventData eventData)
 	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		Time.timeScale = 1.0f;
 		// 목줄 하나 감소하는 로직 필요
 	}
 

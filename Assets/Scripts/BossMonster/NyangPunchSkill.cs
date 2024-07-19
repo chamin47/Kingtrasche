@@ -7,6 +7,7 @@ public class NyangPunchSkill : MonoBehaviour
 	public float delayBeforeCheck = 2.0f;
 	public float activeDuration = 0.5f;
 	public float destroyDelay = 1.0f;
+	private int damage = 1;
 	private Vector2 initialPosition;
 	private SpriteRenderer _renderer;
 	private BoxCollider2D boxCollider;
@@ -71,13 +72,7 @@ public class NyangPunchSkill : MonoBehaviour
 		{
 			Debug.Log("Player hit by NyangPunch");
 			// 데미지 로직 구현
-			DealDamageToPlayer(other.gameObject);
+			other.GetComponent<PlayerController>().TakeDamage(damage);
 		}
-	}
-
-	private void DealDamageToPlayer(GameObject player)
-	{
-		// 데미지 처리 로직을 여기에 구현
-		// player.GetComponent<PlayerHealth>().TakeDamage(damageAmount); 예시
 	}
 }
