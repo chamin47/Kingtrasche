@@ -33,11 +33,11 @@ public class DogBone : MonoBehaviour
         return insidePosition.x < 0 || insidePosition.x > 1 || insidePosition.y < 0 || insidePosition.y > 1;
     }
 
-	private void OnTriggerEnter2D(Collider2D other)
-	{
+    private void OnTriggerEnter2D(Collider2D other)
+    {
         if (other.gameObject.CompareTag("Boss"))
         {
             other.gameObject.GetComponent<CatBossController>().TakeDamage(boneDamage);
         }
-	}
+    }
 }

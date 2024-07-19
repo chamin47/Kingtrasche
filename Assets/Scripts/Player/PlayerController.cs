@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 3f;
     public float jumpForce = 13f;
     private int jumpCount = 0;
+    public int life = 5;
 
     private Vector2 inputVector;
     private Vector3 moveVector;
@@ -148,6 +149,17 @@ public class PlayerController : MonoBehaviour
                 jumpCount = 2;
             }
             animation.JumpAnim();
+        }
+    }
+
+    public void TakeDamage(int Damage)
+    {
+        life -= Damage;
+        if (life <= 0)
+        {
+            life = 0;
+            //animation.DyingAnim();
+            gameObject.SetActive(false);
         }
     }
 
