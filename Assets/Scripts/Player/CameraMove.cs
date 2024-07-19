@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class CameraMove : MonoBehaviour
 {
-    public GameObject Player;
+    private GameObject Player;
 
     void Start()
     {
-
+        Player = GameObject.FindWithTag("Player");
     }
 
     void Update()
