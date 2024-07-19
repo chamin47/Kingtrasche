@@ -52,9 +52,9 @@ public class HoneyBeeEvent : MonoBehaviour
         for (int i = 0; i < randomBeeNumbers; i++)
         {
             GameObject honeyBee = Instantiate(honeyBeePrefab, childTransform[3]);
-            Debug.Log($"{i + 1}锅掳 国 积己");
             StartCoroutine(MoveAndReturn(honeyBee));
         }
+        Debug.Log($"{randomBeeNumbers}付府 国 积己");
     }
 
     private IEnumerator MoveAndReturn(GameObject honeyBee)

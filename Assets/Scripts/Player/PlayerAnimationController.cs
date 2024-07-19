@@ -48,6 +48,7 @@ public class PlayerAnimationController : MonoBehaviour
     public void AfterAnimationNExtAction()
     {
         gameObject.SetActive(false);
+        Managers.Game.GameOver();
     }
 
     public void BiteAnim()
