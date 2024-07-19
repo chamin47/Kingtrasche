@@ -41,8 +41,7 @@ public class CatBossController : MonoBehaviour
 		// 스킬 프리팹 로드
 		fishbonePrefab = Managers.Resource.Load<GameObject>("BossSkill/CatBoss/Fishbone");
 		scratchPrefab = Managers.Resource.Load<GameObject>("BossSkill/CatBoss/Scratch");
-		punchPrefab = Managers.Resource.Load<GameObject>("BossSkill/CataBoss/Nyangpunch");
-		hissPrefab = Managers.Resource.Load<GameObject>("BossSkill/CatBoss/Nyangpunch");
+		hissPrefab = Managers.Resource.Load<GameObject>("BossSkill/CatBoss/Hiss");
 
 		// 초기 스킬 설정
 		Phase1();
@@ -169,30 +168,62 @@ public class CatBossController : MonoBehaviour
 	private IEnumerator NyangPunchSkill()
 	{
 		Debug.Log("NyangPunch Skill");
-		Vector2 initialPosition = player.position;
 
 		for (int i = 0; i < 3; i++)
 		{
-			GameObject pawEffect = new GameObject("PawEffect"); // Create a new GameObject for the paw effect
-			pawEffect.transform.position = initialPosition;
+			GameObject pawEffect = new GameObject("PawEffect"); 
+			pawEffect.transform.position = player.position;
 			SpriteRenderer renderer = pawEffect.AddComponent<SpriteRenderer>();
-			renderer.sprite = Resources.Load<Sprite>("PawEffectSprite"); // Set the sprite for the paw effect
+			renderer.sprite = Resources.Load<Sprite>("Sprites/PawEffectSprite");
 
-			// Add NyangPunchEffect script to handle the effect logic
+			Color color = renderer.color;
+			color.a = 0.35f; 
+			renderer.color = color;
+
 			pawEffect.AddComponent<NyangPunchSkill>();
 
-			// Wait for 1 second before placing the next paw effect
 			yield return new WaitForSeconds(1.0f);
 		}
 
-		yield return new WaitForSeconds(3.0f); // Wait for the effect to become transparent and disappear
+		yield return new WaitForSeconds(3.0f); 
 	}
 
 	private IEnumerator HissSkill()
 	{
 		Debug.Log("Hiss Skill");
-		// hissPrefab 로직 구현 예정
-		yield return new WaitForSeconds(2.5f);  // Post skill delay
+		GameObject skullEffect = Instantiate(hissPrefab, Vector3.zero, Quaternion.identity);
+
+		StartCoroutine(ShakeCamera(1.0f, 0.1f)); // 1초 동안 0.1의 강도로 화면 흔들림
+		yield return new WaitForSeconds(1.0f);  // 이펙트가 1초 동안 화면에 나타남
+
+		var renderer = skullEffect.AddComponent<SpriteRenderer>();
+		renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, 0.5f);
+		yield return new WaitForSeconds(2.0f);
+
+		Destroy(skullEffect);
+
+		// 스턴효과적용
+		//player.GetComponent<PlayerController>().ApplyStun(3.0f);
+	}
+
+	private IEnumerator ShakeCamera(float duration, float magnitude)
+	{
+		Vector3 originalPos = Camera.main.transform.localPosition;
+		float elapsed = 0.0f;
+
+		while (elapsed < duration)
+		{
+			float x = Random.Range(-1f, 1f) * magnitude;
+			float y = Random.Range(-1f, 1f) * magnitude;
+
+			Camera.main.transform.localPosition = new Vector3(x, y, originalPos.z);
+
+			elapsed += Time.deltaTime;
+
+			yield return null;
+		}
+
+		Camera.main.transform.localPosition = originalPos;
 	}
 
 	private void Phase1()
@@ -206,26 +237,23 @@ public class CatBossController : MonoBehaviour
 	private void Phase2()
 	{
 		skillList.Clear();
-		skillList.Clear();
 		skillList.Add(new Skill(() => FishboneAttack(), 2.0f, 3));
 		skillList.Add(new Skill(() => FishboneAttackCType(), 2.0f, 3));
 		skillList.Add(new Skill(() => ScratchSkill(), 4.0f, 1));
-		skillList.Add(new Skill(() => FishboneAttack(), 2.0f, 3));
-		skillList.Add(new Skill(() => FishboneAttackCType(), 2.0f, 3));
-		skillList.Add(new Skill(() => ScratchSkill(), 4.0f, 1));
+		skillList.Add(new Skill(() => NyangPunchSkill(), 2.0f, 1));
 	}
 
 	private void Phase3()
 	{
 		skillList.Clear();
-		skillList.Add(new Skill(() => HissSkill(), 9.0f, 1));  // 필살기 먼저 실행
-		skillList.Add(new Skill(() => FishboneAttack(), 2.0f, Random.Range(4, 6))); // 기본 공격 자주 실행
-		skillList.Add(new Skill(() => ScratchSkill(), 4.0f, Random.Range(2, 3)));   // 첫 번째 스킬 보통 실행
-		skillList.Add(new Skill(() => NyangPunchSkill(), 6.0f, 1));  // 두 번째 스킬 드물게 실행
-		skillList.Add(new Skill(() => FishboneAttack(), 2.0f, Random.Range(3, 5))); // 기본 공격 자주 실행
-		skillList.Add(new Skill(() => ScratchSkill(), 4.0f, 1));  // 첫 번째 스킬 보통 실행
-		skillList.Add(new Skill(() => NyangPunchSkill(), 6.0f, Random.Range(1, 2))); // 두 번째 스킬 드물게 실행
-		skillList.Add(new Skill(() => FishboneAttack(), 2.0f, Random.Range(4, 6))); // 기본 공격 자주 실행
+		skillList.Add(new Skill(() => HissSkill(), 9.0f, 1));  
+		skillList.Add(new Skill(() => FishboneAttack(), 2.0f, Random.Range(4, 6))); 
+		skillList.Add(new Skill(() => ScratchSkill(), 4.0f, Random.Range(2, 3)));   
+		skillList.Add(new Skill(() => NyangPunchSkill(), 6.0f, 1));  
+		skillList.Add(new Skill(() => FishboneAttack(), 2.0f, Random.Range(3, 5))); 
+		skillList.Add(new Skill(() => ScratchSkill(), 4.0f, 1));  
+		skillList.Add(new Skill(() => NyangPunchSkill(), 6.0f, Random.Range(1, 2))); 
+		skillList.Add(new Skill(() => FishboneAttack(), 2.0f, Random.Range(4, 6))); 
 	}
 
 	private class Skill
