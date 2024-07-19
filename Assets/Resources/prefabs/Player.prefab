@@ -95,9 +95,9 @@ GameObject:
   - component: {fileID: 6204526781245983478}
   - component: {fileID: 7667741385852740411}
   - component: {fileID: 3777573818995814161}
+  - component: {fileID: 3049848703592180876}
   - component: {fileID: 380868993215676589}
   - component: {fileID: 5819999585277016220}
-  - component: {fileID: 3049848703592180876}
   - component: {fileID: 3234829088074272488}
   - component: {fileID: 337207786951229292}
   m_Layer: 0
@@ -231,42 +231,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &380868993215676589
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3292661982725336173}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66c93e4cc527c75438500caf83d3d1f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputActionAsset: {fileID: -944628639613478452, guid: 3a5b297f41428404fa57b20ec308058b, type: 3}
-  moveSpeed: 6
-  jumpForce: 13
-  groundCheck: {fileID: 794781984547039315}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 2048
---- !u!114 &5819999585277016220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3292661982725336173}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16bfc2745da7f334b8f0b22d4d5696b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bonePoolName: BonePool
-  firePoint: {fileID: 2096601399550647035}
-  fireRate: 0.3
-  boneSpeed: 15
-  isFiring: 1
 --- !u!61 &3049848703592180876
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -312,6 +276,43 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.96, y: 0.98}
   m_EdgeRadius: 0
+--- !u!114 &380868993215676589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3292661982725336173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66c93e4cc527c75438500caf83d3d1f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputActionAsset: {fileID: -944628639613478452, guid: 3a5b297f41428404fa57b20ec308058b, type: 3}
+  moveSpeed: 6
+  jumpForce: 13
+  life: 5
+  groundCheck: {fileID: 794781984547039315}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 2048
+--- !u!114 &5819999585277016220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3292661982725336173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16bfc2745da7f334b8f0b22d4d5696b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bonePoolName: BonePool
+  firePoint: {fileID: 2096601399550647035}
+  fireRate: 0.3
+  boneSpeed: 15
+  isFiring: 1
 --- !u!95 &3234829088074272488
 Animator:
   serializedVersion: 5
