@@ -120,6 +120,7 @@ public class CatBossController : MonoBehaviour
 				}
 				break;
 			case BossState.Dead:
+				GameOver();
 				break;
 		}
 	}
@@ -171,13 +172,13 @@ public class CatBossController : MonoBehaviour
 
 		for (int i = 0; i < 3; i++)
 		{
-			GameObject pawEffect = new GameObject("PawEffect"); 
+			GameObject pawEffect = new GameObject("PawEffect");
 			pawEffect.transform.position = player.position;
 			SpriteRenderer renderer = pawEffect.AddComponent<SpriteRenderer>();
 			renderer.sprite = Resources.Load<Sprite>("Sprites/PawEffectSprite");
 
 			Color color = renderer.color;
-			color.a = 0.35f; 
+			color.a = 0.35f;
 			renderer.color = color;
 
 			pawEffect.AddComponent<NyangPunchSkill>();
@@ -185,7 +186,7 @@ public class CatBossController : MonoBehaviour
 			yield return new WaitForSeconds(1.0f);
 		}
 
-		yield return new WaitForSeconds(3.0f); 
+		yield return new WaitForSeconds(3.0f);
 	}
 
 	private IEnumerator HissSkill()
@@ -246,14 +247,32 @@ public class CatBossController : MonoBehaviour
 	private void Phase3()
 	{
 		skillList.Clear();
-		skillList.Add(new Skill(() => HissSkill(), 9.0f, 1));  
-		skillList.Add(new Skill(() => FishboneAttack(), 2.0f, Random.Range(4, 6))); 
-		skillList.Add(new Skill(() => ScratchSkill(), 4.0f, Random.Range(2, 3)));   
-		skillList.Add(new Skill(() => NyangPunchSkill(), 6.0f, 1));  
-		skillList.Add(new Skill(() => FishboneAttack(), 2.0f, Random.Range(3, 5))); 
-		skillList.Add(new Skill(() => ScratchSkill(), 4.0f, 1));  
-		skillList.Add(new Skill(() => NyangPunchSkill(), 6.0f, Random.Range(1, 2))); 
-		skillList.Add(new Skill(() => FishboneAttack(), 2.0f, Random.Range(4, 6))); 
+		skillList.Add(new Skill(() => HissSkill(), 9.0f, 1));
+		skillList.Add(new Skill(() => FishboneAttack(), 2.0f, Random.Range(4, 6)));
+		skillList.Add(new Skill(() => ScratchSkill(), 4.0f, Random.Range(2, 3)));
+		skillList.Add(new Skill(() => NyangPunchSkill(), 6.0f, 1));
+		skillList.Add(new Skill(() => FishboneAttack(), 2.0f, Random.Range(3, 5)));
+		skillList.Add(new Skill(() => ScratchSkill(), 4.0f, 1));
+		skillList.Add(new Skill(() => NyangPunchSkill(), 6.0f, Random.Range(1, 2)));
+		skillList.Add(new Skill(() => FishboneAttack(), 2.0f, Random.Range(4, 6)));
+	}
+
+	private void TakeDamage(int damage)
+	{
+		if (currentState == BossState.Dead)
+			return;
+
+		currentHealth -= damage;
+		if (currentHealth <= 0)
+		{
+			currentHealth = 0;
+			Destroy(gameObject);
+		}
+	}
+
+	private void GameOver()
+	{
+
 	}
 
 	private class Skill
