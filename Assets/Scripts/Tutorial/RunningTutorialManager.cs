@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RunningTutorialManager : UI_Base
 {
@@ -33,6 +34,7 @@ public class RunningTutorialManager : UI_Base
         if (base.Init() == false)
             return false;
         Bind<TMP_Text>(typeof(Texts));
+        Bind<Image>(typeof(Images));
 
         return true;
     }
@@ -47,5 +49,24 @@ public class RunningTutorialManager : UI_Base
 
     }
 
+    public void IncreaseJumpCount()
+    {
+        JumpCount++;
+        if (JumpCount == 1)
+        {
 
+        }
+        else if (JumpCount == 2)
+        {
+
+        }
+        else if (JumpCount == 3)
+        {
+
+        }
+        else if (JumpCount > 4)
+        {
+            firstTutorial.SetActive(false);
+        }
+    }
 }
