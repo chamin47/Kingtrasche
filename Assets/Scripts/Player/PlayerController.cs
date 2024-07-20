@@ -37,6 +37,9 @@ public class PlayerController : MonoBehaviour
 	private float stunTouchResetTime = 1.0f; // 입력 초기화 시간
 	private float stunTouchTimer = 0f; // 입력 초기화 타이머
 
+    private Color originalColor;
+    private SpriteRenderer spriteRenderer;
+
 	private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -47,6 +50,9 @@ public class PlayerController : MonoBehaviour
         moveAction = playerActionMap.FindAction("Move");
         jumpAction = playerActionMap.FindAction("Jump");
         skillAction = playerActionMap.FindAction("Skill");
+
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
 
         InitPlayerData();
     }
@@ -129,37 +135,16 @@ public class PlayerController : MonoBehaviour
 				stunTouchTimer = 0;
 			}
 
-			stunDuration -= Time.deltaTime;
-			if (stunDuration <= 0)
-			{
-				isStunned = false;
-				stunDuration = 0;
-				stunTouchCount = 0;
-			}
+			// 스턴 해제를 위해 터치 입력을 처리합니다.
+			HandleTouchInput();
+
+			// 스턴이 터치로 해제되지 않으면 리턴
 			return;
 		}
 
 		transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed); //Test
 
         FlipPlayerDirection();
-
-		// 터치 입력 처리
-		if (Input.touchCount > 0)
-		{
-			foreach (Touch touch in Input.touches)
-			{
-				if (touch.phase == UnityEngine.TouchPhase.Began)
-				{
-					OnTouch();
-				}
-			}
-		}
-
-		// 마우스 클릭 입력 처리
-		if (Input.GetMouseButtonDown(0))
-		{
-			OnTouch();
-		}
 	}
 
     public void OnMove(InputAction.CallbackContext value)
@@ -227,6 +212,27 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+	private void HandleTouchInput()
+	{
+		// 터치 입력 처리
+		if (Input.touchCount > 0)
+		{
+			foreach (UnityEngine.Touch touch in Input.touches)
+			{
+				if (touch.phase == UnityEngine.TouchPhase.Began)
+				{
+					OnTouch();
+				}
+			}
+		}
+
+		// 마우스 클릭 입력 처리 (개발 중 테스트용)
+		if (Input.GetMouseButtonDown(0))
+		{
+			OnTouch();
+		}
+	}
+
 	private void OnTouch()
 	{
 		if (isStunned)
@@ -235,9 +241,7 @@ public class PlayerController : MonoBehaviour
 			stunTouchTimer = 0;
 			if (stunTouchCount >= 6)
 			{
-				isStunned = false;
-				stunDuration = 0;
-				stunTouchCount = 0;
+				EndStun();				
 			}
 		}
 	}
@@ -290,5 +294,14 @@ public class PlayerController : MonoBehaviour
 		stunDuration = duration;
 		stunTouchCount = 0;
 		stunTouchTimer = 0;
+        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.5f);
+	}
+
+    private void EndStun()
+    {
+		isStunned = false;
+		stunDuration = 0;
+		stunTouchCount = 0;
+        spriteRenderer.color = originalColor;
 	}
 }
