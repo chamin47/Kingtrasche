@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 3f;
     public float jumpForce = 13f;
     private int jumpCount = 0;
-    public int life = 5;
+    public int life = 3;
 
     private Vector2 inputVector;
     private Vector3 moveVector;
