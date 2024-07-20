@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerShooting : MonoBehaviour
 {
@@ -18,6 +19,10 @@ public class PlayerShooting : MonoBehaviour
     {
         playerController = GetComponent<PlayerController>();
 
+        if (SceneManager.GetActiveScene().name == "RunningTutorialScene")
+        {
+            isFiring = false;
+        }
         if (isFiring)
         {
             StartCoroutine(AutoFire());

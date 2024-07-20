@@ -187,10 +187,7 @@ public class PlayerController : MonoBehaviour
             }
             animation.JumpAnim();
 
-            if (SceneManager.GetActiveScene().name == "RunningTutorialScene")
-            {
-                Managers.RunningTutorial.IncreaseJumpCount();
-            }
+            Managers.RunningTutorial.IncreaseJumpCount();
         }
     }
 
