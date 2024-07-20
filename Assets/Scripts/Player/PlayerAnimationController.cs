@@ -9,6 +9,7 @@ public class PlayerAnimationController : MonoBehaviour
     private static readonly int _Jump = Animator.StringToHash("Jump");
     private static readonly int _Dying = Animator.StringToHash("Dying");
     private static readonly int _Bite = Animator.StringToHash("Bite");
+    private static readonly int _Sleeping = Animator.StringToHash("Sleeping");
 
     private void Awake()
     {
@@ -54,5 +55,10 @@ public class PlayerAnimationController : MonoBehaviour
     public void BiteAnim()
     {
         animator.SetTrigger(_Bite);
+    }
+
+    public void SleepingAnim()
+    {
+        animator.SetTrigger(_Sleeping);
     }
 }
