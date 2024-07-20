@@ -110,8 +110,7 @@ public class UI_StageSelectScene : UI_Scene
 	}
 	private void OnClickLevel5Button(PointerEventData eventData)
 	{
-		Managers.Scene.LoadScene(Scene.Game);
-		PlayerPrefs.SetInt("StageNumber", 5);
+		Managers.Scene.LoadScene(Scene.Boss);
 	}
 	private void OnClickLevel6Button(PointerEventData eventData)
 	{

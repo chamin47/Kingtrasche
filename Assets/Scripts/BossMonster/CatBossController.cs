@@ -23,6 +23,7 @@ public class CatBossController : MonoBehaviour
 	private GameObject punchPrefab;
 	private GameObject hissPrefab;
 	private Transform player;
+	private Animator anim;
 
 	private List<Skill> skillList = new List<Skill>();
 	private int currentSkillIndex = 0;
@@ -32,11 +33,13 @@ public class CatBossController : MonoBehaviour
 	private bool isSkillExecuting = false;
 	private bool facingRight = true;
 
+
 	private void Start()
 	{
 		currentHealth = maxHealth;
 		currentState = BossState.Phase1;
 		player = GameObject.FindWithTag("Player").transform;
+		anim = GetComponent<Animator>();
 
 		// 스킬 프리팹 로드
 		fishbonePrefab = Managers.Resource.Load<GameObject>("BossSkill/CatBoss/Fishbone");
@@ -126,6 +129,7 @@ public class CatBossController : MonoBehaviour
 	private IEnumerator FishboneAttack()
 	{
 		Debug.Log("Fishbone Attack");
+		anim.SetTrigger("isAttack");
 		Vector2 direction = player.position.x > transform.position.x ? Vector2.right : Vector2.left;
 		GameObject fishbone = Instantiate(fishbonePrefab, transform.position, Quaternion.identity);
 		fishbone.GetComponent<FishboneAttack>().direction = direction; // 발사 로직 예시
@@ -137,6 +141,7 @@ public class CatBossController : MonoBehaviour
 		Debug.Log("Fishbone Attack CType");
 		Vector2 direction = facingRight ? Vector2.right : Vector2.left;
 
+		anim.SetTrigger("isAttack");
 		float[] angles = new float[] { -20f, 0f, 20f };
 		foreach (float angle in angles)
 		{
@@ -157,6 +162,7 @@ public class CatBossController : MonoBehaviour
 	{
 		yield return new WaitForSeconds(1.0f);  // Pre skill delay
 		Debug.Log("Scratch Skill");
+		anim.SetTrigger("isAttack");
 		Vector2 direction = player.position.x > transform.position.x ? Vector2.right : Vector2.left;
 		GameObject scratch = Instantiate(scratchPrefab, transform.position, Quaternion.identity);
 		scratch.GetComponent<ScratchSkill>().direction = direction;
