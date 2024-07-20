@@ -17,14 +17,14 @@ public class HealthSystem : MonoBehaviour
 	public static HealthSystem Instance;
 
 	public Image currentHealthBar;
-	public Image currentHealthGlobe;
-	public Text healthText;
+	//public Image currentHealthGlobe;
+	//public Text healthText;
 	public float hitPoint = 100f;
 	public float maxHitPoint = 100f;
 
-	public Image currentManaBar;
-	public Image currentManaGlobe;
-	public Text manaText;
+	//public Image currentManaBar;
+	//public Image currentManaGlobe;
+	//public Text manaText;
 	public float manaPoint = 100f;
 	public float maxManaPoint = 100f;
 
@@ -58,38 +58,38 @@ public class HealthSystem : MonoBehaviour
 	//==============================================================
 	// Update
 	//==============================================================
-	void Update ()
-	{
-		if (Regenerate)
-			Regen();
-	}
+	//void Update ()
+	//{
+	//	if (Regenerate)
+	//		Regen();
+	//}
 
 	//==============================================================
 	// Regenerate Health & Mana
 	//==============================================================
-	private void Regen()
-	{
-		timeleft -= Time.deltaTime;
+	//private void Regen()
+	//{
+	//	timeleft -= Time.deltaTime;
 
-		if (timeleft <= 0.0) // Interval ended - update health & mana and start new interval
-		{
-			// Debug mode
-			if (GodMode)
-			{
-				HealDamage(maxHitPoint);
-				RestoreMana(maxManaPoint);
-			}
-			else
-			{
-				HealDamage(regen);
-				RestoreMana(regen);				
-			}
+	//	if (timeleft <= 0.0) // Interval ended - update health & mana and start new interval
+	//	{
+	//		// Debug mode
+	//		if (GodMode)
+	//		{
+	//			HealDamage(maxHitPoint);
+	//			RestoreMana(maxManaPoint);
+	//		}
+	//		else
+	//		{
+	//			HealDamage(regen);
+	//			RestoreMana(regen);				
+	//		}
 
-			UpdateGraphics();
+	//		UpdateGraphics();
 
-			timeleft = regenUpdateInterval;
-		}
-	}
+	//		timeleft = regenUpdateInterval;
+	//	}
+	//}
 
 	//==============================================================
 	// Health Logic
@@ -98,15 +98,15 @@ public class HealthSystem : MonoBehaviour
 	{
 		float ratio = hitPoint / maxHitPoint;
 		currentHealthBar.rectTransform.localPosition = new Vector3(currentHealthBar.rectTransform.rect.width * ratio - currentHealthBar.rectTransform.rect.width, 0, 0);
-		healthText.text = hitPoint.ToString ("0") + "/" + maxHitPoint.ToString ("0");
+		//healthText.text = hitPoint.ToString ("0") + "/" + maxHitPoint.ToString ("0");
 	}
 
-	private void UpdateHealthGlobe()
-	{
-		float ratio = hitPoint / maxHitPoint;
-		currentHealthGlobe.rectTransform.localPosition = new Vector3(0, currentHealthGlobe.rectTransform.rect.height * ratio - currentHealthGlobe.rectTransform.rect.height, 0);
-		healthText.text = hitPoint.ToString("0") + "/" + maxHitPoint.ToString("0");
-	}
+	//private void UpdateHealthGlobe()
+	//{
+	//	float ratio = hitPoint / maxHitPoint;
+	//	currentHealthGlobe.rectTransform.localPosition = new Vector3(0, currentHealthGlobe.rectTransform.rect.height * ratio - currentHealthGlobe.rectTransform.rect.height, 0);
+	//	healthText.text = hitPoint.ToString("0") + "/" + maxHitPoint.ToString("0");
+	//}
 
 	public void TakeDamage(float Damage)
 	{
@@ -119,14 +119,14 @@ public class HealthSystem : MonoBehaviour
 		StartCoroutine(PlayerHurts());
 	}
 
-	public void HealDamage(float Heal)
-	{
-		hitPoint += Heal;
-		if (hitPoint > maxHitPoint) 
-			hitPoint = maxHitPoint;
+	//public void HealDamage(float Heal)
+	//{
+	//	hitPoint += Heal;
+	//	if (hitPoint > maxHitPoint) 
+	//		hitPoint = maxHitPoint;
 
-		UpdateGraphics();
-	}
+	//	UpdateGraphics();
+	//}
 	public void SetMaxHealth(float max)
 	{
 		maxHitPoint += (int)(maxHitPoint * max / 100);
@@ -137,43 +137,43 @@ public class HealthSystem : MonoBehaviour
 	//==============================================================
 	// Mana Logic
 	//==============================================================
-	private void UpdateManaBar()
-	{
-		float ratio = manaPoint / maxManaPoint;
-		currentManaBar.rectTransform.localPosition = new Vector3(currentManaBar.rectTransform.rect.width * ratio - currentManaBar.rectTransform.rect.width, 0, 0);
-		manaText.text = manaPoint.ToString ("0") + "/" + maxManaPoint.ToString ("0");
-	}
+	//private void UpdateManaBar()
+	//{
+	//	float ratio = manaPoint / maxManaPoint;
+	//	currentManaBar.rectTransform.localPosition = new Vector3(currentManaBar.rectTransform.rect.width * ratio - currentManaBar.rectTransform.rect.width, 0, 0);
+	//	manaText.text = manaPoint.ToString ("0") + "/" + maxManaPoint.ToString ("0");
+	//}
 
-	private void UpdateManaGlobe()
-	{
-		float ratio = manaPoint / maxManaPoint;
-		currentManaGlobe.rectTransform.localPosition = new Vector3(0, currentManaGlobe.rectTransform.rect.height * ratio - currentManaGlobe.rectTransform.rect.height, 0);
-		manaText.text = manaPoint.ToString("0") + "/" + maxManaPoint.ToString("0");
-	}
+	//private void UpdateManaGlobe()
+	//{
+	//	float ratio = manaPoint / maxManaPoint;
+	//	currentManaGlobe.rectTransform.localPosition = new Vector3(0, currentManaGlobe.rectTransform.rect.height * ratio - currentManaGlobe.rectTransform.rect.height, 0);
+	//	manaText.text = manaPoint.ToString("0") + "/" + maxManaPoint.ToString("0");
+	//}
 
-	public void UseMana(float Mana)
-	{
-		manaPoint -= Mana;
-		if (manaPoint < 1) // Mana is Zero!!
-			manaPoint = 0;
+	//public void UseMana(float Mana)
+	//{
+	//	manaPoint -= Mana;
+	//	if (manaPoint < 1) // Mana is Zero!!
+	//		manaPoint = 0;
 
-		UpdateGraphics();
-	}
+	//	UpdateGraphics();
+	//}
 
-	public void RestoreMana(float Mana)
-	{
-		manaPoint += Mana;
-		if (manaPoint > maxManaPoint) 
-			manaPoint = maxManaPoint;
+	//public void RestoreMana(float Mana)
+	//{
+	//	manaPoint += Mana;
+	//	if (manaPoint > maxManaPoint) 
+	//		manaPoint = maxManaPoint;
 
-		UpdateGraphics();
-	}
-	public void SetMaxMana(float max)
-	{
-		maxManaPoint += (int)(maxManaPoint * max / 100);
+	//	UpdateGraphics();
+	//}
+	//public void SetMaxMana(float max)
+	//{
+	//	maxManaPoint += (int)(maxManaPoint * max / 100);
 		
-		UpdateGraphics();
-	}
+	//	UpdateGraphics();
+	//}
 
 	//==============================================================
 	// Update all Bars & Globes UI graphics
@@ -181,9 +181,9 @@ public class HealthSystem : MonoBehaviour
 	private void UpdateGraphics()
 	{
 		UpdateHealthBar();
-		UpdateHealthGlobe();
-		UpdateManaBar();
-		UpdateManaGlobe();
+		//UpdateHealthGlobe();
+		//UpdateManaBar();
+		//UpdateManaGlobe();
 	}
 
 	//==============================================================

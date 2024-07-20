@@ -26,17 +26,26 @@ public class UI_BossScene : UI_Scene
 
 	enum Images
 	{
-
+		HealthBarFrame,
+		HealthBar
 	}
 	#endregion
 
 	private GameObject[] heartContainers;
 	private Image[] heartFills;
 	private GameObject player;
+	private GameObject boss;
 	private PlayerController playerController;
+	private CatBossController catBossController;
+	private Image currentHealthBar;
 
 	public Transform heartsParent;
 	private GameObject heartContainerPrefab;
+
+	private void Awake()
+	{
+		Init();
+	}
 
 	public override bool Init()
 	{
@@ -52,12 +61,17 @@ public class UI_BossScene : UI_Scene
 		heartsParent = Get<GameObject>((int)GameObjects.HeartsParent).gameObject.transform;
 		heartContainerPrefab = Managers.Resource.Load<GameObject>("UI/SubItem/HeartContainer");
 		player = GameObject.FindWithTag("Player");
+		boss = GameObject.FindWithTag("Boss");
 		playerController = player.GetComponent<PlayerController>();
+		catBossController = boss.GetComponent<CatBossController>();
 
-		heartContainers = new GameObject[5];  // Assuming 5 is the max number of hearts
-		heartFills = new Image[5];
+		heartContainers = new GameObject[3];  // Assuming 5 is the max number of hearts
+		heartFills = new Image[3];
+
+		currentHealthBar = Get<Image>((int)Images.HealthBar);
 
 		playerController.OnHealthChanged += UpdateHeartsHUD;
+		catBossController.OnHealthChanged += UpdateHealthBar;
 		InstantiateHeartContainers();
 		UpdateHeartsHUD();  // Corrected method name
 
@@ -109,6 +123,13 @@ public class UI_BossScene : UI_Scene
 			heartContainers[i] = temp;
 			heartFills[i] = temp.transform.Find("HeartFill").GetComponent<Image>();
 		}
+	}
+
+	private void UpdateHealthBar()
+	{
+		float ratio = catBossController.currentHealth / (float)catBossController.maxHealth;
+		currentHealthBar.fillAmount = ratio;
+		Debug.Log("보스바 UI 업데이트: " + ratio);
 	}
 
 	private void OnClickPauseButton(PointerEventData eventData)

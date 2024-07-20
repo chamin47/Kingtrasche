@@ -16,7 +16,7 @@ public class CatBossController : MonoBehaviour
 	}
 
 	public BossState currentState = BossState.Idle;
-	private int maxHealth = 200;
+	public int maxHealth = 200;
 	public int currentHealth;
 	private GameObject fishbonePrefab;
 	private GameObject scratchPrefab;
@@ -32,6 +32,9 @@ public class CatBossController : MonoBehaviour
 	private float skillTimer = 0.0f;
 	private bool isSkillExecuting = false;
 	private bool facingRight = true;
+
+	public delegate void Healthchanged();
+	public event Healthchanged OnHealthChanged;
 
 
 	private void Start()
@@ -277,6 +280,7 @@ public class CatBossController : MonoBehaviour
 			return;
 
 		currentHealth -= damage;
+		OnHealthChanged.Invoke();  // 이벤트 호출
 		if (currentHealth <= 0)
 		{
 			currentHealth = 0;
