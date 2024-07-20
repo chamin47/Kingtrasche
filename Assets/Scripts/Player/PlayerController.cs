@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 3f;
     public float jumpForce = 13f;
     private int jumpCount = 0;
-    public int life = 5;
+    public int life = 3;
 
     private Vector2 inputVector;
     private Vector3 moveVector;
@@ -30,17 +30,20 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
 
     private bool isJumpig = false;
-	private bool isStunned = false; // 스턴 상태 여부
-	private float stunDuration = 0f; // 스턴 지속 시간
+    private bool isStunned = false; // 스턴 상태 여부
+    private float stunDuration = 0f; // 스턴 지속 시간
 
-	private int stunTouchCount = 0; // 스턴 해제 터치 횟수
-	private float stunTouchResetTime = 1.0f; // 입력 초기화 시간
-	private float stunTouchTimer = 0f; // 입력 초기화 타이머
+    private int stunTouchCount = 0; // 스턴 해제 터치 횟수
+    private float stunTouchResetTime = 1.0f; // 입력 초기화 시간
+    private float stunTouchTimer = 0f; // 입력 초기화 타이머
 
     private Color originalColor;
     private SpriteRenderer spriteRenderer;
 
-	private void Awake()
+    public delegate void Healthchanged();
+    public event Healthchanged OnHealthChanged;
+
+    private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         playerShooting = GetComponent<PlayerShooting>();
@@ -104,10 +107,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-		if (isStunned)
-			return;
+        if (isStunned)
+            return;
 
-		isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer); // 발이 땅에 닿아있는지 체크
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer); // 발이 땅에 닿아있는지 체크
         if (isGrounded)
         {
             jumpCount = 0; // 바닥에 닿으면 jumpCount 리셋
@@ -116,43 +119,43 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-		// 씬 확정될때 활성화
-		//if (SceneManager.GetActiveScene().name == "HAY Scene") //러닝씬
-		//{
-		//    transform.position += Vector3.right * moveSpeed * Time.deltaTime;
-		//}
-		//else if (SceneManager.GetActiveScene().name == "CDM Scene") //슈팅씬
-		//{
-		//    transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed);
-		//}
+        // 씬 확정될때 활성화
+        //if (SceneManager.GetActiveScene().name == "HAY Scene") //러닝씬
+        //{
+        //    transform.position += Vector3.right * moveSpeed * Time.deltaTime;
+        //}
+        //else if (SceneManager.GetActiveScene().name == "CDM Scene") //슈팅씬
+        //{
+        //    transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed);
+        //}
 
-		if (isStunned)
-		{
-			stunTouchTimer += Time.deltaTime;
-			if (stunTouchTimer >= stunTouchResetTime)
-			{
-				stunTouchCount = 0;
-				stunTouchTimer = 0;
-			}
+        if (isStunned)
+        {
+            stunTouchTimer += Time.deltaTime;
+            if (stunTouchTimer >= stunTouchResetTime)
+            {
+                stunTouchCount = 0;
+                stunTouchTimer = 0;
+            }
 
-			// 스턴 해제를 위해 터치 입력을 처리합니다.
-			HandleTouchInput();
+            // 스턴 해제를 위해 터치 입력을 처리합니다.
+            HandleTouchInput();
 
-			// 스턴이 터치로 해제되지 않으면 리턴
-			return;
-		}
+            // 스턴이 터치로 해제되지 않으면 리턴
+            return;
+        }
 
-		transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed); //Test
+        transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed); //Test
 
         FlipPlayerDirection();
-	}
+    }
 
     public void OnMove(InputAction.CallbackContext value)
     {
-		if (isStunned)
-			return;
+        if (isStunned)
+            return;
 
-		inputVector = value.ReadValue<Vector2>();
+        inputVector = value.ReadValue<Vector2>();
         moveVector = new Vector3(inputVector.x, 0f, 0f);
 
         if (moveVector.x != 0)
@@ -183,12 +186,19 @@ public class PlayerController : MonoBehaviour
                 jumpCount = 2;
             }
             animation.JumpAnim();
+
+            if (SceneManager.GetActiveScene().name == "RunningTutorialScene")
+            {
+                Managers.RunningTutorial.IncreaseJumpCount();
+            }
         }
     }
 
     public void TakeDamage(int Damage)
     {
         life -= Damage;
+
+        OnHealthChanged?.Invoke();
         if (life <= 0)
         {
             life = 0;
@@ -203,50 +213,50 @@ public class PlayerController : MonoBehaviour
 
     public void OnSkill(InputAction.CallbackContext value)
     {
-		if (isStunned)
-			return;
+        if (isStunned)
+            return;
 
-		if (value.performed)
+        if (value.performed)
         {
             Debug.Log("스킬");
         }
     }
 
-	private void HandleTouchInput()
-	{
-		// 터치 입력 처리
-		if (Input.touchCount > 0)
-		{
-			foreach (UnityEngine.Touch touch in Input.touches)
-			{
-				if (touch.phase == UnityEngine.TouchPhase.Began)
-				{
-					OnTouch();
-				}
-			}
-		}
+    private void HandleTouchInput()
+    {
+        // 터치 입력 처리
+        if (Input.touchCount > 0)
+        {
+            foreach (UnityEngine.Touch touch in Input.touches)
+            {
+                if (touch.phase == UnityEngine.TouchPhase.Began)
+                {
+                    OnTouch();
+                }
+            }
+        }
 
-		// 마우스 클릭 입력 처리 (개발 중 테스트용)
-		if (Input.GetMouseButtonDown(0))
-		{
-			OnTouch();
-		}
-	}
+        // 마우스 클릭 입력 처리 (개발 중 테스트용)
+        if (Input.GetMouseButtonDown(0))
+        {
+            OnTouch();
+        }
+    }
 
-	private void OnTouch()
-	{
-		if (isStunned)
-		{
-			stunTouchCount++;
-			stunTouchTimer = 0;
-			if (stunTouchCount >= 6)
-			{
-				EndStun();				
-			}
-		}
-	}
+    private void OnTouch()
+    {
+        if (isStunned)
+        {
+            stunTouchCount++;
+            stunTouchTimer = 0;
+            if (stunTouchCount >= 6)
+            {
+                EndStun();
+            }
+        }
+    }
 
-	private void FlipPlayerDirection()
+    private void FlipPlayerDirection()
     {
         if (moveVector.x < 0 && !isRightDirection)
         {
@@ -288,20 +298,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-	public void ApplyStun(float duration)
-	{
-		isStunned = true;
-		stunDuration = duration;
-		stunTouchCount = 0;
-		stunTouchTimer = 0;
+    public void ApplyStun(float duration)
+    {
+        isStunned = true;
+        stunDuration = duration;
+        stunTouchCount = 0;
+        stunTouchTimer = 0;
         spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.5f);
-	}
+    }
 
     private void EndStun()
     {
-		isStunned = false;
-		stunDuration = 0;
-		stunTouchCount = 0;
+        isStunned = false;
+        stunDuration = 0;
+        stunTouchCount = 0;
         spriteRenderer.color = originalColor;
-	}
+    }
 }

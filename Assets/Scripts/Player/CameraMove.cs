@@ -46,6 +46,11 @@ public class CameraMove : MonoBehaviour
             sunset.gameObject.SetActive(false);
 
         }
+        else
+        {
+            sunset.gameObject.SetActive(false);
+            night.gameObject.SetActive(false);
+        }
     }
 }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -10,8 +11,9 @@ public class UI_BossScene : UI_Scene
 	#region enum
 	enum GameObjects
 	{
+		HeartsParent
 	}
-	
+
 	enum Buttons
 	{
 		PauseButton
@@ -28,18 +30,85 @@ public class UI_BossScene : UI_Scene
 	}
 	#endregion
 
+	private GameObject[] heartContainers;
+	private Image[] heartFills;
+	private GameObject player;
+	private PlayerController playerController;
+
+	public Transform heartsParent;
+	private GameObject heartContainerPrefab;
+
 	public override bool Init()
 	{
 		if (base.Init() == false)
 			return false;
 
+		Bind<GameObject>(typeof(GameObjects));
 		Bind<TMP_Text>(typeof(Texts));
 		Bind<Button>(typeof(Buttons));
 		Bind<Image>(typeof(Images));
 
 		Get<Button>((int)Buttons.PauseButton).gameObject.BindEvent(OnClickPauseButton);
+		heartsParent = Get<GameObject>((int)GameObjects.HeartsParent).gameObject.transform;
+		heartContainerPrefab = Managers.Resource.Load<GameObject>("UI/SubItem/HeartContainer");
+		player = GameObject.FindWithTag("Player");
+		playerController = player.GetComponent<PlayerController>();
+
+		heartContainers = new GameObject[5];  // Assuming 5 is the max number of hearts
+		heartFills = new Image[5];
+
+		playerController.OnHealthChanged += UpdateHeartsHUD;
+		InstantiateHeartContainers();
+		UpdateHeartsHUD();  // Corrected method name
 
 		return true;
+	}
+
+	private void UpdateHeartsHUD()
+	{
+		SetHeartContainers();
+		SetFilledHearts();
+	}
+
+	private void SetHeartContainers()
+	{
+		for (int i = 0; i < heartContainers.Length; i++)
+		{
+			if (i < playerController.life)
+			{
+				heartContainers[i].SetActive(true);
+			}
+			else
+			{
+				heartContainers[i].SetActive(false);
+			}
+		}
+	}
+
+	private void SetFilledHearts()
+	{
+		for (int i = 0; i < heartFills.Length; i++)
+		{
+			heartFills[i].fillAmount = (i < playerController.life) ? 1 : 0;
+		}
+	}
+
+	private void InstantiateHeartContainers()
+	{
+		// Clear existing containers
+		foreach (GameObject container in heartContainers)
+		{
+			if (container != null)
+				Destroy(container);
+		}
+
+		for (int i = 0; i < playerController.life; i++)
+		{
+			GameObject temp = Instantiate(heartContainerPrefab);
+			temp.transform.SetParent(heartsParent, false);
+			heartContainers[i] = temp;
+			heartFills[i] = temp.transform.Find("HeartFill").GetComponent<Image>();
+		}
 	}
 
 	private void OnClickPauseButton(PointerEventData eventData)
