@@ -64,13 +64,6 @@ public class PlayerController : MonoBehaviour
 
         // 씬 확정될때 활성화
         //ExceptKey();
-
-        //if (SceneManager.GetActiveScene().name == "HAY Scene")
-        //{
-        //    moveAction.Disable();
-        //    skillAction.Disable();
-        //    playerShooting.isFiring = false;
-        //} //추후 삭제
     }
 
     private void OnDisable()
@@ -140,11 +133,6 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed); //Test
-        if (moveVector.y < -6f)
-        {
-            moveVector.y = -7f;
-            DirectDying();
-        }
 
         FlipPlayerDirection();
 
