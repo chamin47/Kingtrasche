@@ -40,6 +40,9 @@ public class PlayerController : MonoBehaviour
     private Color originalColor;
     private SpriteRenderer spriteRenderer;
 
+    public delegate void Healthchanged();
+    public event Healthchanged OnHealthChanged;
+
 	private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -189,6 +192,8 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(int Damage)
     {
         life -= Damage;
+
+        OnHealthChanged?.Invoke();
         if (life <= 0)
         {
             life = 0;
