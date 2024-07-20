@@ -79,7 +79,7 @@ public class UIManager
 
 	public void ClosePopupUI(UI_Popup popup)
 	{
-		if (_popupStack.Count == 0)
+		if (_popupStack.Count == 0 || popup == null)
 			return;
 
 		if (_popupStack.Peek() != popup)
@@ -97,15 +97,25 @@ public class UIManager
 			return;
 
 		UI_Popup popup = _popupStack.Pop();
-		Managers.Resource.Destroy(popup.gameObject);
-		popup = null;
-		_order--;
+		if (popup != null)
+		{
+			Managers.Resource.Destroy(popup.gameObject);
+			popup = null;
+			_order--;
+		}
 	}
 
 	public void CloseAllPopupUI()
 	{
 		while (_popupStack.Count > 0)
-			ClosePopupUI();
+		{
+			UI_Popup popup = _popupStack.Pop();
+			if (popup != null)
+			{
+				Managers.Resource.Destroy(popup.gameObject);
+				_order--;
+			}
+		}
 	}
 
 	public void Clear()

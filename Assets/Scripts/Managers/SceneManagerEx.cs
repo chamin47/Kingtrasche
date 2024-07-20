@@ -10,7 +10,9 @@ public class SceneManagerEx
 		{ Scene.Unknown, "UnknownScene" },
 		{ Scene.Title, "Title Scene" },
 		{ Scene.StageSelect, "StageScene" },
-		{ Scene.Game, "HAY Scene" }
+		{ Scene.Game, "HAY Scene" },
+		{ Scene.Boss, "CDM Scene" }
+
 	};
 
 	public BaseScene CurrentScene { get { return GameObject.FindAnyObjectByType<BaseScene>(); } }  
@@ -33,7 +35,7 @@ public class SceneManagerEx
 
 	public void Clear()
 	{
-		CurrentScene.Clear();
+		CurrentScene?.Clear();
 	}
 
 	//string GetSceneName(Define.Scene type)

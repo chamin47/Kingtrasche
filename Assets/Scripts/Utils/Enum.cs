@@ -7,6 +7,7 @@ public enum Scene
 	Title,
 	StageSelect,
 	Game,
+	Boss
 }
 
 [UGS(typeof(Sound))]

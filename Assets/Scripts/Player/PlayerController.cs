@@ -12,10 +12,12 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rigid;
     private PlayerShooting playerShooting;
+    private PlayerAnimationController animation;
 
     public float moveSpeed = 3f;
     public float jumpForce = 13f;
     private int jumpCount = 0;
+    public int life = 5;
 
     private Vector2 inputVector;
     private Vector3 moveVector;
@@ -27,11 +29,19 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     private bool isGrounded;
 
+    private bool isJumpig = false;
+	private bool isStunned = false; // 스턴 상태 여부
+	private float stunDuration = 0f; // 스턴 지속 시간
 
-    private void Awake()
+	private int stunTouchCount = 0; // 스턴 해제 터치 횟수
+	private float stunTouchResetTime = 1.0f; // 입력 초기화 시간
+	private float stunTouchTimer = 0f; // 입력 초기화 타이머
+
+	private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         playerShooting = GetComponent<PlayerShooting>();
+        animation = GetComponent<PlayerAnimationController>();
 
         var playerActionMap = inputActionAsset.FindActionMap("PlayerActions");
         moveAction = playerActionMap.FindAction("Move");
@@ -54,12 +64,13 @@ public class PlayerController : MonoBehaviour
 
         // 씬 확정될때 활성화
         //ExceptKey();
-        if (SceneManager.GetActiveScene().name == "HAY Scene")
-        {
-            moveAction.Disable();
-            skillAction.Disable();
-            playerShooting.isFiring = false;
-        } //추후 삭제
+
+        //if (SceneManager.GetActiveScene().name == "HAY Scene")
+        //{
+        //    moveAction.Disable();
+        //    skillAction.Disable();
+        //    playerShooting.isFiring = false;
+        //} //추후 삭제
     }
 
     private void OnDisable()
@@ -87,7 +98,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer); // 발이 땅에 닿아있는지 체크
+		if (isStunned)
+			return;
+
+		isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer); // 발이 땅에 닿아있는지 체크
         if (isGrounded)
         {
             jumpCount = 0; // 바닥에 닿으면 jumpCount 리셋
@@ -96,26 +110,76 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // 씬 확정될때 활성화
-        if (SceneManager.GetActiveScene().name == "HAY Scene") //러닝씬
-        {
-            transform.position += Vector3.right * moveSpeed * Time.deltaTime;
-        }
-        //else if (SceneManager.GetActiveScene().name == "CDM Scene") //슈팅씬
-        //{
-        //    transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed);
-        //}
+		// 씬 확정될때 활성화
+		//if (SceneManager.GetActiveScene().name == "HAY Scene") //러닝씬
+		//{
+		//    transform.position += Vector3.right * moveSpeed * Time.deltaTime;
+		//}
+		//else if (SceneManager.GetActiveScene().name == "CDM Scene") //슈팅씬
+		//{
+		//    transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed);
+		//}
 
-        transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed); //TestPlayer
+		if (isStunned)
+		{
+			stunTouchTimer += Time.deltaTime;
+			if (stunTouchTimer >= stunTouchResetTime)
+			{
+				stunTouchCount = 0;
+				stunTouchTimer = 0;
+			}
+
+			stunDuration -= Time.deltaTime;
+			if (stunDuration <= 0)
+			{
+				isStunned = false;
+				stunDuration = 0;
+				stunTouchCount = 0;
+			}
+			return;
+		}
+
+		transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed); //Test
 
         FlipPlayerDirection();
-    }
+
+		// 터치 입력 처리
+		if (Input.touchCount > 0)
+		{
+			foreach (Touch touch in Input.touches)
+			{
+				if (touch.phase == UnityEngine.TouchPhase.Began)
+				{
+					OnTouch();
+				}
+			}
+		}
+
+		// 마우스 클릭 입력 처리
+		if (Input.GetMouseButtonDown(0))
+		{
+			OnTouch();
+		}
+	}
 
     public void OnMove(InputAction.CallbackContext value)
     {
-        //rigid.velocity = new Vector2(moveInput.x * moveSpeed, rigid.velocity.y);
-        inputVector = value.ReadValue<Vector2>();
+		if (isStunned)
+			return;
+
+		inputVector = value.ReadValue<Vector2>();
         moveVector = new Vector3(inputVector.x, 0f, 0f);
+
+        if (moveVector.x != 0)
+        {
+            animation.StartRunningAnim();
+            animation.StopIdleAnim();
+        }
+        else
+        {
+            animation.StartIdleAnim();
+            animation.StopRunningAnim();
+        }
     }
 
     public void OnJump(InputAction.CallbackContext value)
@@ -124,29 +188,61 @@ public class PlayerController : MonoBehaviour
         {
             if (isGrounded) //바닥이거나
             {
-                //rigid.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
                 rigid.velocity = new Vector2(rigid.velocity.x, jumpForce);
                 jumpCount = 1;
             }
             else if (jumpCount < 2) // jumpCount가 2회미만일때만 점프 가능
             {
                 rigid.velocity = new Vector2(rigid.velocity.x, 0f); // y 축 속도 초기화 -> 일정한 높이의 점프
-                //rigid.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
                 rigid.velocity = new Vector2(rigid.velocity.x, jumpForce);
                 jumpCount = 2;
             }
+            animation.JumpAnim();
         }
+    }
+
+    public void TakeDamage(int Damage)
+    {
+        life -= Damage;
+        if (life <= 0)
+        {
+            life = 0;
+            DirectDying();
+        }
+    }
+
+    public void DirectDying()
+    {
+        animation.DyingAnim();
     }
 
     public void OnSkill(InputAction.CallbackContext value)
     {
-        if (value.performed)
+		if (isStunned)
+			return;
+
+		if (value.performed)
         {
             Debug.Log("스킬");
         }
     }
 
-    private void FlipPlayerDirection()
+	private void OnTouch()
+	{
+		if (isStunned)
+		{
+			stunTouchCount++;
+			stunTouchTimer = 0;
+			if (stunTouchCount >= 6)
+			{
+				isStunned = false;
+				stunDuration = 0;
+				stunTouchCount = 0;
+			}
+		}
+	}
+
+	private void FlipPlayerDirection()
     {
         if (moveVector.x < 0 && !isRightDirection)
         {
@@ -188,4 +284,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+	public void ApplyStun(float duration)
+	{
+		isStunned = true;
+		stunDuration = duration;
+		stunTouchCount = 0;
+		stunTouchTimer = 0;
+	}
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class HoneyBeeEvent : MonoBehaviour
 {
-    public GameObject player;
+    private GameObject player;
     private PlayerController playerController;
     private Transform[] childTransform;
     private GameObject honeyBeePrefab;
@@ -17,6 +17,7 @@ public class HoneyBeeEvent : MonoBehaviour
 
     void Start()
     {
+        player = GameObject.FindWithTag("Player");
         childTransform = GetComponentsInChildren<Transform>();
         playerController = player.GetComponent<PlayerController>();
         tempSpeed = playerController.moveSpeed;
@@ -28,8 +29,8 @@ public class HoneyBeeEvent : MonoBehaviour
         float distance = Vector3.Distance(transform.position, player.transform.position);
         if (distance <= eventDistance && honeyBeePrefab == null)
         {
-            Invoke("QuizPopup", 3.5f);
             SpawnBee();
+            Invoke("QuizPopup", 3.5f);
         }
     }
 
@@ -38,8 +39,8 @@ public class HoneyBeeEvent : MonoBehaviour
         beeQuizPopup = Managers.Resource.Load<GameObject>("UI/Popup/UI_BeeQuizPopup");
         GameObject go = Instantiate(beeQuizPopup);
         UI_BeeQuizPopup popupScript = go.GetComponent<UI_BeeQuizPopup>();
+        popupScript.SetCorrectOrIncorrectBeeNumber(randomBeeNumbers);
         popupScript.OnEndEvent += EndEvent;
-        Debug.Log("妮归汲沥");
     }
 
     private void SpawnBee()
@@ -51,9 +52,9 @@ public class HoneyBeeEvent : MonoBehaviour
         for (int i = 0; i < randomBeeNumbers; i++)
         {
             GameObject honeyBee = Instantiate(honeyBeePrefab, childTransform[3]);
-            Debug.Log($"{i + 1}锅掳 国 积己");
             StartCoroutine(MoveAndReturn(honeyBee));
         }
+        Debug.Log($"{randomBeeNumbers}付府 国 积己");
     }
 
     private IEnumerator MoveAndReturn(GameObject honeyBee)
@@ -99,7 +100,6 @@ public class HoneyBeeEvent : MonoBehaviour
 
     private void EndEvent()
     {
-        Debug.Log("End");
         playerController.moveSpeed = tempSpeed;
         Destroy(this.gameObject);
     }

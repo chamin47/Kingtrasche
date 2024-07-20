@@ -12,10 +12,10 @@ public class CardGameManager : MonoBehaviour
     public Card secondCard;
 
     public TextMeshProUGUI timeText;
-	public TextMeshProUGUI endText;
 
     public int cardCount = 0;
 	float time = 0.0f;
+    public float TimeoutTimer = 20;
 
     void Awake()
     {
@@ -36,6 +36,7 @@ public class CardGameManager : MonoBehaviour
     {
         time += Time.deltaTime;
         timeText.text = time.ToString("N2");
+        TimeOut();
     }
 
     public void Matched()
@@ -47,8 +48,7 @@ public class CardGameManager : MonoBehaviour
             cardCount -= 2;
             if (cardCount == 1)
             {
-                Time.timeScale = 0.0f;
-                endText.gameObject.SetActive(true);
+                Time.timeScale = 1.0f;
             }
         }
         else
@@ -60,4 +60,13 @@ public class CardGameManager : MonoBehaviour
         firstCard = null;
         secondCard = null;
     }
+
+    private void TimeOut()
+    {
+        if (time >= TimeoutTimer)
+        {
+            Managers.Game.GameOver();
+            Destroy(gameObject);
+        }
+	}
 }

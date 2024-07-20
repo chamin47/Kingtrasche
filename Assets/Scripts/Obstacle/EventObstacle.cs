@@ -7,7 +7,7 @@ public class EventObstacle : MonoBehaviour
     private string BeeHivePath = " ";
     private string QuizPath = " ";
 
-    public GameObject player;
+    private GameObject player;
     private PlayerController playerController;
 
     private float tempSpeed;
@@ -15,6 +15,7 @@ public class EventObstacle : MonoBehaviour
 
     private void Start()
     {
+        player = GameObject.FindWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
         tempSpeed = playerController.moveSpeed;
     }
