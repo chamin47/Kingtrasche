@@ -16,6 +16,7 @@ public class Managers : MonoBehaviour
     ResourceManager _resource = new ResourceManager();
     SceneManagerEx _scene = new SceneManagerEx();
     RunningMapManager _map = new RunningMapManager();
+    RunningTutorialManager _runningTutorial = new RunningTutorialManager();
     //DataManager _data = new DataManager();
 
     public static GameManager Game { get { return Instance._game; } }
@@ -25,6 +26,7 @@ public class Managers : MonoBehaviour
     public static ResourceManager Resource { get { return Instance._resource; } }
     public static SceneManagerEx Scene { get { return Instance._scene; } }
     public static RunningMapManager Map { get { return Instance._map; } }
+    public static RunningTutorialManager RunningTutorial { get { return Instance._runningTutorial; } }
     //public static DataManager Data { get { return Instance._data; } }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
