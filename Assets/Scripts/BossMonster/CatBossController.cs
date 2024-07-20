@@ -60,7 +60,6 @@ public class CatBossController : MonoBehaviour
 			transform.rotation = Quaternion.Euler(0, 0, 0); // 오른쪽
 		}
 
-
 		if (isSkillExecuting)
 		{
 			return;
@@ -120,7 +119,6 @@ public class CatBossController : MonoBehaviour
 				}
 				break;
 			case BossState.Dead:
-				GameOver();
 				break;
 		}
 	}
@@ -154,7 +152,6 @@ public class CatBossController : MonoBehaviour
 
 		yield return null;
 	}
-
 
 	private IEnumerator ScratchSkill()
 	{
@@ -197,14 +194,15 @@ public class CatBossController : MonoBehaviour
 		StartCoroutine(ShakeCamera(1.0f, 0.1f)); // 1초 동안 0.1의 강도로 화면 흔들림
 		yield return new WaitForSeconds(1.0f);  // 이펙트가 1초 동안 화면에 나타남
 
-		var renderer = skullEffect.AddComponent<SpriteRenderer>();
+		var renderer = skullEffect.GetComponent<SpriteRenderer>();
 		renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, 0.5f);
+
+		// 스턴 효과 적용
+		player.GetComponent<PlayerController>().ApplyStun(3.0f);
+
 		yield return new WaitForSeconds(2.0f);
 
 		Destroy(skullEffect);
-
-		// 스턴효과적용
-		//player.GetComponent<PlayerController>().ApplyStun(3.0f);
 	}
 
 	private IEnumerator ShakeCamera(float duration, float magnitude)
@@ -230,31 +228,41 @@ public class CatBossController : MonoBehaviour
 	private void Phase1()
 	{
 		skillList.Clear();
-		skillList.Add(new Skill(() => FishboneAttack(), 2.0f, 3));
-		skillList.Add(new Skill(() => FishboneAttackCType(), 2.0f, 3));
-		skillList.Add(new Skill(() => ScratchSkill(), 4.0f, 1));
+		skillList.Add(new Skill(() => FishboneAttack(), 0f, 3));
+		skillList.Add(new Skill(() => FishboneAttackCType(), 0f, 3));
+		skillList.Add(new Skill(() => ScratchSkill(), 0f, 1));
 	}
 
 	private void Phase2()
 	{
 		skillList.Clear();
-		skillList.Add(new Skill(() => FishboneAttack(), 2.0f, 3));
-		skillList.Add(new Skill(() => FishboneAttackCType(), 2.0f, 3));
-		skillList.Add(new Skill(() => ScratchSkill(), 4.0f, 1));
-		skillList.Add(new Skill(() => NyangPunchSkill(), 2.0f, 1));
+		skillList.Add(new Skill(() => FishboneAttack(), 0f, 3));
+		skillList.Add(new Skill(() => FishboneAttackCType(), 0f, 3));
+		skillList.Add(new Skill(() => ScratchSkill(), 0f, 1));
+		skillList.Add(new Skill(() => NyangPunchSkill(), 0f, 1));
 	}
 
 	private void Phase3()
 	{
 		skillList.Clear();
-		skillList.Add(new Skill(() => HissSkill(), 9.0f, 1));
-		skillList.Add(new Skill(() => FishboneAttack(), 2.0f, Random.Range(4, 6)));
-		skillList.Add(new Skill(() => ScratchSkill(), 4.0f, Random.Range(2, 3)));
-		skillList.Add(new Skill(() => NyangPunchSkill(), 6.0f, 1));
-		skillList.Add(new Skill(() => FishboneAttack(), 2.0f, Random.Range(3, 5)));
-		skillList.Add(new Skill(() => ScratchSkill(), 4.0f, 1));
-		skillList.Add(new Skill(() => NyangPunchSkill(), 6.0f, Random.Range(1, 2)));
-		skillList.Add(new Skill(() => FishboneAttack(), 2.0f, Random.Range(4, 6)));
+
+		List<Skill> possibleSkills = new List<Skill>
+	    {
+		    new Skill(() => HissSkill(), 0f, 1),
+			new Skill(() => HissSkill(), 0f, 1),
+			new Skill(() => FishboneAttackCType(), 0f, 1),
+		    new Skill(() => ScratchSkill(), 0f, 1),
+		    new Skill(() => NyangPunchSkill(), 0f, 1),
+			new Skill(() => FishboneAttack(), 0f, 1),
+		};
+
+		// 가능한 스킬 목록에서 랜덤하게 선택하여 스킬 리스트를 만듭니다.
+		while (possibleSkills.Count > 0)
+		{
+			int index = Random.Range(0, possibleSkills.Count);
+			skillList.Add(possibleSkills[index]);
+			possibleSkills.RemoveAt(index);
+		}
 	}
 
 	public void TakeDamage(int damage)
@@ -268,11 +276,6 @@ public class CatBossController : MonoBehaviour
 			currentHealth = 0;
 			Destroy(gameObject);
 		}
-	}
-
-	private void GameOver()
-	{
-
 	}
 
 	private class Skill
