@@ -11,6 +11,7 @@ public class Managers : MonoBehaviour
 
 	// Contents
 	GameManager _game = new GameManager();
+	TimeManager _time;
 
 	// Core
 	SoundManager _sound = new SoundManager();
@@ -20,6 +21,7 @@ public class Managers : MonoBehaviour
 	//DataManager _data = new DataManager();
 
 	public static GameManager Game { get { return Instance._game; } }
+	public static TimeManager Time { get { return Instance._time; } }
 	public static SoundManager Sound { get { return Instance._sound; } }
 	public static UIManager UI { get { return Instance._ui; } }
 	public static ResourceManager Resource { get { return Instance._resource; } }
@@ -49,6 +51,7 @@ public class Managers : MonoBehaviour
 			s_instance = go.GetComponent<Managers>();
 
 			s_instance._sound.Init();
+			s_instance._time = go.AddComponent<TimeManager>();
 			//s_instance._data.Init();
 		}
 	}
