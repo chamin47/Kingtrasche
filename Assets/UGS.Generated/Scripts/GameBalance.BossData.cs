@@ -59,6 +59,7 @@ namespace GameBalance
 		public System.Int32 index;
 		public System.String bossName;
 		public System.Int32 bossHP;
+		public System.Single attackInterval;
   
 
 #region fuctions
