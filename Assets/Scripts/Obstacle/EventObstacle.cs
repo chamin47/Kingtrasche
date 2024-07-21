@@ -17,7 +17,7 @@ public class EventObstacle : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
-        tempSpeed = playerController.moveSpeed;
+        tempSpeed = playerController.moveSpeed;        
     }
 
     void Update()
@@ -35,7 +35,8 @@ public class EventObstacle : MonoBehaviour
         playerController.moveSpeed = 0f;
         EventObj = Managers.Resource.Load<GameObject>(path);
         Instantiate(EventObj);
-    }
+		CardGameManager.Instance.OnEndEvent += EndEvent;
+	}
 
     private void EndEvent()
     {
