@@ -4,8 +4,8 @@ public class EventObstacle : MonoBehaviour
 {
     private GameObject EventObj;
     private string puzzlePath = "Puzzle/Board";
-    private string BeeHivePath = " ";
-    private string QuizPath = " ";
+    private string BeeHivePath = "";
+    private string QuizPath = "";
 
     private GameObject player;
     private PlayerController playerController;
