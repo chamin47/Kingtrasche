@@ -16,6 +16,8 @@ public class RunningTutorialManager : UI_Popup
     private int JumpCount = 0;
     private float distanceFromTree;
     private float eventDistane = 7f;
+    private float tempSpeed;
+    private int stopCount = 1;
 
     enum Texts
     {
@@ -40,7 +42,8 @@ public class RunningTutorialManager : UI_Popup
 
         Init();
 
-        PlayerController = GetComponentInChildren<PlayerController>();
+        PlayerController = Player.GetComponent<PlayerController>();
+        tempSpeed = PlayerController.moveSpeed;
     }
 
     public override bool Init()
@@ -57,7 +60,7 @@ public class RunningTutorialManager : UI_Popup
     private void Update()
     {
         distanceFromTree = Vector3.Distance(Tree.transform.position, Player.transform.position);
-        Debug.Log(distanceFromTree);
+        SecondTutorialStart();
     }
 
     public void IncreaseJumpCount()
@@ -81,7 +84,6 @@ public class RunningTutorialManager : UI_Popup
             ChangeAlphaColor(GetImage((int)Images.ThirdJump));
             Invoke("CloseFirstTutorial", 1f);
         }
-        SecondTutorialStart();
     }
 
     private void CloseFirstTutorial()
@@ -99,11 +101,25 @@ public class RunningTutorialManager : UI_Popup
 
     private void SecondTutorialStart()
     {
-        Debug.Log("½ÇÇà");
         if (distanceFromTree <= eventDistane)
         {
+            for (int i = 0; i < stopCount; i++)
+            {
+                PlayerController.moveSpeed = 0f;
+                stopCount--;
+            }
             secondTutorial.SetActive(true);
-            PlayerController.moveSpeed = 0f;
+            Invoke("CloseFirstDescription", 2f);
         }
+    }
+
+    private void CloseFirstDescription()
+    {
+        TMP_Text firstDescription = GetText((int)Texts.DescriptionText);
+        TMP_Text secondDescription = GetText((int)Texts.DoubleJumpText);
+
+        firstDescription.gameObject.SetActive(false);
+        secondDescription.gameObject.SetActive(true);
+        PlayerController.moveSpeed = tempSpeed;
     }
 }
