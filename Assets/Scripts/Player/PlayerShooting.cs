@@ -6,7 +6,7 @@ public class PlayerShooting : MonoBehaviour
 {
     public string bonePoolName = "BonePool";
     public Transform firePoint;
-    public float fireRate = 0.5f;
+    private float fireRate = 0.2f;
 
     public float boneSpeed = 10f;
 
