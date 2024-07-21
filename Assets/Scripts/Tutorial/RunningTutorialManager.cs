@@ -60,7 +60,6 @@ public class RunningTutorialManager : UI_Popup
     private void Update()
     {
         distanceFromTree = Vector3.Distance(Tree.transform.position, Player.transform.position);
-        Debug.Log(distanceFromTree);
         SecondTutorialStart();
     }
 
