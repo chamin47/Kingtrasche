@@ -4,10 +4,20 @@ using UnityEngine;
 
 public class RunningMapManager : MonoBehaviour
 {
+    public static RunningMapManager Instance;
+
     MapChunkData chunkData;
 
     private float chunkSpace = 18f; // ¸Ê °£ °£°Ý
     public int currentStage = 1;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
 
     void Start()
     {

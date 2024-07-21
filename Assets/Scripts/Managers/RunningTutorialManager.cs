@@ -4,12 +4,11 @@ using UnityEngine.UI;
 
 public class RunningTutorialManager : UI_Popup
 {
+    public static RunningTutorialManager Instance;
+
     public GameObject firstTutorial;
     public GameObject secondTutorial;
     public GameObject Player;
-    public Image firstJump;
-    public Image secondJump;
-    public Image thirdJump;
 
     private int JumpCount = 0;
 
@@ -29,6 +28,11 @@ public class RunningTutorialManager : UI_Popup
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+
         Init();
     }
 
@@ -43,15 +47,6 @@ public class RunningTutorialManager : UI_Popup
         return true;
     }
 
-    void Start()
-    {
-    }
-
-    void Update()
-    {
-
-    }
-
     public void IncreaseJumpCount()
     {
         JumpCount++;
@@ -63,20 +58,22 @@ public class RunningTutorialManager : UI_Popup
     {
         if (JumpCount == 1)
         {
-            ChangeAlphaColor(firstJump);
+            ChangeAlphaColor(GetImage((int)Images.FirstJump));
         }
         else if (JumpCount == 2)
         {
-            ChangeAlphaColor(secondJump);
+            ChangeAlphaColor(GetImage((int)Images.SecondJump));
         }
         else if (JumpCount == 3)
         {
-            ChangeAlphaColor(thirdJump);
+            ChangeAlphaColor(GetImage((int)Images.ThirdJump));
+            Invoke("CloseFirstTutorial", 1f);
         }
-        else if (JumpCount >= 4)
-        {
-            firstTutorial.SetActive(false);
-        }
+    }
+
+    private void CloseFirstTutorial()
+    {
+        firstTutorial.SetActive(false);
     }
 
     private void ChangeAlphaColor(Image image)

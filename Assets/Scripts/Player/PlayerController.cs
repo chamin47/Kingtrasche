@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rigid;
     private PlayerShooting playerShooting;
-    private PlayerAnimationController animation;
+    private PlayerAnimationController animController;
 
     public float moveSpeed = 3f;
     public float jumpForce = 13f;
@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         playerShooting = GetComponent<PlayerShooting>();
-        animation = GetComponent<PlayerAnimationController>();
+        animController = GetComponent<PlayerAnimationController>();
 
         var playerActionMap = inputActionAsset.FindActionMap("PlayerActions");
         moveAction = playerActionMap.FindAction("Move");
@@ -160,19 +160,20 @@ public class PlayerController : MonoBehaviour
 
         if (moveVector.x != 0)
         {
-            animation.StartRunningAnim();
-            animation.StopIdleAnim();
+            animController.StartRunningAnim();
+            animController.StopIdleAnim();
         }
         else
         {
-            animation.StartIdleAnim();
-            animation.StopRunningAnim();
+            animController.StartIdleAnim();
+            animController.StopRunningAnim();
         }
     }
 
     public void OnJump(InputAction.CallbackContext value)
     {
-        if (value.performed)
+        Debug.Log("점프");
+        if (value.started)
         {
             if (isGrounded) //바닥이거나
             {
@@ -185,9 +186,12 @@ public class PlayerController : MonoBehaviour
                 rigid.velocity = new Vector2(rigid.velocity.x, jumpForce);
                 jumpCount = 2;
             }
-            animation.JumpAnim();
+            animController.JumpAnim();
 
-            Managers.RunningTutorial.IncreaseJumpCount();
+            if (SceneManager.GetActiveScene().name == "RunningTutorialScene")
+            {
+                RunningTutorialManager.Instance.IncreaseJumpCount();
+            }
         }
     }
 
@@ -205,7 +209,7 @@ public class PlayerController : MonoBehaviour
 
     public void DirectDying()
     {
-        animation.DyingAnim();
+        animController.DyingAnim();
     }
 
     public void OnSkill(InputAction.CallbackContext value)

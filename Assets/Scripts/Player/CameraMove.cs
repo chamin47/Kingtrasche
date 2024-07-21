@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraMove : MonoBehaviour
 {
@@ -10,7 +11,10 @@ public class CameraMove : MonoBehaviour
     {
         childGameObject = GetComponentsInChildren<Transform>();
         Player = GameObject.FindWithTag("Player");
-        stageNumber = Managers.Map.currentStage;
+        if (SceneManager.GetActiveScene().name == "HAY Scene")
+        {
+            stageNumber = RunningMapManager.Instance.currentStage;
+        }
 
         ChangeBackground();
     }
