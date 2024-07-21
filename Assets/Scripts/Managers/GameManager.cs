@@ -41,6 +41,12 @@ public class GameManager
 		Time.timeScale = 0;
 	}
 
+	public void GameClear()
+	{
+		Managers.UI.ShowPopupUI<UI_StageClearPopup>();
+		Time.timeScale = 0;
+	}
+
 	public void PurchaseRunningPlayCount(int amount)
 	{
 		if (Diamond >= amount)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -16,6 +17,8 @@ public class CardGameManager : MonoBehaviour
     public int cardCount = 0;
 	float time = 0.0f;
     public float TimeoutTimer = 20;
+
+    public Action OnEndEvent;
 
     void Awake()
     {
@@ -46,10 +49,7 @@ public class CardGameManager : MonoBehaviour
             firstCard.DestroyCard();
             secondCard.DestroyCard();
             cardCount -= 2;
-            if (cardCount == 1)
-            {
-                Time.timeScale = 1.0f;
-            }
+            CheckGameClear();
         }
         else
         {
@@ -61,6 +61,15 @@ public class CardGameManager : MonoBehaviour
         secondCard = null;
     }
 
+    private void CheckGameClear()
+    {
+        // 모든 카드가 매치되었는지 확인
+        if (cardCount == 1)
+        {
+            GameClear();
+        }
+    }
+
     private void TimeOut()
     {
         if (time >= TimeoutTimer)
@@ -69,4 +78,11 @@ public class CardGameManager : MonoBehaviour
             Destroy(gameObject);
         }
 	}
+
+    private void GameClear()
+    {
+        Destroy(gameObject);
+        OnEndEvent.Invoke();
+        Debug.LogError("Clear!");
+    }
 }
