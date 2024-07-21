@@ -1154,9 +1154,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc0802af1ef3cd48ae2e0f6019f9b18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 2029110261}
   firstTutorial: {fileID: 633880488}
   secondTutorial: {fileID: 568353295}
-  Player: {fileID: 2029110261}
+  Tree: {fileID: 1777804805}
 --- !u!1 &402416191
 GameObject:
   m_ObjectHideFlags: 0
@@ -3894,6 +3895,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dafffa4ead912144d9bb909871700e93, type: 3}
+--- !u!1 &1777804805 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2327515993339884373, guid: d2e066f3c6b35f24cb80059dbe03f630, type: 3}
+  m_PrefabInstance: {fileID: 1512122589}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1829756843
 GameObject:
   m_ObjectHideFlags: 0
