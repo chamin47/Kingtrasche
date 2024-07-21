@@ -6,8 +6,7 @@ public class House : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            GameObject TutorialClear = Managers.Resource.Load<GameObject>("UI/Popup/UI_StageClearPopup");
-            GameObject go = Instantiate(TutorialClear);
+
         }
     }
 
