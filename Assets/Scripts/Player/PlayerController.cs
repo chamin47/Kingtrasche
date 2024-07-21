@@ -172,7 +172,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext value)
     {
-        if (value.performed)
+        Debug.Log("점프");
+        if (value.started)
         {
             if (isGrounded) //바닥이거나
             {
@@ -187,7 +188,10 @@ public class PlayerController : MonoBehaviour
             }
             animController.JumpAnim();
 
-            RunningTutorialManager.Instance.IncreaseJumpCount();
+            if (SceneManager.GetActiveScene().name == "RunningTutorialScene")
+            {
+                RunningTutorialManager.Instance.IncreaseJumpCount();
+            }
         }
     }
 
