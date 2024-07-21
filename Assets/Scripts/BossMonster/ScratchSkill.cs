@@ -1,3 +1,4 @@
+using GameBalance;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,9 +6,14 @@ using UnityEngine;
 public class ScratchSkill : MonoBehaviour
 {
     public float speed = 5f; // «“ƒ˚±‚ ¿Ã∆Â∆Æ º”µµ
-	private int damage = 1;
+	private int damage;
     private Rigidbody2D rb;
 	public Vector2 direction;
+
+	private void Awake()
+	{
+		damage = SkillData.SkillDataMap[10103].Damage;
+	}
 
 	void Start()
     {

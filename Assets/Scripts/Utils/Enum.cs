@@ -23,3 +23,12 @@ public enum UIEvent
 	Click,
 	Drag,
 }
+
+public enum BossState
+{
+	Idle,
+	Phase1,
+	Phase2,
+	Phase3,
+	Dead
+}

@@ -1,3 +1,4 @@
+using GameBalance;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,17 +7,8 @@ using Random = UnityEngine.Random;
 
 public class CatBossController : MonoBehaviour
 {
-	public enum BossState
-	{
-		Idle,
-		Phase1,
-		Phase2,
-		Phase3,
-		Dead
-	}
-
 	public BossState currentState = BossState.Idle;
-	public int maxHealth = 200;
+	public int maxHealth;
 	public int currentHealth;
 	private GameObject fishbonePrefab;
 	private GameObject scratchPrefab;
@@ -28,14 +20,28 @@ public class CatBossController : MonoBehaviour
 	private List<Skill> skillList = new List<Skill>();
 	private int currentSkillIndex = 0;
 	private int currentSkillCount = 0;
-	private float skillInterval = 1.5f; // 스킬 실행 간격
+	private float skillInterval = 0f; // 스킬 실행 간격
 	private float skillTimer = 0.0f;
 	private bool isSkillExecuting = false;
 	private bool facingRight = true;
 
 	public delegate void Healthchanged();
 	public event Healthchanged OnHealthChanged;
+	private SkillData Shot_fishbone;
+	private SkillData Shot_fishboneCtype;
+	private SkillData Scratch;
+	private SkillData Catpunch;
+	private SkillData Hissing;
 
+	private void Awake()
+	{
+		Shot_fishbone = SkillData.SkillDataMap[10101];
+		Shot_fishboneCtype = SkillData.SkillDataMap[10102];
+		Scratch = SkillData.SkillDataMap[10103];
+		Catpunch = SkillData.SkillDataMap[10104];
+		Hissing = SkillData.SkillDataMap[10105];
+		maxHealth = BossData.BossDataMap[101].bossHP;
+	}
 
 	private void Start()
 	{
@@ -131,17 +137,17 @@ public class CatBossController : MonoBehaviour
 
 	private IEnumerator FishboneAttack()
 	{
-		Debug.Log("Fishbone Attack");
+		yield return new WaitForSeconds(Shot_fishbone.preDelay);
 		anim.SetTrigger("isAttack");
 		Vector2 direction = player.position.x > transform.position.x ? Vector2.right : Vector2.left;
 		GameObject fishbone = Instantiate(fishbonePrefab, transform.position, Quaternion.identity);
 		fishbone.GetComponent<FishboneAttack>().direction = direction; // 발사 로직 예시
-		yield return new WaitForSeconds(1.5f);  // Post skill delay
+		yield return new WaitForSeconds(Shot_fishbone.postDelay);
 	}
 
 	private IEnumerator FishboneAttackCType()
 	{
-		Debug.Log("Fishbone Attack CType");
+		yield return new WaitForSeconds(Shot_fishboneCtype.preDelay);
 		Vector2 direction = facingRight ? Vector2.right : Vector2.left;
 
 		anim.SetTrigger("isAttack");
@@ -158,23 +164,23 @@ public class CatBossController : MonoBehaviour
 			fishbone.GetComponent<FishboneAttack>().direction = rotatedDirection;
 		}
 
-		yield return null;
+		yield return new WaitForSeconds(Shot_fishboneCtype.postDelay);
 	}
 
 	private IEnumerator ScratchSkill()
 	{
-		yield return new WaitForSeconds(1.0f);  // Pre skill delay
+		yield return new WaitForSeconds(Scratch.preDelay);
 		Debug.Log("Scratch Skill");
 		anim.SetTrigger("isAttack");
 		Vector2 direction = player.position.x > transform.position.x ? Vector2.right : Vector2.left;
 		GameObject scratch = Instantiate(scratchPrefab, transform.position, Quaternion.identity);
 		scratch.GetComponent<ScratchSkill>().direction = direction;
-		yield return new WaitForSeconds(2.0f);  // Post skill delay
+		yield return new WaitForSeconds(Scratch.postDelay);
 	}
 
 	private IEnumerator NyangPunchSkill()
 	{
-		Debug.Log("NyangPunch Skill");
+		yield return new WaitForSeconds(Catpunch.preDelay);
 
 		for (int i = 0; i < 3; i++)
 		{
@@ -192,12 +198,12 @@ public class CatBossController : MonoBehaviour
 			yield return new WaitForSeconds(1.0f);
 		}
 
-		yield return new WaitForSeconds(3.0f);
+		yield return new WaitForSeconds(Catpunch.postDelay);
 	}
 
 	private IEnumerator HissSkill()
 	{
-		Debug.Log("Hiss Skill");
+		yield return new WaitForSeconds(Hissing.preDelay);
 		GameObject skullEffect = Instantiate(hissPrefab, Vector3.zero, Quaternion.identity);
 
 		StartCoroutine(ShakeCamera(1.0f, 0.1f)); // 1초 동안 0.1의 강도로 화면 흔들림
@@ -209,7 +215,7 @@ public class CatBossController : MonoBehaviour
 		// 스턴 효과 적용
 		player.GetComponent<PlayerController>().ApplyStun(3.0f);
 
-		yield return new WaitForSeconds(2.0f);
+		yield return new WaitForSeconds(Hissing.postDelay);
 
 		Destroy(skullEffect);
 	}
@@ -284,6 +290,7 @@ public class CatBossController : MonoBehaviour
 		if (currentHealth <= 0)
 		{
 			currentHealth = 0;
+			Managers.Game.GameClear();
 			Destroy(gameObject);
 		}
 	}

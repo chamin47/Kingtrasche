@@ -1,13 +1,18 @@
+using GameBalance;
 using UnityEngine;
 
 public class FishboneAttack : MonoBehaviour
 {
     public float speed = 5f; // ÅºÈ¯ ¼Óµµ
-    public int boneDamage = 1;
+    public int boneDamage;
     Rigidbody2D rb;
     public Vector2 direction;
+	private void Awake()
+	{
+        boneDamage = SkillData.SkillDataMap[10101].Damage;
+	}
 
-    void Start()
+	void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = direction * speed;

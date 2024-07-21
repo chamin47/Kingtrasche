@@ -129,7 +129,6 @@ public class UI_BossScene : UI_Scene
 	{
 		float ratio = catBossController.currentHealth / (float)catBossController.maxHealth;
 		currentHealthBar.fillAmount = ratio;
-		Debug.Log("보스바 UI 업데이트: " + ratio);
 	}
 
 	private void OnClickPauseButton(PointerEventData eventData)

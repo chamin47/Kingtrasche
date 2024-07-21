@@ -1,3 +1,4 @@
+using GameBalance;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,11 @@ public class NyangPunchSkill : MonoBehaviour
 	// 박스 콜라이더 크기와 오프셋 설정
 	public Vector2 boxColliderSize = new Vector2(1.9f, 1.7f);
 	public Vector2 boxColliderOffset = Vector2.zero;
+
+	private void Awake()
+	{
+		damage = SkillData.SkillDataMap[10104].Damage;
+	}
 
 	void Start()
 	{

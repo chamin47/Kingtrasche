@@ -33,9 +33,16 @@ public class UI_StageClearPopup : UI_Popup
 
 	#endregion
 
+	private int currentStage;
+
 	private void Awake()
 	{
 		Init();
+	}
+
+	private void Start()
+	{
+		currentStage = PlayerPrefs.GetInt("StageNumber");
 	}
 
 	public override bool Init()
@@ -55,7 +62,26 @@ public class UI_StageClearPopup : UI_Popup
 
 	private void OnClickNextStageButton(PointerEventData eventData)
 	{
-
+		if (currentStage == 4)
+		{
+			SceneManager.LoadScene("CDM Scene");    // 5스테이지 보스씬으로 이동
+			PlayerPrefs.SetInt("StageNumber", currentStage++);
+		}
+		else if (currentStage == 9)
+		{
+			// 10 스테이지 보스씬으로 이동시키기
+			PlayerPrefs.SetInt("StageNumber", currentStage++);
+		}
+		else if (currentStage == 14)
+		{
+			// 15 스테이지 보스씬으로 이동시키기
+			PlayerPrefs.SetInt("StageNumber", currentStage++);
+		}
+		else
+		{
+			PlayerPrefs.SetInt("StageNumber", currentStage++);
+			Managers.Scene.LoadScene(Scene.Game);
+		}		
 	}
 
 	private void OnClickRetryButton(PointerEventData eventData)
