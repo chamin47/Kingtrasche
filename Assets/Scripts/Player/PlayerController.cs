@@ -187,7 +187,7 @@ public class PlayerController : MonoBehaviour
             }
             animation.JumpAnim();
 
-            Managers.RunningTutorial.IncreaseJumpCount();
+            RunningTutorialManager.Instance.IncreaseJumpCount();
         }
     }
 
