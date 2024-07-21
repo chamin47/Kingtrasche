@@ -6,11 +6,16 @@ public class RunningTutorialManager : UI_Popup
 {
     public static RunningTutorialManager Instance;
 
+    public GameObject Player;
+    private PlayerController PlayerController;
+
     public GameObject firstTutorial;
     public GameObject secondTutorial;
-    public GameObject Player;
+    public GameObject Tree;
 
     private int JumpCount = 0;
+    private float distanceFromTree;
+    private float eventDistane = 7f;
 
     enum Texts
     {
@@ -34,6 +39,8 @@ public class RunningTutorialManager : UI_Popup
         }
 
         Init();
+
+        PlayerController = GetComponentInChildren<PlayerController>();
     }
 
     public override bool Init()
@@ -47,14 +54,19 @@ public class RunningTutorialManager : UI_Popup
         return true;
     }
 
+    private void Update()
+    {
+        distanceFromTree = Vector3.Distance(Tree.transform.position, Player.transform.position);
+        Debug.Log(distanceFromTree);
+    }
+
     public void IncreaseJumpCount()
     {
         JumpCount++;
-        Debug.Log(JumpCount);
-        FirstTutorialStart();
+        TutorialStart();
     }
 
-    public void FirstTutorialStart()
+    public void TutorialStart()
     {
         if (JumpCount == 1)
         {
@@ -64,11 +76,12 @@ public class RunningTutorialManager : UI_Popup
         {
             ChangeAlphaColor(GetImage((int)Images.SecondJump));
         }
-        else if (JumpCount == 3)
+        else if (JumpCount >= 3)
         {
             ChangeAlphaColor(GetImage((int)Images.ThirdJump));
             Invoke("CloseFirstTutorial", 1f);
         }
+        SecondTutorialStart();
     }
 
     private void CloseFirstTutorial()
@@ -82,5 +95,15 @@ public class RunningTutorialManager : UI_Popup
         color = image.color;
         color.a = 255f / 255f;
         image.color = color;
+    }
+
+    private void SecondTutorialStart()
+    {
+        Debug.Log("½ÇÇà");
+        if (distanceFromTree <= eventDistane)
+        {
+            secondTutorial.SetActive(true);
+            PlayerController.moveSpeed = 0f;
+        }
     }
 }
