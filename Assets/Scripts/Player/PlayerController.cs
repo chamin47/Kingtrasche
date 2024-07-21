@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     private PlayerShooting playerShooting;
     private PlayerAnimationController animController;
 
-    public float moveSpeed = 3f;
+    public float moveSpeed = 7f;
     public float jumpForce = 13f;
     private int jumpCount = 0;
     public int life = 3;
@@ -172,7 +172,6 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext value)
     {
-        Debug.Log("점프");
         if (value.started)
         {
             if (isGrounded) //바닥이거나
