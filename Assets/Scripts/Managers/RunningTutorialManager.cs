@@ -67,11 +67,13 @@ public class RunningTutorialManager : UI_Popup
         else if (JumpCount == 3)
         {
             ChangeAlphaColor(GetImage((int)Images.ThirdJump));
+            Invoke("CloseFirstTutorial", 1f);
         }
-        else if (JumpCount >= 4)
-        {
-            firstTutorial.SetActive(false);
-        }
+    }
+
+    private void CloseFirstTutorial()
+    {
+        firstTutorial.SetActive(false);
     }
 
     private void ChangeAlphaColor(Image image)
