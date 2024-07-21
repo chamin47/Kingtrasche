@@ -172,7 +172,6 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext value)
     {
-        Debug.Log("점프");
         if (value.started)
         {
             if (isGrounded) //바닥이거나
