@@ -26,7 +26,6 @@ public class WolfBossController : MonoBehaviour
 	public delegate void Healthchanged();
 	public event Healthchanged OnHealthChanged;
 
-
 	private void Awake()
 	{
 		maxHealth = BossData.BossDataMap[102].bossHP;

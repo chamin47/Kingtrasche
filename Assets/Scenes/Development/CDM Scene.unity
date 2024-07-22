@@ -147,7 +147,6 @@ GameObject:
   - component: {fileID: 664332472}
   - component: {fileID: 664332475}
   - component: {fileID: 664332476}
-  - component: {fileID: 664332477}
   m_Layer: 0
   m_Name: Boss_Wolf
   m_TagString: Boss
@@ -303,21 +302,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &664332477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 664332471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be71463d1a113dd4e9c07462ff86227f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentState: 0
-  maxHealth: 200
-  currentHealth: 0
 --- !u!1001 &766268407
 PrefabInstance:
   m_ObjectHideFlags: 0
