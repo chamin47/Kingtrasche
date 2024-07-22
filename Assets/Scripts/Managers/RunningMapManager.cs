@@ -17,11 +17,11 @@ public class RunningMapManager : MonoBehaviour
         {
             Instance = this;
         }
+        currentStage = PlayerPrefs.GetInt("StageNumber");
     }
 
     void Start()
     {
-        currentStage = PlayerPrefs.GetInt("StageNumber");
         chunkData = MapChunkData.MapChunkDataMap[currentStage];
         List<string> prefabPaths = chunkData.MapChunksPath;
         GameObject[] mapChunk = new GameObject[prefabPaths.Count];
