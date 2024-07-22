@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class WolfBossController : MonoBehaviour
+public class WolfBossController : MonoBehaviour, IBossController
 {
 	public BossState currentState = BossState.Idle;
-	public int maxHealth;
-	public int currentHealth;
-	private GameObject CrescentBullet;
+	public int currentHealth { get; private set; }
+	public int maxHealth { get; private set; }
+	private GameObject crescentBullet;
+	private GameObject clawEffectPrefab;
 	
 	private Transform player;
 	private Animator anim;
@@ -23,8 +24,7 @@ public class WolfBossController : MonoBehaviour
 	private bool isSkillExecuting = false;
 	private bool facingRight = true;
 
-	public delegate void Healthchanged();
-	public event Healthchanged OnHealthChanged;
+	public event Action OnHealthChanged;
 
 	private void Awake()
 	{
@@ -39,8 +39,9 @@ public class WolfBossController : MonoBehaviour
 		anim = GetComponent<Animator>();
 
 		// 스킬 프리팹 로드
-		CrescentBullet = Managers.Resource.Load<GameObject>("BossSkill/WolfBoss/CrescentBullet");
-		
+		crescentBullet = Managers.Resource.Load<GameObject>("BossSkill/WolfBoss/CrescentBullet");
+		clawEffectPrefab = Managers.Resource.Load<GameObject>("BossSkill/WolfBoss/ClawEffect");
+
 
 		// 초기 스킬 설정
 		Phase1();
@@ -51,12 +52,12 @@ public class WolfBossController : MonoBehaviour
 		if (player.position.x < transform.position.x)
 		{
 			facingRight = false;
-			transform.rotation = Quaternion.Euler(0, 180, 0); // 왼쪽
+			transform.rotation = Quaternion.Euler(0, 0, 0); // 왼쪽
 		}
 		else
 		{
 			facingRight = true;
-			transform.rotation = Quaternion.Euler(0, 0, 0); // 오른쪽
+			transform.rotation = Quaternion.Euler(0, 180, 0); // 오른쪽
 		}
 
 		if (isSkillExecuting)
@@ -100,7 +101,7 @@ public class WolfBossController : MonoBehaviour
 				{
 					currentState = BossState.Phase2;
 					Debug.Log("Phase 2 시작");
-					Phase2();
+					Phase1();
 				}
 				break;
 			case BossState.Phase2:
@@ -108,7 +109,7 @@ public class WolfBossController : MonoBehaviour
 				{
 					currentState = BossState.Phase3;
 					Debug.Log("Phase 3 시작");
-					Phase3();
+					Phase1();
 				}
 				break;
 			case BossState.Phase3:
@@ -124,21 +125,52 @@ public class WolfBossController : MonoBehaviour
 
 	private IEnumerator CrescentAttack()
 	{
-		yield return new WaitForSeconds(1.5f);  // Post skill delay
+		yield return new WaitForSeconds(0f);
+		//anim.SetTrigger("isAttack");
+		Vector2 direction = player.position.x > transform.position.x ? Vector2.right : Vector2.left;
+		GameObject crescent = Instantiate(crescentBullet, transform.position, Quaternion.identity);
+		crescent.GetComponent<CrescentAttack>().direction = direction; // 발사 로직 예시
+		yield return new WaitForSeconds(1.5f);
 	}
 
 	private IEnumerator CrescentAttackCType()
 	{
-		
+		yield return new WaitForSeconds(0f);
+		Vector2 direction = facingRight ? Vector2.right : Vector2.left;
 
-		yield return null;
+		//anim.SetTrigger("isAttack");
+		float[] angles = new float[] { -20f, 0f, 20f };
+		foreach (float angle in angles)
+		{
+			float radian = angle * Mathf.Deg2Rad;
+			Vector2 rotatedDirection = new Vector2(
+				direction.x * Mathf.Cos(radian) - direction.y * Mathf.Sin(radian),
+				direction.x * Mathf.Sin(radian) + direction.y * Mathf.Cos(radian)
+			);
+
+			GameObject crescent = Instantiate(crescentBullet, transform.position, Quaternion.identity);
+			crescent.GetComponent<CrescentAttack>().direction = rotatedDirection;
+		}
+
+		yield return new WaitForSeconds(1.5f);
 	}
 
 	private IEnumerator ClawSkill()
 	{
+		yield return new WaitForSeconds(1f); // 스킬 연출을 위한 대기시간
 
-		yield return null;
+		// X자 모양 이펙트 생성 및 랜덤 위치 설정
+		for (int i = 0; i < 3; i++)
+		{
+			Vector3 randomPosition = new Vector3(
+				Random.Range(-8f, 8f), // 화면의 가로 범위
+				Random.Range(-4.5f, 4.5f), // 화면의 세로 범위
+				0);
+
+			Instantiate(clawEffectPrefab, randomPosition, Quaternion.identity);
+		}
 	}
+	
 
 	private IEnumerator BiteSkill()
 	{
@@ -175,7 +207,9 @@ public class WolfBossController : MonoBehaviour
 	private void Phase1()
 	{
 		skillList.Clear();
-		
+		skillList.Add(new Skill(() => CrescentAttack(), 0f, 3));
+		skillList.Add(new Skill(() => CrescentAttackCType(), 0f, 3));
+		skillList.Add(new Skill(() => ClawSkill(), 0f, 1));
 	}
 
 	private void Phase2()

@@ -135,7 +135,7 @@ public class UI_StageSelectScene : UI_Scene
 	}
 	private void OnClickLevel10Button(PointerEventData eventData)
 	{
-		Managers.Scene.LoadScene(Scene.Boss);
+		Managers.Scene.LoadScene(Scene.Boss2);
 		PlayerPrefs.SetInt("StageNumber", 10);
 	}
 	private void OnClickLevel11Button(PointerEventData eventData)

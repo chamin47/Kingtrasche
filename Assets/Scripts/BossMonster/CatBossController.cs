@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class CatBossController : MonoBehaviour
+public class CatBossController : MonoBehaviour, IBossController
 {
 	public BossState currentState = BossState.Idle;
-	public int maxHealth;
-	public int currentHealth;
+	public int currentHealth { get; private set; }
+	public int maxHealth { get; private set; }
 	private GameObject fishbonePrefab;
 	private GameObject scratchPrefab;
 	private GameObject punchPrefab;
@@ -25,8 +25,7 @@ public class CatBossController : MonoBehaviour
 	private bool isSkillExecuting = false;
 	private bool facingRight = true;
 
-	public delegate void Healthchanged();
-	public event Healthchanged OnHealthChanged;
+	public event Action OnHealthChanged;
 	private SkillData Shot_fishbone;
 	private SkillData Shot_fishboneCtype;
 	private SkillData Scratch;

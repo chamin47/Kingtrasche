@@ -36,8 +36,9 @@ public class UI_BossScene : UI_Scene
 	private GameObject player;
 	private GameObject boss;
 	private PlayerController playerController;
-	private CatBossController catBossController;
+	private IBossController bossController;
 	private Image currentHealthBar;
+	private int currentStage;
 
 	public Transform heartsParent;
 	private GameObject heartContainerPrefab;
@@ -63,7 +64,8 @@ public class UI_BossScene : UI_Scene
 		player = GameObject.FindWithTag("Player");
 		boss = GameObject.FindWithTag("Boss");
 		playerController = player.GetComponent<PlayerController>();
-		catBossController = boss.GetComponent<CatBossController>();
+		bossController = boss.GetComponent<IBossController>();
+		
 
 		heartContainers = new GameObject[3];  // Assuming 5 is the max number of hearts
 		heartFills = new Image[3];
@@ -71,7 +73,7 @@ public class UI_BossScene : UI_Scene
 		currentHealthBar = Get<Image>((int)Images.HealthBar);
 
 		playerController.OnHealthChanged += UpdateHeartsHUD;
-		catBossController.OnHealthChanged += UpdateHealthBar;
+		bossController.OnHealthChanged += UpdateHealthBar;
 		InstantiateHeartContainers();
 		UpdateHeartsHUD();  // Corrected method name
 
@@ -127,7 +129,7 @@ public class UI_BossScene : UI_Scene
 
 	private void UpdateHealthBar()
 	{
-		float ratio = catBossController.currentHealth / (float)catBossController.maxHealth;
+		float ratio = bossController.currentHealth / (float)bossController.maxHealth;
 		currentHealthBar.fillAmount = ratio;
 	}
 

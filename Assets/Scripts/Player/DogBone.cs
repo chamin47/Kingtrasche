@@ -38,7 +38,7 @@ public class DogBone : MonoBehaviour
         if (other.gameObject.CompareTag("Boss"))
         {
             ObjectPoolManager.instance.ReturnObjectToPool(bonePoolName, gameObject);
-            other.gameObject.GetComponent<CatBossController>().TakeDamage(boneDamage);
+            other.gameObject.GetComponent<IBossController>().TakeDamage(boneDamage);
         }
     }
 }
