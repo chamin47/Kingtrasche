@@ -41,6 +41,7 @@ public class CatBossController : MonoBehaviour
 		Catpunch = SkillData.SkillDataMap[10104];
 		Hissing = SkillData.SkillDataMap[10105];
 		maxHealth = BossData.BossDataMap[101].bossHP;
+		skillInterval = BossData.BossDataMap[101].attackInterval;
 	}
 
 	private void Start()
