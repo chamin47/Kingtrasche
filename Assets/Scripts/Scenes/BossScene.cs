@@ -9,7 +9,7 @@ public class BossScene : BaseScene
 		base.Init();
 
 		SceneType = Scene.Boss;
-
+		Time.timeScale = 1.0f;
 		Managers.UI.ShowSceneUI<UI_BossScene>();
 	}
 

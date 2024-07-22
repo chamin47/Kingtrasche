@@ -11,6 +11,7 @@ public class TitleScene : BaseScene
 
 		SceneType = Scene.Title;
 
+		Time.timeScale = 1.0f;
 		Managers.UI.ShowSceneUI<UI_TitleScene>();
 	}
 

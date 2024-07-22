@@ -9,7 +9,7 @@ public class StageSelectScene : BaseScene
 		base.Init();
 
 		SceneType = Scene.StageSelect;
-
+		Time.timeScale = 1.0f;
 		Managers.UI.ShowSceneUI<UI_StageSelectScene>();
 	}
 
