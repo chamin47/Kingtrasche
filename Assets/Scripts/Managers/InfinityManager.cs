@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class InfinityManager : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class InfinityManager : MonoBehaviour
     private void Start()
     {
         mapChunk = Resources.LoadAll<GameObject>("Prefabs/MapChunk/");
+        Shuffle(mapChunk);
+        GameObject[] SuffleChunk = new GameObject[mapChunk.Length];
         for (int i = 0; i < mapChunk.Length; i++)
         {
             Vector3 chunkPosition = new Vector3(chunkSpace + i * chunkSpace, 0, 0);
@@ -37,4 +40,14 @@ public class InfinityManager : MonoBehaviour
         activeChunk--;
     }
 
+    private void Shuffle(GameObject[] array)
+    {
+        for (int i = 0; i < array.Length; i++)
+        {
+            GameObject temp = array[i];
+            int randomIndex = Random.Range(0, array.Length);
+            array[i] = array[randomIndex];
+            array[randomIndex] = temp;
+        }
+    }
 }
