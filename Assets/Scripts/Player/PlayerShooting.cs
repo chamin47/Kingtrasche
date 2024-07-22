@@ -19,7 +19,8 @@ public class PlayerShooting : MonoBehaviour
     {
         playerController = GetComponent<PlayerController>();
 
-        if (SceneManager.GetActiveScene().name == "RunningTutorialScene")
+        //[Todo] 씬 확정 시 추후 수정
+        if (SceneManager.GetActiveScene().name == "RunningTutorialScene" || SceneManager.GetActiveScene().name == "InfinityRunningScene")
         {
             isFiring = false;
         }
