@@ -22,6 +22,7 @@ public class RunningMapManager : MonoBehaviour
     void Start()
     {
         currentStage = PlayerPrefs.GetInt("StageNumber");
+        Debug.Log($"currentStage : {currentStage}");
         chunkData = MapChunkData.MapChunkDataMap[currentStage];
         List<string> prefabPaths = chunkData.MapChunksPath;
         GameObject[] mapChunk = new GameObject[prefabPaths.Count];
