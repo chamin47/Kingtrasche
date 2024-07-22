@@ -6,6 +6,7 @@ public class House : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            other.gameObject.SetActive(false);
             GameObject stageClear = Managers.Resource.Load<GameObject>("UI/Popup/UI_StageClearPopup");
             Instantiate(stageClear);
         }
