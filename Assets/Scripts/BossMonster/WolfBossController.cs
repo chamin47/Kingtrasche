@@ -2,6 +2,7 @@ using GameBalance;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -12,6 +13,7 @@ public class WolfBossController : MonoBehaviour, IBossController
 	public int maxHealth { get; private set; }
 	private GameObject crescentBullet;
 	private GameObject clawEffectPrefab;
+	private GameObject miniWolfPrefab;
 	
 	private Transform player;
 	private Animator anim;
@@ -41,6 +43,7 @@ public class WolfBossController : MonoBehaviour, IBossController
 		// 스킬 프리팹 로드
 		crescentBullet = Managers.Resource.Load<GameObject>("BossSkill/WolfBoss/CrescentBullet");
 		clawEffectPrefab = Managers.Resource.Load<GameObject>("BossSkill/WolfBoss/ClawEffect");
+		miniWolfPrefab = Managers.Resource.Load<GameObject>("BossSkill/WolfBoss/MiniWolf");
 
 
 		// 초기 스킬 설정
@@ -101,7 +104,7 @@ public class WolfBossController : MonoBehaviour, IBossController
 				{
 					currentState = BossState.Phase2;
 					Debug.Log("Phase 2 시작");
-					Phase1();
+					Phase2();
 				}
 				break;
 			case BossState.Phase2:
@@ -109,7 +112,7 @@ public class WolfBossController : MonoBehaviour, IBossController
 				{
 					currentState = BossState.Phase3;
 					Debug.Log("Phase 3 시작");
-					Phase1();
+					Phase3();
 				}
 				break;
 			case BossState.Phase3:
@@ -174,14 +177,46 @@ public class WolfBossController : MonoBehaviour, IBossController
 
 	private IEnumerator BiteSkill()
 	{
+		anim.SetTrigger("isBite");
+		yield return new WaitForSeconds(1.5f);
+
+		GameObject pawEffect = new GameObject("BiteEffect");
+		pawEffect.transform.position = player.position;
+		SpriteRenderer renderer = pawEffect.AddComponent<SpriteRenderer>();
+		renderer.sprite = Resources.Load<Sprite>("Sprites/BiteEffectSprite");
+
+		Color color = renderer.color;
+		color.a = 0.35f;
+		renderer.color = color;
+
+		pawEffect.AddComponent<BiteSkill>();
 
 
-		yield return null;
+		yield return new WaitForSeconds(1.0f);
+		// 공격 재개
 	}
 
 	private IEnumerator HowlingSkill()
 	{
-		yield return null;
+		// 하울링 모션
+		anim.SetTrigger("isHowling");
+		yield return new WaitForSeconds(1f);
+
+		// 카메라 흔들림 효과
+		StartCoroutine(ShakeCamera(1f, 0.2f));
+		// 스턴 효과 및 스턴 해제 로직
+		player.GetComponent<PlayerController>().ApplyStun(3f);
+
+		// 늑대 소환
+		for (int i = 0; i < 3; i++)
+		{
+			GameObject wolf = Instantiate(miniWolfPrefab, new Vector3(transform.position.x, transform.position.y -0.3f, transform.position.z), Quaternion.identity);
+			wolf.GetComponent<MiniWolf>().Initialize(player.position);
+			yield return new WaitForSeconds(1f);
+		}
+
+
+		yield return new WaitForSeconds(3f);
 	}
 
 	private IEnumerator ShakeCamera(float duration, float magnitude)
@@ -215,12 +250,33 @@ public class WolfBossController : MonoBehaviour, IBossController
 	private void Phase2()
 	{
 		skillList.Clear();
-		
+		skillList.Add(new Skill(() => CrescentAttack(), 0f, 3));
+		skillList.Add(new Skill(() => CrescentAttackCType(), 0f, 3));
+		skillList.Add(new Skill(() => ClawSkill(), 0f, 1));
+		skillList.Add(new Skill(() => BiteSkill(), 0f, 1));
+
 	}
 
 	private void Phase3()
 	{
 		skillList.Clear();
+
+		List<Skill> possibleSkills = new List<Skill>
+		{
+			new Skill(() => CrescentAttack(), 0f, 1),
+			new Skill(() => CrescentAttackCType(), 0f, 1),
+			new Skill(() => ClawSkill(), 0f, 1),
+			new Skill(() => BiteSkill(), 0f, 1),
+			new Skill(() => HowlingSkill(), 0f, 1),
+		};
+
+		// 가능한 스킬 목록에서 랜덤하게 선택하여 스킬 리스트를 만듭니다.
+		while (possibleSkills.Count > 0)
+		{
+			int index = Random.Range(0, possibleSkills.Count);
+			skillList.Add(possibleSkills[index]);
+			possibleSkills.RemoveAt(index);
+		}
 	}
 
 	public void TakeDamage(int damage)
