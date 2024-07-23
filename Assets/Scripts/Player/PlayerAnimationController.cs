@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerAnimationController : MonoBehaviour
 {
@@ -49,7 +50,14 @@ public class PlayerAnimationController : MonoBehaviour
     public void AfterAnimationNExtAction()
     {
         gameObject.SetActive(false);
-        Managers.Game.GameOver();
+        if (SceneManager.GetActiveScene().name == "InfinityRunningScene")
+        {
+            Managers.Game.InfinityGameOver();
+        }
+        else
+        {
+            Managers.Game.GameOver();
+        }
     }
 
     public void BiteAnim()
