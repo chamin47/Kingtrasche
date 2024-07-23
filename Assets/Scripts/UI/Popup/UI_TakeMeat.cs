@@ -14,7 +14,7 @@ public class UI_TakeMeat : UI_Popup
         Init();
     }
 
-    void Update()
+    private void Start()
     {
 
     }
@@ -28,6 +28,4 @@ public class UI_TakeMeat : UI_Popup
 
         return true;
     }
-
-
 }

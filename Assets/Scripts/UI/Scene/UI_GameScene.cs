@@ -26,7 +26,7 @@ public class UI_GameScene : UI_Scene
     }
     #endregion
 
-    private static int currentScore;
+    public static int currentScore;
     private static TMP_Text currentMeat;
 
     public override bool Init()

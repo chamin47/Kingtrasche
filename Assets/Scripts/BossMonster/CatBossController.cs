@@ -264,7 +264,6 @@ public class CatBossController : MonoBehaviour, IBossController
 		List<Skill> possibleSkills = new List<Skill>
 	    {
 		    new Skill(() => HissSkill(), 0f, 1),
-			new Skill(() => HissSkill(), 0f, 1),
 			new Skill(() => FishboneAttackCType(), 0f, 1),
 		    new Skill(() => ScratchSkill(), 0f, 1),
 		    new Skill(() => NyangPunchSkill(), 0f, 1),
