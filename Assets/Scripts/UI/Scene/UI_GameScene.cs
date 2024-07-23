@@ -54,5 +54,9 @@ public class UI_GameScene : UI_Scene
     {
         currentScore += 10;
         currentMeat.text = currentScore.ToString();
+
+        int getGold = PlayerPrefs.GetInt("Gold");
+        getGold += currentScore;
+        PlayerPrefs.SetInt("Gold", getGold);
     }
 }
