@@ -7,6 +7,7 @@ public class GameManager
     public int RunningPlayCount { get; set; }   // 러닝플레이권
     public int NaturalRunningPlayCount { get; set; } // 자연 충전된 러닝플레이권
     public int MaxRunningPlayCount { get; set; } = 10; // 최대 러닝플레이권
+    public int BestScore { get; set; }
 
     private void Init()
     {
@@ -20,6 +21,7 @@ public class GameManager
         PlayerPrefs.SetInt("RunningPlayCount", RunningPlayCount);
         PlayerPrefs.SetInt("NaturalRunningPlayCount", NaturalRunningPlayCount);
         PlayerPrefs.SetInt("MaxRunningPlayCount", MaxRunningPlayCount);
+        PlayerPrefs.SetInt("BestScore", BestScore);
         PlayerPrefs.Save();
     }
 

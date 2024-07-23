@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class UI_InfinityGameOverPopup : UI_Popup
@@ -68,5 +69,6 @@ public class UI_InfinityGameOverPopup : UI_Popup
             _bestScore = _currentScore;
             SetBestScore.text = _currentScore.ToString();
         }
+        PlayerPrefs.SetInt("BestScore", _bestScore);
     }
 }
