@@ -6,10 +6,7 @@ public class KillingObstacle : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            //[todo] 플레이어 position.x 값을 고정시킨 후 0.5초 지나고 파괴
-            //Destroy(other.gameObject);
             other.gameObject.GetComponent<PlayerController>().DirectDying();
-
         }
     }
 }
