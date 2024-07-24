@@ -27,6 +27,7 @@ public class UI_Popup : UI_Base
 
     protected void OnClickBackStageButton(PointerEventData eventData)
     {
+        UI_GameScene.currentScore = 0;
         Managers.Scene.LoadScene(Scene.StageSelect);
     }
 }
