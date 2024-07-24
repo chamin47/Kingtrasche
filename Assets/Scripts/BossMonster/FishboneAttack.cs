@@ -10,6 +10,7 @@ public class FishboneAttack : MonoBehaviour
 	private void Awake()
 	{
         boneDamage = SkillData.SkillDataMap[10101].Damage;
+        speed = SkillData.SkillDataMap[10101].speed;
 	}
 
 	void Start()

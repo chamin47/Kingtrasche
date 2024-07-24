@@ -27,10 +27,21 @@ public class WolfBossController : MonoBehaviour, IBossController
 	private bool facingRight = true;
 
 	public event Action OnHealthChanged;
+	private SkillData Shot_wolf;
+	private SkillData Shot_wolfCtype;
+	private SkillData Claw;
+	private SkillData Bite;
+	private SkillData Howling_smallwolf;
 
 	private void Awake()
 	{
 		maxHealth = BossData.BossDataMap[102].bossHP;
+		Shot_wolf = SkillData.SkillDataMap[10201];
+		Shot_wolfCtype = SkillData.SkillDataMap[10202];
+		Claw = SkillData.SkillDataMap[10203];
+		Bite = SkillData.SkillDataMap[10204];
+		Howling_smallwolf = SkillData.SkillDataMap[10205];
+		skillInterval = BossData.BossDataMap[102].attackInterval;
 	}
 
 	private void Start()
@@ -128,17 +139,17 @@ public class WolfBossController : MonoBehaviour, IBossController
 
 	private IEnumerator CrescentAttack()
 	{
-		yield return new WaitForSeconds(0f);
+		yield return new WaitForSeconds(Shot_wolf.preDelay);
 		//anim.SetTrigger("isAttack");
 		Vector2 direction = player.position.x > transform.position.x ? Vector2.right : Vector2.left;
 		GameObject crescent = Instantiate(crescentBullet, transform.position, Quaternion.identity);
 		crescent.GetComponent<CrescentAttack>().direction = direction; // 발사 로직 예시
-		yield return new WaitForSeconds(1.5f);
+		yield return new WaitForSeconds(Shot_wolf.postDelay);
 	}
 
 	private IEnumerator CrescentAttackCType()
 	{
-		yield return new WaitForSeconds(0f);
+		yield return new WaitForSeconds(Shot_wolfCtype.preDelay);
 		Vector2 direction = facingRight ? Vector2.right : Vector2.left;
 
 		//anim.SetTrigger("isAttack");
@@ -155,30 +166,35 @@ public class WolfBossController : MonoBehaviour, IBossController
 			crescent.GetComponent<CrescentAttack>().direction = rotatedDirection;
 		}
 
-		yield return new WaitForSeconds(1.5f);
+		yield return new WaitForSeconds(Shot_wolfCtype.postDelay);
 	}
 
 	private IEnumerator ClawSkill()
 	{
-		yield return new WaitForSeconds(1f); // 스킬 연출을 위한 대기시간
+		yield return new WaitForSeconds(Claw.preDelay); // 스킬 연출을 위한 대기시간
 
 		// X자 모양 이펙트 생성 및 랜덤 위치 설정
 		for (int i = 0; i < 3; i++)
 		{
 			Vector3 randomPosition = new Vector3(
 				Random.Range(-8f, 8f), // 화면의 가로 범위
-				Random.Range(-4.5f, 4.5f), // 화면의 세로 범위
+				Random.Range(2f, 4.5f), // 화면의 세로 범위 (하늘)
 				0);
 
-			Instantiate(clawEffectPrefab, randomPosition, Quaternion.identity);
+			GameObject clawEffect = Instantiate(clawEffectPrefab, randomPosition, Quaternion.identity);
+
+			// 이펙트가 처음 설정된 위치에서 플레이어를 향해 날아감
+			Vector2 direction = (player.position - randomPosition).normalized;
+			clawEffect.GetComponent<ClawSkill>().Initialize(direction);
 		}
+		yield return new WaitForSeconds(Claw.postDelay); // 이펙트가 플레이어를 향해 공격할 시간
 	}
-	
+
 
 	private IEnumerator BiteSkill()
 	{
 		anim.SetTrigger("isBite");
-		yield return new WaitForSeconds(1.5f);
+		yield return new WaitForSeconds(Bite.postDelay);
 
 		GameObject pawEffect = new GameObject("BiteEffect");
 		pawEffect.transform.position = player.position;
@@ -192,7 +208,7 @@ public class WolfBossController : MonoBehaviour, IBossController
 		pawEffect.AddComponent<BiteSkill>();
 
 
-		yield return new WaitForSeconds(1.0f);
+		yield return new WaitForSeconds(Bite.postDelay);
 		// 공격 재개
 	}
 
@@ -200,23 +216,21 @@ public class WolfBossController : MonoBehaviour, IBossController
 	{
 		// 하울링 모션
 		anim.SetTrigger("isHowling");
-		yield return new WaitForSeconds(1f);
+		yield return new WaitForSeconds(Howling_smallwolf.preDelay);
 
 		// 카메라 흔들림 효과
 		StartCoroutine(ShakeCamera(1f, 0.2f));
-		// 스턴 효과 및 스턴 해제 로직
-		player.GetComponent<PlayerController>().ApplyStun(3f);
 
 		// 늑대 소환
 		for (int i = 0; i < 3; i++)
 		{
 			GameObject wolf = Instantiate(miniWolfPrefab, new Vector3(transform.position.x, transform.position.y -0.3f, transform.position.z), Quaternion.identity);
 			wolf.GetComponent<MiniWolf>().Initialize(player.position);
-			yield return new WaitForSeconds(1f);
+			yield return new WaitForSeconds(1.5f);
 		}
 
 
-		yield return new WaitForSeconds(3f);
+		yield return new WaitForSeconds(Howling_smallwolf.postDelay);
 	}
 
 	private IEnumerator ShakeCamera(float duration, float magnitude)

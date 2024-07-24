@@ -12,6 +12,7 @@ public class CrescentAttack : MonoBehaviour
 	private void Awake()
 	{
 		crescentDamage = SkillData.SkillDataMap[10201].Damage;
+		speed = SkillData.SkillDataMap[10201].speed;
 	}
 
 	void Start()

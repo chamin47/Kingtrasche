@@ -61,6 +61,7 @@ namespace GameBalance
 		public System.Int32 Damage;
 		public System.Single preDelay;
 		public System.Single postDelay;
+		public System.Single speed;
   
 
 #region fuctions

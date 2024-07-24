@@ -1,3 +1,4 @@
+using GameBalance;
 using System.Collections;
 using UnityEngine;
 
@@ -6,6 +7,12 @@ public class MiniWolf : MonoBehaviour
 	private float speed = 5f;
 	private int damage = 1;
 	private Vector3 moveDirection;
+
+	private void Awake()
+	{
+		damage = SkillData.SkillDataMap[10205].Damage;
+		speed = SkillData.SkillDataMap[10205].speed;
+	}
 
 	public void Initialize(Vector3 direction)
 	{
@@ -31,6 +38,7 @@ public class MiniWolf : MonoBehaviour
 			{
 				playerController.TakeDamage(damage);
 			}
+			playerController.ApplyStun(3f);
 
 			// ´Á´ë°¡ Ãæµ¹ ÈÄ »ç¶óÁü
 			Destroy(gameObject);

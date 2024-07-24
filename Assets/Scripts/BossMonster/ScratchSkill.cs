@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ScratchSkill : MonoBehaviour
 {
-    public float speed = 5f; // ÇÒÄû±â ÀÌÆåÆ® ¼Óµµ
+    public float speed = 7f; // ÇÒÄû±â ÀÌÆåÆ® ¼Óµµ
 	private int damage;
     private Rigidbody2D rb;
 	public Vector2 direction;
@@ -13,6 +13,7 @@ public class ScratchSkill : MonoBehaviour
 	private void Awake()
 	{
 		damage = SkillData.SkillDataMap[10103].Damage;
+		speed = SkillData.SkillDataMap[10103].speed;
 	}
 
 	void Start()
