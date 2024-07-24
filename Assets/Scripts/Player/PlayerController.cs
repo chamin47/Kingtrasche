@@ -73,13 +73,6 @@ public class PlayerController : MonoBehaviour
 
         // 씬 확정될때 활성화
         //ExceptKey();
-
-        //if (SceneManager.GetActiveScene().name == "HAY Scene")
-        //{
-        //    moveAction.Disable();
-        //    skillAction.Disable();
-        //    playerShooting.isFiring = false;
-        //} //추후 삭제
     }
 
     private void OnDisable()
@@ -158,7 +151,7 @@ public class PlayerController : MonoBehaviour
         inputVector = value.ReadValue<Vector2>();
         moveVector = new Vector3(inputVector.x, 0f, 0f);
 
-        if (moveVector.x != 0)
+        if (moveVector.x != 0 && isGrounded)
         {
             animController.StartRunningAnim();
             animController.StopIdleAnim();
@@ -178,12 +171,16 @@ public class PlayerController : MonoBehaviour
             {
                 rigid.velocity = new Vector2(rigid.velocity.x, jumpForce);
                 jumpCount = 1;
+
+                Managers.Sound.Play("SFX_Jump_42", Sound.Effect);
             }
             else if (jumpCount < 2) // jumpCount가 2회미만일때만 점프 가능
             {
                 rigid.velocity = new Vector2(rigid.velocity.x, 0f); // y 축 속도 초기화 -> 일정한 높이의 점프
                 rigid.velocity = new Vector2(rigid.velocity.x, jumpForce);
                 jumpCount = 2;
+
+                Managers.Sound.Play("SFX_Jump_35", Sound.Effect);
             }
             animController.JumpAnim();
 

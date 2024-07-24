@@ -28,6 +28,7 @@ public class ObjectPool : MonoBehaviour
             {
                 obj.transform.position = position;
                 obj.SetActive(true);
+                Managers.Sound.Play("laser_01", Sound.Effect);
 
                 return obj;
             }
