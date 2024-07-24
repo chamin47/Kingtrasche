@@ -14,11 +14,13 @@ public class UI_Popup : UI_Base
 
     public virtual void ClosePopupUI()
     {
+        Managers.Sound.Play("switch10", Sound.Effect);
         Managers.UI.ClosePopupUI(this);
     }
 
     protected void OnClickRetryButton(PointerEventData eventData)
     {
+        Managers.Sound.Play("switch10", Sound.Effect);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1.0f;
         // 목줄 하나 감소하는 로직 필요
@@ -27,6 +29,7 @@ public class UI_Popup : UI_Base
 
     protected void OnClickBackStageButton(PointerEventData eventData)
     {
+        Managers.Sound.Play("switch10", Sound.Effect);
         UI_GameScene.currentScore = 0;
         Managers.Scene.LoadScene(Scene.StageSelect);
     }

@@ -37,12 +37,14 @@ public class UI_BeeQuizPopup : UI_Popup
 
     public void CorrectButton(PointerEventData eventData)
     {
+        Managers.Sound.Play("switch10", Sound.Effect);
         OnEndEvent?.Invoke();
         Destroy(this.gameObject);
     }
 
     private void IncorrectButton(PointerEventData eventData)
     {
+        Managers.Sound.Play("switch10", Sound.Effect);
         Destroy(this.gameObject);
         Managers.Game.GameOver();
     }

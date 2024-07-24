@@ -151,7 +151,7 @@ public class PlayerController : MonoBehaviour
         inputVector = value.ReadValue<Vector2>();
         moveVector = new Vector3(inputVector.x, 0f, 0f);
 
-        if (moveVector.x != 0 && isGrounded)
+        if (moveVector.x != 0)
         {
             animController.StartRunningAnim();
             animController.StopIdleAnim();

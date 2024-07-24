@@ -69,22 +69,24 @@ public class UI_PausePopup : UI_Popup
 
     private void EffectSoundOnOff(PointerEventData eventData)
     {
-
+        Managers.Sound.Play("switch10", Sound.Effect);
     }
 
     private void BackgroundSoundOnOff(PointerEventData eventdata)
     {
-
+        Managers.Sound.Play("switch10", Sound.Effect);
     }
 
     private void OnClickContinueButton(PointerEventData eventdata)
     {
+        Managers.Sound.Play("switch10", Sound.Effect);
         Managers.UI.ClosePopupUI(this);
         Time.timeScale = 1.0f;
     }
 
     private void OnClickStopButton(PointerEventData eventdata)
     {
+        Managers.Sound.Play("switch10", Sound.Effect);
         UI_GameScene.currentScore = 0;
         Managers.Scene.LoadScene(Scene.StageSelect);
     }

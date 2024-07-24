@@ -60,6 +60,7 @@ public class UI_StageClearPopup : UI_Popup
 
     private void OnClickNextStageButton(PointerEventData eventData)
     {
+        Managers.Sound.Play("switch10", Sound.Effect);
         UI_GameScene.currentScore = 0;
 
         if (currentStage == 4)

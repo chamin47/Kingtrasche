@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,134 +5,135 @@ using UnityEngine.UI;
 
 public class UI_BossScene : UI_Scene
 {
-	#region enum
-	enum GameObjects
-	{
-		HeartsParent
-	}
+    #region enum
+    enum GameObjects
+    {
+        HeartsParent
+    }
 
-	enum Buttons
-	{
-		PauseButton
-	}
+    enum Buttons
+    {
+        PauseButton
+    }
 
-	enum Texts
-	{
+    enum Texts
+    {
 
-	}
+    }
 
-	enum Images
-	{
-		HealthBarFrame,
-		HealthBar
-	}
-	#endregion
+    enum Images
+    {
+        HealthBarFrame,
+        HealthBar
+    }
+    #endregion
 
-	private GameObject[] heartContainers;
-	private Image[] heartFills;
-	private GameObject player;
-	private GameObject boss;
-	private PlayerController playerController;
-	private IBossController bossController;
-	private Image currentHealthBar;
-	private int currentStage;
+    private GameObject[] heartContainers;
+    private Image[] heartFills;
+    private GameObject player;
+    private GameObject boss;
+    private PlayerController playerController;
+    private IBossController bossController;
+    private Image currentHealthBar;
+    private int currentStage;
 
-	public Transform heartsParent;
-	private GameObject heartContainerPrefab;
+    public Transform heartsParent;
+    private GameObject heartContainerPrefab;
 
-	private void Awake()
-	{
-		Init();
-	}
+    private void Awake()
+    {
+        Init();
+    }
 
-	public override bool Init()
-	{
-		if (base.Init() == false)
-			return false;
+    public override bool Init()
+    {
+        if (base.Init() == false)
+            return false;
 
-		Bind<GameObject>(typeof(GameObjects));
-		Bind<TMP_Text>(typeof(Texts));
-		Bind<Button>(typeof(Buttons));
-		Bind<Image>(typeof(Images));
+        Bind<GameObject>(typeof(GameObjects));
+        Bind<TMP_Text>(typeof(Texts));
+        Bind<Button>(typeof(Buttons));
+        Bind<Image>(typeof(Images));
 
-		Get<Button>((int)Buttons.PauseButton).gameObject.BindEvent(OnClickPauseButton);
-		heartsParent = Get<GameObject>((int)GameObjects.HeartsParent).gameObject.transform;
-		heartContainerPrefab = Managers.Resource.Load<GameObject>("UI/SubItem/HeartContainer");
-		player = GameObject.FindWithTag("Player");
-		boss = GameObject.FindWithTag("Boss");
-		playerController = player.GetComponent<PlayerController>();
-		bossController = boss.GetComponent<IBossController>();
-		
+        Get<Button>((int)Buttons.PauseButton).gameObject.BindEvent(OnClickPauseButton);
+        heartsParent = Get<GameObject>((int)GameObjects.HeartsParent).gameObject.transform;
+        heartContainerPrefab = Managers.Resource.Load<GameObject>("UI/SubItem/HeartContainer");
+        player = GameObject.FindWithTag("Player");
+        boss = GameObject.FindWithTag("Boss");
+        playerController = player.GetComponent<PlayerController>();
+        bossController = boss.GetComponent<IBossController>();
 
-		heartContainers = new GameObject[3];  // Assuming 5 is the max number of hearts
-		heartFills = new Image[3];
 
-		currentHealthBar = Get<Image>((int)Images.HealthBar);
+        heartContainers = new GameObject[3];  // Assuming 5 is the max number of hearts
+        heartFills = new Image[3];
 
-		playerController.OnHealthChanged += UpdateHeartsHUD;
-		bossController.OnHealthChanged += UpdateHealthBar;
-		InstantiateHeartContainers();
-		UpdateHeartsHUD();  // Corrected method name
+        currentHealthBar = Get<Image>((int)Images.HealthBar);
 
-		return true;
-	}
+        playerController.OnHealthChanged += UpdateHeartsHUD;
+        bossController.OnHealthChanged += UpdateHealthBar;
+        InstantiateHeartContainers();
+        UpdateHeartsHUD();  // Corrected method name
 
-	private void UpdateHeartsHUD()
-	{
-		SetHeartContainers();
-		SetFilledHearts();
-	}
+        return true;
+    }
 
-	private void SetHeartContainers()
-	{
-		for (int i = 0; i < heartContainers.Length; i++)
-		{
-			if (i < playerController.life)
-			{
-				heartContainers[i].SetActive(true);
-			}
-			else
-			{
-				heartContainers[i].SetActive(false);
-			}
-		}
-	}
+    private void UpdateHeartsHUD()
+    {
+        SetHeartContainers();
+        SetFilledHearts();
+    }
 
-	private void SetFilledHearts()
-	{
-		for (int i = 0; i < heartFills.Length; i++)
-		{
-			heartFills[i].fillAmount = (i < playerController.life) ? 1 : 0;
-		}
-	}
+    private void SetHeartContainers()
+    {
+        for (int i = 0; i < heartContainers.Length; i++)
+        {
+            if (i < playerController.life)
+            {
+                heartContainers[i].SetActive(true);
+            }
+            else
+            {
+                heartContainers[i].SetActive(false);
+            }
+        }
+    }
 
-	private void InstantiateHeartContainers()
-	{
-		// Clear existing containers
-		foreach (GameObject container in heartContainers)
-		{
-			if (container != null)
-				Destroy(container);
-		}
+    private void SetFilledHearts()
+    {
+        for (int i = 0; i < heartFills.Length; i++)
+        {
+            heartFills[i].fillAmount = (i < playerController.life) ? 1 : 0;
+        }
+    }
 
-		for (int i = 0; i < playerController.life; i++)
-		{
-			GameObject temp = Instantiate(heartContainerPrefab);
-			temp.transform.SetParent(heartsParent, false);
-			heartContainers[i] = temp;
-			heartFills[i] = temp.transform.Find("HeartFill").GetComponent<Image>();
-		}
-	}
+    private void InstantiateHeartContainers()
+    {
+        // Clear existing containers
+        foreach (GameObject container in heartContainers)
+        {
+            if (container != null)
+                Destroy(container);
+        }
 
-	private void UpdateHealthBar()
-	{
-		float ratio = bossController.currentHealth / (float)bossController.maxHealth;
-		currentHealthBar.fillAmount = ratio;
-	}
+        for (int i = 0; i < playerController.life; i++)
+        {
+            GameObject temp = Instantiate(heartContainerPrefab);
+            temp.transform.SetParent(heartsParent, false);
+            heartContainers[i] = temp;
+            heartFills[i] = temp.transform.Find("HeartFill").GetComponent<Image>();
+        }
+    }
 
-	private void OnClickPauseButton(PointerEventData eventData)
-	{
-		Managers.UI.ShowPopupUI<UI_PausePopup>();
-		Time.timeScale = 0;
-	}
+    private void UpdateHealthBar()
+    {
+        float ratio = bossController.currentHealth / (float)bossController.maxHealth;
+        currentHealthBar.fillAmount = ratio;
+    }
+
+    private void OnClickPauseButton(PointerEventData eventData)
+    {
+        Managers.Sound.Play("switch10", Sound.Effect);
+        Managers.UI.ShowPopupUI<UI_PausePopup>();
+        Time.timeScale = 0;
+    }
 }
