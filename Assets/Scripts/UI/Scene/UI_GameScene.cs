@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UI_GameScene : UI_Scene
@@ -52,11 +53,17 @@ public class UI_GameScene : UI_Scene
 
     public static void AddScore()
     {
-        currentScore += 10;
+        if (SceneManager.GetActiveScene().name == "InfinityRunningScene") // ¹«ÇÑÀÏ¶§¸¸ +10Á¡, µ·¿¡ Ãß°¡¾ÈµÊ
+        {
+            currentScore += 10;
+        }
+        else // ÀÏ¹Ý ·¯´×¾ÀÀº +1Á¡, µ·¿¡ Ãß°¡µÊ
+        {
+            currentScore++;
+            int getGold = PlayerPrefs.GetInt("Gold");
+            getGold += currentScore;
+            PlayerPrefs.SetInt("Gold", getGold);
+        }
         currentMeat.text = currentScore.ToString();
-
-        int getGold = PlayerPrefs.GetInt("Gold");
-        getGold += currentScore;
-        PlayerPrefs.SetInt("Gold", getGold);
     }
 }
