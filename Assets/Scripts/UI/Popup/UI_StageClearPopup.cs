@@ -60,6 +60,8 @@ public class UI_StageClearPopup : UI_Popup
 
     private void OnClickNextStageButton(PointerEventData eventData)
     {
+        UI_GameScene.currentScore = 0;
+
         if (currentStage == 4)
         {
             Managers.Scene.LoadScene(Scene.Boss);
