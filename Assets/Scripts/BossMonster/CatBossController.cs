@@ -16,6 +16,7 @@ public class CatBossController : MonoBehaviour, IBossController
 	private GameObject hissPrefab;
 	private Transform player;
 	private Animator anim;
+	private SpriteRenderer spriteRenderer;
 
 	private List<Skill> skillList = new List<Skill>();
 	private int currentSkillIndex = 0;
@@ -49,6 +50,7 @@ public class CatBossController : MonoBehaviour, IBossController
 		currentState = BossState.Phase1;
 		player = GameObject.FindWithTag("Player").transform;
 		anim = GetComponent<Animator>();
+		spriteRenderer = GetComponent<SpriteRenderer>();
 
 		// 스킬 프리팹 로드
 		fishbonePrefab = Managers.Resource.Load<GameObject>("BossSkill/CatBoss/Fishbone");
@@ -286,12 +288,22 @@ public class CatBossController : MonoBehaviour, IBossController
 
 		currentHealth -= damage;
 		OnHealthChanged.Invoke();  // 이벤트 호출
+
+		StartCoroutine(FlashRed());
+
 		if (currentHealth <= 0)
 		{
 			currentHealth = 0;
 			Managers.Game.GameClear();
 			Destroy(gameObject);
 		}
+	}
+
+	private IEnumerator FlashRed()
+	{
+		spriteRenderer.color = Color.red; // 빨간색으로 변환
+		yield return new WaitForSeconds(0.1f); // 0.1초 대기
+		spriteRenderer.color = Color.white; // 원래 색상으로 복구
 	}
 
 	private class Skill
