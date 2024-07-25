@@ -205,7 +205,10 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext value)
     {
-        if (value.started)
+		if (isStunned)
+			return;
+
+		if (value.started)
         {
             Jump();
         }
@@ -221,7 +224,10 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        if (isGrounded) //바닥이거나
+		if (isStunned)
+			return;
+
+		if (isGrounded) //바닥이거나
         {
             rigid.velocity = new Vector2(rigid.velocity.x, jumpForce);
             jumpCount = 1;
