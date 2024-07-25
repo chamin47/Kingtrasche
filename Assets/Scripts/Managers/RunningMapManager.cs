@@ -11,7 +11,7 @@ public class RunningMapManager : MonoBehaviour
 
     private float chunkSpace = 18f; // ¸Ê °£ °£°Ý
     public int currentStage = 1;
-    public Vector3 lastMapTransform;
+    private Vector3 lastMapTransform;
 
     public static event Action<Vector3> EndMapSpawn;
 
