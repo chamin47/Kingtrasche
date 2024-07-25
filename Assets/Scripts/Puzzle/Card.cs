@@ -59,6 +59,8 @@ public class Card : MonoBehaviour
 
 	public void OpenCard()
 	{
+		if (!CardGameManager.Instance.canClickCards) return;
+
 		anim.SetBool("isOpen", true);
 		front.SetActive(true);
 		back.SetActive(false);
@@ -130,6 +132,8 @@ public class Card : MonoBehaviour
 		{
 			card.ShowFaceTemporarily();
 		}
+
+		CardGameManager.Instance.canClickCards = true;
 	}
 
 	public void ShowFaceTemporarily()
