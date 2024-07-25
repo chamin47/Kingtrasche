@@ -5,6 +5,6 @@ public class TutorialButton : MonoBehaviour
 
     public void OnClickClearButton()
     {
-        Managers.Scene.LoadScene(Scene.StageSelect);
+        Managers.Scene.LoadScene(Scene.StageScene);
     }
 }

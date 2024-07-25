@@ -81,98 +81,98 @@ public class UI_StageSelectScene : UI_Scene
     private void OnClickBackButton(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.Title);
+        Managers.Scene.LoadScene(Scene.TitleScene);
     }
 
     #region LevelButton
     private void OnClickLevel1Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.Game);
+        Managers.Scene.LoadScene(Scene.RunningScene);
         PlayerPrefs.SetInt("StageNumber", 1);
     }
     private void OnClickLevel2Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.Game);
+        Managers.Scene.LoadScene(Scene.RunningScene);
         PlayerPrefs.SetInt("StageNumber", 2);
     }
     private void OnClickLevel3Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.Game);
+        Managers.Scene.LoadScene(Scene.RunningScene);
         PlayerPrefs.SetInt("StageNumber", 3);
     }
     private void OnClickLevel4Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.Game);
+        Managers.Scene.LoadScene(Scene.RunningScene);
         PlayerPrefs.SetInt("StageNumber", 4);
     }
     private void OnClickLevel5Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.Boss);
+        Managers.Scene.LoadScene(Scene.BossScene1);
         PlayerPrefs.SetInt("StageNumber", 5);
     }
     private void OnClickLevel6Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.Game);
+        Managers.Scene.LoadScene(Scene.RunningScene);
         PlayerPrefs.SetInt("StageNumber", 6);
     }
     private void OnClickLevel7Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.Game);
+        Managers.Scene.LoadScene(Scene.RunningScene);
         PlayerPrefs.SetInt("StageNumber", 7);
     }
     private void OnClickLevel8Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.Game);
+        Managers.Scene.LoadScene(Scene.RunningScene);
         PlayerPrefs.SetInt("StageNumber", 8);
     }
     private void OnClickLevel9Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.Game);
+        Managers.Scene.LoadScene(Scene.RunningScene);
         PlayerPrefs.SetInt("StageNumber", 9);
     }
     private void OnClickLevel10Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.Boss2);
+        Managers.Scene.LoadScene(Scene.BossScene2);
         PlayerPrefs.SetInt("StageNumber", 10);
     }
     private void OnClickLevel11Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.Game);
+        Managers.Scene.LoadScene(Scene.RunningScene);
         PlayerPrefs.SetInt("StageNumber", 11);
     }
     private void OnClickLevel12Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.Game);
+        Managers.Scene.LoadScene(Scene.RunningScene);
         PlayerPrefs.SetInt("StageNumber", 12);
     }
     private void OnClickLevel13Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.Game);
+        Managers.Scene.LoadScene(Scene.RunningScene);
         PlayerPrefs.SetInt("StageNumber", 13);
     }
     private void OnClickLevel14Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.Game);
+        Managers.Scene.LoadScene(Scene.RunningScene);
         PlayerPrefs.SetInt("StageNumber", 14);
     }
     private void OnClickLevel15Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.Boss);
+        Managers.Scene.LoadScene(Scene.BossScene1);
         PlayerPrefs.SetInt("StageNumber", 15);
     }
     #endregion
