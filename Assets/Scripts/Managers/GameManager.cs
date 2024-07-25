@@ -36,18 +36,21 @@ public class GameManager
 
     public void GameOver()
     {
+        Managers.Sound.Play("wind down 2", Sound.Effect);
         Managers.UI.ShowPopupUI<UI_GameOverPopup>();
         Time.timeScale = 0;
     }
 
     public void GameClear()
     {
+
         Managers.UI.ShowPopupUI<UI_StageClearPopup>();
         Time.timeScale = 0;
     }
 
     public void InfinityGameOver()
     {
+        Managers.Sound.Play("wind down 2", Sound.Effect);
         Managers.UI.ShowPopupUI<UI_InfinityGameOverPopup>();
         Time.timeScale = 0;
     }
