@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 
     public Joystick joystick;
     public Button jumpButton;
+    public GameObject JoystickUI;
 
     private Rigidbody2D rigid;
     private PlayerShooting playerShooting;
@@ -52,7 +53,6 @@ public class PlayerController : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         playerShooting = GetComponent<PlayerShooting>();
         animController = GetComponent<PlayerAnimationController>();
-        joystick = GameObject.FindObjectOfType<Joystick>();
 
         var playerActionMap = inputActionAsset.FindActionMap("PlayerActions");
         moveAction = playerActionMap.FindAction("Move");
@@ -61,7 +61,6 @@ public class PlayerController : MonoBehaviour
 
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         originalColor = spriteRenderer.color;
-
 
         InitPlayerData();
     }
@@ -78,7 +77,7 @@ public class PlayerController : MonoBehaviour
         skillAction.performed += OnSkill;
 
         // 씬 확정될때 활성화
-        //ExceptKey();
+        ExceptKey();
     }
 
     private void OnDisable()
@@ -120,46 +119,66 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // 씬 확정될때 활성화
-        //if (SceneManager.GetActiveScene().name == "HAY Scene") //러닝씬
-        //{
-        //    transform.position += Vector3.right * moveSpeed * Time.deltaTime;
-        //}
-        //else if (SceneManager.GetActiveScene().name == "CDM Scene") //슈팅씬
-        //{
-        //    transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed);
-        //}
-
-        if (isStunned)
+        if (SceneManager.GetActiveScene().name == "RunningScene" ||
+            SceneManager.GetActiveScene().name == "RunningTutorialScene" ||
+            SceneManager.GetActiveScene().name == "InfinityRunningScene") //러닝씬
         {
-            stunTouchTimer += Time.deltaTime;
-            if (stunTouchTimer >= stunTouchResetTime)
+            transform.position += Vector3.right * moveSpeed * Time.deltaTime;
+            animController.StartRunningAnim();
+        }
+        else if (SceneManager.GetActiveScene().name == "BossScene1" ||
+            SceneManager.GetActiveScene().name == "BossScene2" ||
+            SceneManager.GetActiveScene().name == "BossScene3") //슈팅씬
+        {
+            inputVector = new Vector2(joystick.Horizontal, joystick.Vertical);
+            moveVector = new Vector3(inputVector.x, 0, 0);
+            transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed);
+
+            if (moveVector.x != 0)
             {
-                stunTouchCount = 0;
-                stunTouchTimer = 0;
+                animController.StartRunningAnim();
+                animController.StopIdleAnim();
+            }
+            else
+            {
+                animController.StartIdleAnim();
+                animController.StopRunningAnim();
             }
 
-            // 스턴 해제를 위해 터치 입력을 처리합니다.
-            HandleTouchInput();
+            if (isStunned)
+            {
+                stunTouchTimer += Time.deltaTime;
+                if (stunTouchTimer >= stunTouchResetTime)
+                {
+                    stunTouchCount = 0;
+                    stunTouchTimer = 0;
+                }
 
-            // 스턴이 터치로 해제되지 않으면 리턴
-            return;
-        }
+                // 스턴 해제를 위해 터치 입력을 처리합니다.
+                HandleTouchInput();
 
-        //Test
-        inputVector = new Vector2(joystick.Horizontal, joystick.Vertical);
-        moveVector = new Vector3(inputVector.x, 0, 0);
-        transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed);
-        if (moveVector.x != 0)
-        {
-            animController.StartRunningAnim();
-            animController.StopIdleAnim();
+                // 스턴이 터치로 해제되지 않으면 리턴
+                return;
+            }
         }
         else
         {
-            animController.StartIdleAnim();
-            animController.StopRunningAnim();
+            //Test
+            inputVector = new Vector2(joystick.Horizontal, joystick.Vertical);
+            moveVector = new Vector3(inputVector.x, 0, 0);
+            transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed);
+            if (moveVector.x != 0)
+            {
+                animController.StartRunningAnim();
+                animController.StopIdleAnim();
+            }
+            else
+            {
+                animController.StartIdleAnim();
+                animController.StopRunningAnim();
+            }
+            //Test
         }
-        //Test
 
         FlipPlayerDirection();
     }
@@ -310,21 +329,24 @@ public class PlayerController : MonoBehaviour
 
     private void ExceptKey()
     {
-        if (SceneManager.GetActiveScene().name == "HAY Scene") // 러닝씬
+        if ((SceneManager.GetActiveScene().name == "RunningScene" ||
+            SceneManager.GetActiveScene().name == "RunningTutorialScene" ||
+            SceneManager.GetActiveScene().name == "InfinityRunningScene")) // 러닝씬
         {
             moveAction.Disable();
             skillAction.Disable();
             playerShooting.isFiring = false;
+            JoystickUI.SetActive(false);
         }
-        else if (SceneManager.GetActiveScene().name == "CDM Scene") // 슈팅씬
+        else if (SceneManager.GetActiveScene().name == "BossScene1" ||
+            SceneManager.GetActiveScene().name == "BossScene2" ||
+            SceneManager.GetActiveScene().name == "BossScene3") // 슈팅씬
         {
+            playerShooting.isFiring = true;
             return;
         }
         else // 그 외 씬이면
         {
-            //moveAction.Disable();
-            //skillAction.Disable();
-            //jumpAction.Disable();
             return;
         }
     }
