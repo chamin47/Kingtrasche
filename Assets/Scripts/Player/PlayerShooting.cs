@@ -39,7 +39,11 @@ public class PlayerShooting : MonoBehaviour
     {
         while (isFiring)
         {
-            ShootingBone();
+            if (!playerController.isStunned)
+            {
+				ShootingBone();
+			}
+            
             yield return new WaitForSeconds(fireRate);
         }
     }
