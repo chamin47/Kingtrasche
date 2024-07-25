@@ -2,7 +2,6 @@ using GameBalance;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,9 +9,10 @@ public class PlayerController : MonoBehaviour
     private InputAction moveAction;
     private InputAction jumpAction;
     private InputAction skillAction;
+    private InputAction touchJumpAction;
 
     public Joystick joystick;
-    public Button jumpButton;
+    //public Button jumpButton;
     public GameObject JoystickUI;
 
     private Rigidbody2D rigid;
@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour
         moveAction = playerActionMap.FindAction("Move");
         jumpAction = playerActionMap.FindAction("Jump");
         skillAction = playerActionMap.FindAction("Skill");
+        touchJumpAction = playerActionMap.FindAction("TouchJump");
 
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         originalColor = spriteRenderer.color;
@@ -70,11 +71,13 @@ public class PlayerController : MonoBehaviour
         moveAction.Enable();
         jumpAction.Enable();
         skillAction.Enable();
+        touchJumpAction.Enable();
 
         moveAction.performed += OnMove;
         moveAction.canceled += OnMove;
         jumpAction.performed += OnJump;
         skillAction.performed += OnSkill;
+        touchJumpAction.performed += OnJump;
 
         // 씬 확정될때 활성화
         ExceptKey();
@@ -85,16 +88,18 @@ public class PlayerController : MonoBehaviour
         moveAction.Disable();
         jumpAction.Disable();
         skillAction.Disable();
+        touchJumpAction.Disable();
 
         moveAction.performed -= OnMove;
         moveAction.canceled -= OnMove;
         jumpAction.performed -= OnJump;
         skillAction.performed -= OnSkill;
+        touchJumpAction.performed -= OnJump;
     }
 
     void Start()
     {
-        jumpButton.onClick.AddListener(OnJumpButtonClick);
+        //jumpButton.onClick.AddListener(OnJumpButtonClick);
     }
     public void InitPlayerData()
     {
@@ -182,6 +187,7 @@ public class PlayerController : MonoBehaviour
         }
 
         FlipPlayerDirection();
+        HandleJumpInput();
     }
 
     public void OnMove(InputAction.CallbackContext value)
@@ -215,9 +221,29 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnJumpButtonClick()
+    //private void OnJumpButtonClick()
+    //{
+    //    if (!isStunned)
+    //    {
+    //        Jump();
+    //    }
+    //}
+
+    private void HandleJumpInput()
     {
-        if (!isStunned)
+
+        if (Input.touchCount > 0)
+        {
+            foreach (Touch touch in Input.touches)
+            {
+                if (touch.phase == UnityEngine.TouchPhase.Began)
+                {
+                    Jump();
+                }
+            }
+        }
+
+        if (Input.GetMouseButtonDown(0))
         {
             Jump();
         }

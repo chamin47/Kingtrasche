@@ -292,7 +292,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputActionAsset: {fileID: -944628639613478452, guid: 3a5b297f41428404fa57b20ec308058b, type: 3}
   joystick: {fileID: 1718644806093416237}
-  jumpButton: {fileID: 4060195974871825059}
   JoystickUI: {fileID: 2452711786178970829}
   moveSpeed: 6
   jumpForce: 13
@@ -625,6 +624,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6204526781245983478}
     m_Modifications:
+    - target: {fileID: 308898163035650054, guid: f07fbf0c56db09d419de76192f5749d0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 480416364768953559, guid: f07fbf0c56db09d419de76192f5749d0, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -709,6 +712,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3663728915298877451, guid: f07fbf0c56db09d419de76192f5749d0, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3663728915298877451, guid: f07fbf0c56db09d419de76192f5749d0, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3663728915298877451, guid: f07fbf0c56db09d419de76192f5749d0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 94
+      objectReference: {fileID: 0}
     - target: {fileID: 9185281728528504085, guid: f07fbf0c56db09d419de76192f5749d0, type: 3}
       propertyPath: m_Name
       value: Joystick
@@ -739,14 +754,3 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 480416364768953559, guid: f07fbf0c56db09d419de76192f5749d0, type: 3}
   m_PrefabInstance: {fileID: 2984983998071633438}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4060195974871825059 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1239753904824798397, guid: f07fbf0c56db09d419de76192f5749d0, type: 3}
-  m_PrefabInstance: {fileID: 2984983998071633438}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

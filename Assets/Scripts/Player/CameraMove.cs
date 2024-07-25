@@ -11,7 +11,7 @@ public class CameraMove : MonoBehaviour
     {
         childGameObject = GetComponentsInChildren<Transform>();
         Player = GameObject.FindWithTag("Player");
-        if (SceneManager.GetActiveScene().name == "HAY Scene")
+        if (SceneManager.GetActiveScene().name == "RunningScene")
         {
             stageNumber = RunningMapManager.Instance.currentStage;
         }
@@ -34,6 +34,7 @@ public class CameraMove : MonoBehaviour
         Transform night = childGameObject[20];
         if (stageNumber == 1 || stageNumber == 2 || stageNumber == 3 || stageNumber == 4)
         {
+            Managers.Sound.Play("ArcadeGameBGM#17", Sound.Bgm);
             sunset.gameObject.SetActive(false);
             night.gameObject.SetActive(false);
 
@@ -52,6 +53,7 @@ public class CameraMove : MonoBehaviour
         }
         else
         {
+            Managers.Sound.Play("SummerChallenge", Sound.Bgm);
             sunset.gameObject.SetActive(false);
             night.gameObject.SetActive(false);
         }
