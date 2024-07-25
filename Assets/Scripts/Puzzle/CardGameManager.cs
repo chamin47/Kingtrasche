@@ -1,6 +1,9 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardGameManager : MonoBehaviour
 {
@@ -12,10 +15,11 @@ public class CardGameManager : MonoBehaviour
     public TextMeshProUGUI timeText;
 
     public int cardCount = 0;
-    float time = 0.0f;
-    public float TimeoutTimer = 20;
+	float time = 10.0f;
+    float TimeoutTimer = 0f;
 
     public Action OnEndEvent;
+    public bool canClickCards = false;
 
     void Awake()
     {
@@ -34,7 +38,7 @@ public class CardGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;
+        time -= Time.deltaTime;
         timeText.text = time.ToString("N2");
         TimeOut();
     }
@@ -69,16 +73,15 @@ public class CardGameManager : MonoBehaviour
 
     private void TimeOut()
     {
-        if (time >= TimeoutTimer)
+        if (time <= TimeoutTimer)
         {
             Managers.Game.GameOver();
             Destroy(gameObject);
         }
-    }
+	}
 
     private void GameClear()
     {
-        Managers.Sound.Play("harp strum 1", Sound.Effect);
         Destroy(gameObject);
         OnEndEvent.Invoke();
         Debug.LogError("Clear!");
