@@ -130,21 +130,6 @@ public class PlayerController : MonoBehaviour
             SceneManager.GetActiveScene().name == "BossScene2" ||
             SceneManager.GetActiveScene().name == "BossScene3") //슈팅씬
         {
-            inputVector = new Vector2(joystick.Horizontal, joystick.Vertical);
-            moveVector = new Vector3(inputVector.x, 0, 0);
-            transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed);
-
-            if (moveVector.x != 0)
-            {
-                animController.StartRunningAnim();
-                animController.StopIdleAnim();
-            }
-            else
-            {
-                animController.StartIdleAnim();
-                animController.StopRunningAnim();
-            }
-
             if (isStunned)
             {
                 stunTouchTimer += Time.deltaTime;
@@ -160,6 +145,22 @@ public class PlayerController : MonoBehaviour
                 // 스턴이 터치로 해제되지 않으면 리턴
                 return;
             }
+
+            inputVector = new Vector2(joystick.Horizontal, joystick.Vertical);
+            moveVector = new Vector3(inputVector.x, 0, 0);
+            transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed);
+
+            if (moveVector.x != 0)
+            {
+                animController.StartRunningAnim();
+                animController.StopIdleAnim();
+            }
+            else
+            {
+                animController.StartIdleAnim();
+                animController.StopRunningAnim();
+            }
+
         }
         else
         {
@@ -205,7 +206,10 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext value)
     {
-        if (value.started)
+		if (isStunned)
+			return;
+
+		if (value.started)
         {
             Jump();
         }
@@ -221,7 +225,10 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        if (isGrounded) //바닥이거나
+		if (isStunned)
+			return;
+
+		if (isGrounded) //바닥이거나
         {
             rigid.velocity = new Vector2(rigid.velocity.x, jumpForce);
             jumpCount = 1;
@@ -358,6 +365,7 @@ public class PlayerController : MonoBehaviour
         stunTouchCount = 0;
         stunTouchTimer = 0;
         spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.5f);
+        animController.StartSleepingAnim();
     }
 
     private void EndStun()
@@ -366,5 +374,6 @@ public class PlayerController : MonoBehaviour
         stunDuration = 0;
         stunTouchCount = 0;
         spriteRenderer.color = originalColor;
+        animController.StopSleepingAnim();
     }
 }

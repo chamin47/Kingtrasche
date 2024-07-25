@@ -68,12 +68,17 @@ public class PlayerAnimationController : MonoBehaviour
         animator.SetTrigger(_Bite);
     }
 
-    public void SleepingAnim()
+    public void StartSleepingAnim()
     {
-        animator.SetTrigger(_Sleeping);
+        animator.SetBool(_Sleeping, true);
     }
 
-    IEnumerator StepSound()
+	public void StopSleepingAnim()
+	{
+		animator.SetBool(_Sleeping, false);
+	}
+
+	IEnumerator StepSound()
     {
         while (true)
         {
