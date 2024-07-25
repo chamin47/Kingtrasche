@@ -257,9 +257,14 @@ public class PlayerController : MonoBehaviour
         life -= Damage;
 
         OnHealthChanged?.Invoke();
+        if (life < 2)
+        {
+            Managers.Sound.Play("heartbeat_fast_0", Sound.Bgm);
+        }
         if (life <= 0)
         {
             life = 0;
+            Managers.Sound.Clear();
             DirectDying();
         }
     }
