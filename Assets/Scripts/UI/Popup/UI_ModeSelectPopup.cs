@@ -35,7 +35,16 @@ public class UI_ModeSelectPopup : UI_Popup
 
 	private void OnclickStoryButton(PointerEventData eventData)
 	{
-		Managers.Scene.LoadScene(Scene.StageScene);
+		if (PlayerPrefs.GetInt("FirstTimePlaying") == 0)
+		{
+			PlayerPrefs.SetInt("FirstTimePlaying", 1); 
+			PlayerPrefs.Save();
+			Managers.Scene.LoadScene(Scene.RunningTutorialScene);
+		}
+		else
+		{
+			Managers.Scene.LoadScene(Scene.StageScene);
+		}
 	}
 
 	private void OnClickInfinityButton(PointerEventData eventData)
