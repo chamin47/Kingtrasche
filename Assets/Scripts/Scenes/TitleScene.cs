@@ -9,7 +9,7 @@ public class TitleScene : BaseScene
 	{
 		base.Init();
 
-		SceneType = Scene.Title;
+		SceneType = Scene.TitleScene;
 
 		Time.timeScale = 1.0f;
 		Managers.UI.ShowSceneUI<UI_TitleScene>();

@@ -31,6 +31,6 @@ public class UI_Popup : UI_Base
     {
         Managers.Sound.Play("switch10", Sound.Effect);
         UI_GameScene.currentScore = 0;
-        Managers.Scene.LoadScene(Scene.StageSelect);
+        Managers.Scene.LoadScene(Scene.StageScene);
     }
 }

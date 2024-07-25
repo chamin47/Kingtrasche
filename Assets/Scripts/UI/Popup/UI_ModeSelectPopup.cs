@@ -34,12 +34,12 @@ public class UI_ModeSelectPopup : UI_Popup
 
 	private void OnclickStoryButton(PointerEventData eventData)
 	{
-		Managers.Scene.LoadScene(Scene.StageSelect);
+		Managers.Scene.LoadScene(Scene.StageScene);
 	}
 
 	private void OnClickInfinityButton(PointerEventData eventData)
 	{
-		Managers.Scene.LoadScene(Scene.Infinity);
+		Managers.Scene.LoadScene(Scene.InfinityRunningScene);
 	}
 
 	private void OnClickBackButton(PointerEventData eventData)

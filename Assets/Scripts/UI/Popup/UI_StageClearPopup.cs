@@ -65,12 +65,12 @@ public class UI_StageClearPopup : UI_Popup
 
         if (currentStage == 4)
         {
-            Managers.Scene.LoadScene(Scene.Boss);
+            Managers.Scene.LoadScene(Scene.BossScene1);
             PlayerPrefs.SetInt("StageNumber", ++currentStage);
         }
         else if (currentStage == 9)
         {
-            Managers.Scene.LoadScene(Scene.Boss2);
+            Managers.Scene.LoadScene(Scene.BossScene2);
             PlayerPrefs.SetInt("StageNumber", ++currentStage);
         }
         else if (currentStage == 14)
@@ -81,7 +81,7 @@ public class UI_StageClearPopup : UI_Popup
         else
         {
             PlayerPrefs.SetInt("StageNumber", ++currentStage);
-            Managers.Scene.LoadScene(Scene.Game);
+            Managers.Scene.LoadScene(Scene.RunningScene);
         }
     }
 }

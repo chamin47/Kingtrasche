@@ -88,6 +88,6 @@ public class UI_PausePopup : UI_Popup
     {
         Managers.Sound.Play("switch10", Sound.Effect);
         UI_GameScene.currentScore = 0;
-        Managers.Scene.LoadScene(Scene.StageSelect);
+        Managers.Scene.LoadScene(Scene.StageScene);
     }
 }
