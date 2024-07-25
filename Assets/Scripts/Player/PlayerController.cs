@@ -206,10 +206,10 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext value)
     {
-		if (isStunned)
-			return;
+        if (isStunned)
+            return;
 
-		if (value.started)
+        if (value.started)
         {
             Jump();
         }
@@ -225,10 +225,10 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-		if (isStunned)
-			return;
+        if (isStunned)
+            return;
 
-		if (isGrounded) //바닥이거나
+        if (isGrounded) //바닥이거나
         {
             rigid.velocity = new Vector2(rigid.velocity.x, jumpForce);
             jumpCount = 1;
@@ -253,6 +253,7 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(int Damage)
     {
+        Managers.Sound.Play("8", Sound.Effect);
         life -= Damage;
 
         OnHealthChanged?.Invoke();
