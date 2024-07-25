@@ -49,7 +49,7 @@ public class UI_TitleScene : UI_Scene
 
 	private void OnStartButtonClicked(PointerEventData eventData)
 	{
-		Managers.Scene.LoadScene(Scene.StageSelect);
+		Managers.UI.ShowPopupUI<UI_ModeSelectPopup>();
 	}
 
 	private void OnOptionButtonClicked(PointerEventData eventData)
