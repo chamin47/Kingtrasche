@@ -12,7 +12,9 @@ public class SceneManagerEx
 		{ Scene.StageSelect, "StageScene" },
 		{ Scene.Game, "HAY Scene" },
 		{ Scene.Boss, "BossScene1" },
-		{ Scene.Boss2, "BossScene2" }
+		{ Scene.Boss2, "BossScene2" },
+		{ Scene.Infinity, "InfinityRunningScene" },
+		{ Scene.Tutorial, "RunningTutorialScene" }
 	};
 
 	public BaseScene CurrentScene { get { return GameObject.FindAnyObjectByType<BaseScene>(); } }  

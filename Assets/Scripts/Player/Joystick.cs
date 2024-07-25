@@ -16,7 +16,7 @@ public class Joystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
 
     void Start()
     {
-        canvas = GameObject.Find("UI_Touch").GetComponent<Canvas>();
+        canvas = GameObject.Find("Joystick").GetComponent<Canvas>();
         outLine = gameObject.GetComponent<RectTransform>();
     }
 

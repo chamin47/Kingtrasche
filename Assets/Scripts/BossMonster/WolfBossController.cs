@@ -2,7 +2,6 @@ using GameBalance;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -174,7 +173,7 @@ public class WolfBossController : MonoBehaviour, IBossController
 		yield return new WaitForSeconds(Claw.preDelay); // 스킬 연출을 위한 대기시간
 
 		// X자 모양 이펙트 생성 및 랜덤 위치 설정
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 5; i++)
 		{
 			Vector3 randomPosition = new Vector3(
 				Random.Range(-8f, 8f), // 화면의 가로 범위

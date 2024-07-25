@@ -9,7 +9,9 @@ public enum Scene
 	Game,
 	Boss,
 	Boss2,
-	Boss3
+	Boss3,
+	Infinity,
+	Tutorial
 }
 
 [UGS(typeof(Sound))]
