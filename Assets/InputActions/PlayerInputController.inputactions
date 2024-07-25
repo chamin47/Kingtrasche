@@ -1,5 +1,5 @@
 {
-    "name": "PlayerController",
+    "name": "PlayerInputController",
     "maps": [
         {
             "name": "PlayerActions",
@@ -27,6 +27,15 @@
                     "name": "Skill",
                     "type": "Button",
                     "id": "f13d5f52-42ba-4434-92ea-d63b9d8e5b26",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "TouchJump",
+                    "type": "Button",
+                    "id": "57d32dd0-5c46-4546-840c-ac725765dd48",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -86,6 +95,17 @@
                     "processors": "",
                     "groups": "Mobile",
                     "action": "Skill",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7d52e264-828d-44e0-bd0c-663067826a6b",
+                    "path": "<Touchscreen>/touch*/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mobile",
+                    "action": "TouchJump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
