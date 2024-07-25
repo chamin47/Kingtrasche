@@ -100,6 +100,7 @@ public class HoneyBeeEvent : MonoBehaviour
 
     private void EndEvent()
     {
+        Managers.Sound.Play("harp strum 1", Sound.Effect);
         playerController.moveSpeed = tempSpeed;
         Destroy(this.gameObject);
     }
