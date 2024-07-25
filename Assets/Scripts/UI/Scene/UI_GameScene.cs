@@ -47,12 +47,14 @@ public class UI_GameScene : UI_Scene
 
     private void OnClickPauseButton(PointerEventData eventData)
     {
+        Managers.Sound.Play("switch10", Sound.Effect);
         Managers.UI.ShowPopupUI<UI_PausePopup>();
         Time.timeScale = 0;
     }
 
     public static void AddScore()
     {
+        //[todo] 고기 먹는 소리
         if (SceneManager.GetActiveScene().name == "InfinityRunningScene") // 무한일때만 +10점, 돈에 추가안됨
         {
             currentScore += 10;

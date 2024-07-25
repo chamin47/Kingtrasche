@@ -2,6 +2,7 @@ using GameBalance;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class PlayerController : MonoBehaviour
     private InputAction moveAction;
     private InputAction jumpAction;
     private InputAction skillAction;
+
+    public Joystick joystick;
+    public Button jumpButton;
 
     private Rigidbody2D rigid;
     private PlayerShooting playerShooting;
@@ -48,6 +52,7 @@ public class PlayerController : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         playerShooting = GetComponent<PlayerShooting>();
         animController = GetComponent<PlayerAnimationController>();
+        joystick = GameObject.FindObjectOfType<Joystick>();
 
         var playerActionMap = inputActionAsset.FindActionMap("PlayerActions");
         moveAction = playerActionMap.FindAction("Move");
@@ -56,6 +61,7 @@ public class PlayerController : MonoBehaviour
 
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         originalColor = spriteRenderer.color;
+
 
         InitPlayerData();
     }
@@ -89,6 +95,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        jumpButton.onClick.AddListener(OnJumpButtonClick);
     }
     public void InitPlayerData()
     {
@@ -138,7 +145,21 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed); //Test
+        //Test
+        inputVector = new Vector2(joystick.Horizontal, joystick.Vertical);
+        moveVector = new Vector3(inputVector.x, 0, 0);
+        transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed);
+        if (moveVector.x != 0)
+        {
+            animController.StartRunningAnim();
+            animController.StopIdleAnim();
+        }
+        else
+        {
+            animController.StartIdleAnim();
+            animController.StopRunningAnim();
+        }
+        //Test
 
         FlipPlayerDirection();
     }
@@ -151,7 +172,7 @@ public class PlayerController : MonoBehaviour
         inputVector = value.ReadValue<Vector2>();
         moveVector = new Vector3(inputVector.x, 0f, 0f);
 
-        if (moveVector.x != 0 && isGrounded)
+        if (moveVector.x != 0)
         {
             animController.StartRunningAnim();
             animController.StopIdleAnim();
@@ -167,27 +188,40 @@ public class PlayerController : MonoBehaviour
     {
         if (value.started)
         {
-            if (isGrounded) //바닥이거나
-            {
-                rigid.velocity = new Vector2(rigid.velocity.x, jumpForce);
-                jumpCount = 1;
+            Jump();
+        }
+    }
 
-                Managers.Sound.Play("SFX_Jump_42", Sound.Effect);
-            }
-            else if (jumpCount < 2) // jumpCount가 2회미만일때만 점프 가능
-            {
-                rigid.velocity = new Vector2(rigid.velocity.x, 0f); // y 축 속도 초기화 -> 일정한 높이의 점프
-                rigid.velocity = new Vector2(rigid.velocity.x, jumpForce);
-                jumpCount = 2;
+    private void OnJumpButtonClick()
+    {
+        if (!isStunned)
+        {
+            Jump();
+        }
+    }
 
-                Managers.Sound.Play("SFX_Jump_35", Sound.Effect);
-            }
-            animController.JumpAnim();
+    private void Jump()
+    {
+        if (isGrounded) //바닥이거나
+        {
+            rigid.velocity = new Vector2(rigid.velocity.x, jumpForce);
+            jumpCount = 1;
 
-            if (SceneManager.GetActiveScene().name == "RunningTutorialScene")
-            {
-                RunningTutorialManager.Instance.IncreaseJumpCount();
-            }
+            Managers.Sound.Play("SFX_Jump_42", Sound.Effect);
+        }
+        else if (jumpCount < 2) // jumpCount가 2회미만일때만 점프 가능
+        {
+            rigid.velocity = new Vector2(rigid.velocity.x, 0f); // y 축 속도 초기화 -> 일정한 높이의 점프
+            rigid.velocity = new Vector2(rigid.velocity.x, jumpForce);
+            jumpCount = 2;
+
+            Managers.Sound.Play("SFX_Jump_35", Sound.Effect);
+        }
+        animController.JumpAnim();
+
+        if (SceneManager.GetActiveScene().name == "RunningTutorialScene")
+        {
+            RunningTutorialManager.Instance.IncreaseJumpCount();
         }
     }
 

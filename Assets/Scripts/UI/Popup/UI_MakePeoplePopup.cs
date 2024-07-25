@@ -1,34 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UI_MakePeoplePopup : UI_Popup
 {
-	enum GameObjects
-	{
-	}
-	
-	enum Buttons
-	{
-		ClosePopupButton
-	}
+    enum GameObjects
+    {
+    }
 
-	public override bool Init()
-	{
-		if (base.Init() == false)
-			return false;
-		Bind<Button>(typeof(Buttons));
+    enum Buttons
+    {
+        ClosePopupButton
+    }
 
-		GetButton((int)Buttons.ClosePopupButton).gameObject.BindEvent(OnClickCloseButton);
+    public override bool Init()
+    {
+        if (base.Init() == false)
+            return false;
+        Bind<Button>(typeof(Buttons));
+
+        GetButton((int)Buttons.ClosePopupButton).gameObject.BindEvent(OnClickCloseButton);
 
 
-		return true;
-	}
+        return true;
+    }
 
-	public void OnClickCloseButton(PointerEventData eventData)
-	{
-		Managers.UI.ClosePopupUI(this);
-	}
+    public void OnClickCloseButton(PointerEventData eventData)
+    {
+        Managers.Sound.Play("switch10", Sound.Effect);
+        Managers.UI.ClosePopupUI(this);
+    }
 }

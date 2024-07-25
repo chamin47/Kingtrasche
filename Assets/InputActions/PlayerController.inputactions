@@ -90,6 +90,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "MobileActions",
+            "id": "36977d6e-e1d4-4ca6-971d-43cb0d2852f4",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Button",
+                    "id": "7dad3e51-049a-430a-839f-590f5eceb2a3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Move1",
+                    "type": "Value",
+                    "id": "0c23d90f-8431-422f-960f-7834dad46d99",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "689e8b1d-5f5f-40ba-95e8-3b013ede1d1f",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7f5482ef-33bf-4c70-9eee-8287c3367607",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
