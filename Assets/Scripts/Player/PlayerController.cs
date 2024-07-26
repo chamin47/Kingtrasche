@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isJumpig = false;
     public bool isStunned = false; // 스턴 상태 여부
+    public bool isPuzzlOn = false;
     private float stunDuration = 0f; // 스턴 지속 시간
 
     private int stunTouchCount = 0; // 스턴 해제 터치 횟수
@@ -251,7 +252,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        if (isStunned)
+        if (isStunned || isPuzzlOn)
             return;
 
         if (isGrounded) //바닥이거나
