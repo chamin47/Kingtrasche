@@ -32,6 +32,7 @@ public class EventObstacle : MonoBehaviour
     private void StartEvent(string path)
     {
         playerController.moveSpeed = 0f;
+        playerController.isPuzzlOn = true;
         EventObj = Managers.Resource.Load<GameObject>(path);
         Instantiate(EventObj);
         CardGameManager.Instance.OnEndEvent += EndEvent;
@@ -41,5 +42,6 @@ public class EventObstacle : MonoBehaviour
     {
         Destroy(this.gameObject);
         playerController.moveSpeed = tempSpeed;
+        playerController.isPuzzlOn= false;
     }
 }

@@ -6,7 +6,7 @@ public class GameScene : BaseScene
 	{
 		base.Init();
 
-		SceneType = Scene.Game;
+		SceneType = Scene.RunningScene;
 		Time.timeScale = 1.0f;
 		Managers.UI.ShowSceneUI<UI_GameScene>();
 	}

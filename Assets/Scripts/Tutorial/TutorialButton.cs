@@ -5,6 +5,7 @@ public class TutorialButton : MonoBehaviour
 
     public void OnClickClearButton()
     {
-        Managers.Scene.LoadScene(Scene.StageSelect);
+        Managers.Sound.Play("switch10", Sound.Effect);
+        Managers.Scene.LoadScene(Scene.StageScene);
     }
 }

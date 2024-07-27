@@ -54,7 +54,7 @@ public class UI_GameScene : UI_Scene
 
     public static void AddScore()
     {
-        //[todo] 고기 먹는 소리
+        Managers.Sound.Play("pop", Sound.Effect);
         if (SceneManager.GetActiveScene().name == "InfinityRunningScene") // 무한일때만 +10점, 돈에 추가안됨
         {
             currentScore += 10;

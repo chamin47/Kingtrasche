@@ -2,7 +2,6 @@ using GameBalance;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,9 +9,10 @@ public class PlayerController : MonoBehaviour
     private InputAction moveAction;
     private InputAction jumpAction;
     private InputAction skillAction;
+    private InputAction touchJumpAction;
 
     public Joystick joystick;
-    public Button jumpButton;
+    //public Button jumpButton;
     public GameObject JoystickUI;
 
     private Rigidbody2D rigid;
@@ -35,7 +35,8 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
 
     private bool isJumpig = false;
-    private bool isStunned = false; // 스턴 상태 여부
+    public bool isStunned = false; // 스턴 상태 여부
+    public bool isPuzzlOn = false;
     private float stunDuration = 0f; // 스턴 지속 시간
 
     private int stunTouchCount = 0; // 스턴 해제 터치 횟수
@@ -58,6 +59,7 @@ public class PlayerController : MonoBehaviour
         moveAction = playerActionMap.FindAction("Move");
         jumpAction = playerActionMap.FindAction("Jump");
         skillAction = playerActionMap.FindAction("Skill");
+        touchJumpAction = playerActionMap.FindAction("TouchJump");
 
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         originalColor = spriteRenderer.color;
@@ -70,11 +72,13 @@ public class PlayerController : MonoBehaviour
         moveAction.Enable();
         jumpAction.Enable();
         skillAction.Enable();
+        touchJumpAction.Enable();
 
         moveAction.performed += OnMove;
         moveAction.canceled += OnMove;
         jumpAction.performed += OnJump;
         skillAction.performed += OnSkill;
+        touchJumpAction.performed += OnJump;
 
         // 씬 확정될때 활성화
         ExceptKey();
@@ -85,16 +89,18 @@ public class PlayerController : MonoBehaviour
         moveAction.Disable();
         jumpAction.Disable();
         skillAction.Disable();
+        touchJumpAction.Disable();
 
         moveAction.performed -= OnMove;
         moveAction.canceled -= OnMove;
         jumpAction.performed -= OnJump;
         skillAction.performed -= OnSkill;
+        touchJumpAction.performed -= OnJump;
     }
 
     void Start()
     {
-        jumpButton.onClick.AddListener(OnJumpButtonClick);
+        //jumpButton.onClick.AddListener(OnJumpButtonClick);
     }
     public void InitPlayerData()
     {
@@ -130,21 +136,6 @@ public class PlayerController : MonoBehaviour
             SceneManager.GetActiveScene().name == "BossScene2" ||
             SceneManager.GetActiveScene().name == "BossScene3") //슈팅씬
         {
-            inputVector = new Vector2(joystick.Horizontal, joystick.Vertical);
-            moveVector = new Vector3(inputVector.x, 0, 0);
-            transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed);
-
-            if (moveVector.x != 0)
-            {
-                animController.StartRunningAnim();
-                animController.StopIdleAnim();
-            }
-            else
-            {
-                animController.StartIdleAnim();
-                animController.StopRunningAnim();
-            }
-
             if (isStunned)
             {
                 stunTouchTimer += Time.deltaTime;
@@ -160,6 +151,22 @@ public class PlayerController : MonoBehaviour
                 // 스턴이 터치로 해제되지 않으면 리턴
                 return;
             }
+
+            inputVector = new Vector2(joystick.Horizontal, joystick.Vertical);
+            moveVector = new Vector3(inputVector.x, 0, 0);
+            transform.Translate(moveVector.normalized * Time.deltaTime * moveSpeed);
+
+            if (moveVector.x != 0)
+            {
+                animController.StartRunningAnim();
+                animController.StopIdleAnim();
+            }
+            else
+            {
+                animController.StartIdleAnim();
+                animController.StopRunningAnim();
+            }
+
         }
         else
         {
@@ -181,6 +188,7 @@ public class PlayerController : MonoBehaviour
         }
 
         FlipPlayerDirection();
+        HandleJumpInput();
     }
 
     public void OnMove(InputAction.CallbackContext value)
@@ -205,15 +213,38 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext value)
     {
+        if (isStunned)
+            return;
+
         if (value.started)
         {
             Jump();
         }
     }
 
-    private void OnJumpButtonClick()
+    //private void OnJumpButtonClick()
+    //{
+    //    if (!isStunned)
+    //    {
+    //        Jump();
+    //    }
+    //}
+
+    private void HandleJumpInput()
     {
-        if (!isStunned)
+
+        if (Input.touchCount > 0)
+        {
+            foreach (Touch touch in Input.touches)
+            {
+                if (touch.phase == UnityEngine.TouchPhase.Began)
+                {
+                    Jump();
+                }
+            }
+        }
+
+        if (Input.GetMouseButtonDown(0))
         {
             Jump();
         }
@@ -221,6 +252,9 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
+        if (isStunned || isPuzzlOn)
+            return;
+
         if (isGrounded) //바닥이거나
         {
             rigid.velocity = new Vector2(rigid.velocity.x, jumpForce);
@@ -246,12 +280,18 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(int Damage)
     {
+        Managers.Sound.Play("8", Sound.Effect);
         life -= Damage;
 
         OnHealthChanged?.Invoke();
+        if (life < 2)
+        {
+            Managers.Sound.Play("heartbeat_fast_0", Sound.Bgm);
+        }
         if (life <= 0)
         {
             life = 0;
+            Managers.Sound.Clear();
             DirectDying();
         }
     }
@@ -358,6 +398,7 @@ public class PlayerController : MonoBehaviour
         stunTouchCount = 0;
         stunTouchTimer = 0;
         spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.5f);
+        animController.StartSleepingAnim();
     }
 
     private void EndStun()
@@ -366,5 +407,6 @@ public class PlayerController : MonoBehaviour
         stunDuration = 0;
         stunTouchCount = 0;
         spriteRenderer.color = originalColor;
+        animController.StopSleepingAnim();
     }
 }

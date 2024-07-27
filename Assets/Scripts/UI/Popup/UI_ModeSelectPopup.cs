@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UI_ModeSelectPopup : UI_Popup
@@ -34,12 +35,21 @@ public class UI_ModeSelectPopup : UI_Popup
 
 	private void OnclickStoryButton(PointerEventData eventData)
 	{
-		Managers.Scene.LoadScene(Scene.StageSelect);
+		if (PlayerPrefs.GetInt("FirstTimePlaying") == 0)
+		{
+			PlayerPrefs.SetInt("FirstTimePlaying", 1);
+			PlayerPrefs.Save();
+			Managers.Scene.LoadScene(Scene.RunningTutorialScene);
+		}
+		else
+		{
+			Managers.Scene.LoadScene(Scene.StageScene);
+		}
 	}
 
 	private void OnClickInfinityButton(PointerEventData eventData)
 	{
-		Managers.Scene.LoadScene(Scene.Infinity);
+		Managers.Scene.LoadScene(Scene.InfinityRunningScene);
 	}
 
 	private void OnClickBackButton(PointerEventData eventData)

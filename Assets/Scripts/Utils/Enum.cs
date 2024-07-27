@@ -4,14 +4,14 @@ using GoogleSheet.Core.Type;
 public enum Scene
 {
 	Unknown,
-	Title,
-	StageSelect,
-	Game,
-	Boss,
-	Boss2,
-	Boss3,
-	Infinity,
-	Tutorial
+	TitleScene,
+	StageScene,
+	RunningScene,
+	BossScene1,
+	BossScene2,
+	BossScene3,
+	InfinityRunningScene,
+	RunningTutorialScene,
 }
 
 [UGS(typeof(Sound))]
