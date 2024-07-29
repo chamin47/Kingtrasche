@@ -14,6 +14,8 @@ public class Joystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
     public float Horizontal { get { return input.x; } }
     public float Vertical { get { return input.y; } }
 
+    public bool isPointDown = false; // 조이스틱 첫 터치 상태
+
     void Start()
     {
         canvas = GameObject.Find("Joystick").GetComponent<Canvas>();
@@ -22,6 +24,10 @@ public class Joystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (isPointDown)
+        {
+            isPointDown = true;
+        }
         OnDrag(eventData);
     }
 

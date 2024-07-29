@@ -216,22 +216,24 @@ public class PlayerController : MonoBehaviour
         if (isStunned)
             return;
 
+        if (joystick.isPointDown)
+        {
+            joystick.isPointDown = false;
+            return;
+        }
         if (value.started)
         {
             Jump();
         }
     }
 
-    //private void OnJumpButtonClick()
-    //{
-    //    if (!isStunned)
-    //    {
-    //        Jump();
-    //    }
-    //}
-
     private void HandleJumpInput()
     {
+        if (joystick.isPointDown) // Á¶ÀÌ½ºÆ½ÀÌ Ã³À½ ÅÍÄ¡°¡ µÆÀ»¶© Á¡ÇÁ X
+        {
+            joystick.isPointDown = false;
+            return;
+        }
 
         if (Input.touchCount > 0)
         {
@@ -244,10 +246,10 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            Jump();
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    Jump();
+        //}
     }
 
     private void Jump()
