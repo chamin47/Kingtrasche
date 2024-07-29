@@ -46,6 +46,7 @@ public class HoneyBeeEvent : MonoBehaviour
     private void SpawnBee()
     {
         playerController.moveSpeed = 0f;
+        playerController.isPuzzlOn = true;
 
         honeyBeePrefab = Managers.Resource.Load<GameObject>(beePath);
         randomBeeNumbers = Random.Range(5, 10);
@@ -102,6 +103,7 @@ public class HoneyBeeEvent : MonoBehaviour
     {
         Managers.Sound.Play("harp strum 1", Sound.Effect);
         playerController.moveSpeed = tempSpeed;
+        playerController.isPuzzlOn = false;
         Destroy(this.gameObject);
     }
 }
