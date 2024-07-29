@@ -14,7 +14,6 @@ public class HoneyBeeEvent : MonoBehaviour
     private int randomBeeNumbers;
     private string beePath = "Puzzle/HoneyBee";
 
-
     void Start()
     {
         player = GameObject.FindWithTag("Player");
@@ -22,7 +21,6 @@ public class HoneyBeeEvent : MonoBehaviour
         playerController = player.GetComponent<PlayerController>();
         tempSpeed = playerController.moveSpeed;
     }
-
 
     void Update()
     {
