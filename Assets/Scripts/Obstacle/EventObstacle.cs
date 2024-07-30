@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EventObstacle : MonoBehaviour
 {
@@ -25,15 +26,34 @@ public class EventObstacle : MonoBehaviour
         float distance = Vector3.Distance(this.transform.position, player.transform.position);
         if (distance <= eventDistance && EventObj == null)
         {
-            StartEvent(puzzlePath);
+            StartEvent();
         }
     }
 
-    private void StartEvent(string path)
+    private void StartEvent()
     {
         playerController.moveSpeed = 0f;
         playerController.isPuzzlOn = true;
-        EventObj = Managers.Resource.Load<GameObject>(path);
+        EventObj = Managers.Resource.Load<GameObject>(puzzlePath);
+
+        if (SceneManager.GetActiveScene().name == "RunningTutorialScene")
+        {
+            RunningTutorialManager.Instance.secondTutorial.SetActive(false);
+            RunningTutorialManager.Instance.thirdTutorial.SetActive(true);
+            Invoke("InstantiateGO", 2f);
+        }
+        else
+        {
+            InstantiateGO();
+        }
+    }
+
+    private void InstantiateGO()
+    {
+        if (SceneManager.GetActiveScene().name == "RunningTutorialScene")
+        {
+            RunningTutorialManager.Instance.thirdTutorial.SetActive(false);
+        }
         Instantiate(EventObj);
         CardGameManager.Instance.OnEndEvent += EndEvent;
     }

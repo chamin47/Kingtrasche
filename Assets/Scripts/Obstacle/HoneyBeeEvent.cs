@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HoneyBeeEvent : MonoBehaviour
 {
@@ -28,7 +29,6 @@ public class HoneyBeeEvent : MonoBehaviour
         if (distance <= eventDistance && honeyBeePrefab == null)
         {
             SpawnBee();
-            Invoke("QuizPopup", 3.5f);
         }
     }
 
@@ -45,8 +45,26 @@ public class HoneyBeeEvent : MonoBehaviour
     {
         playerController.moveSpeed = 0f;
         playerController.isPuzzlOn = true;
-
         honeyBeePrefab = Managers.Resource.Load<GameObject>(beePath);
+
+        if (SceneManager.GetActiveScene().name == "RunningTutorialScene")
+        {
+            RunningTutorialManager.Instance.fourthTutorial.SetActive(true);
+            Invoke("InstantiateGO", 2f);
+        }
+        else
+        {
+            InstantiateGO();
+        }
+    }
+
+    private void InstantiateGO()
+    {
+        if (SceneManager.GetActiveScene().name == "RunningTutorialScene")
+        {
+            RunningTutorialManager.Instance.fourthTutorial.SetActive(false);
+        }
+
         randomBeeNumbers = Random.Range(5, 10);
         for (int i = 0; i < randomBeeNumbers; i++)
         {
@@ -54,6 +72,7 @@ public class HoneyBeeEvent : MonoBehaviour
             StartCoroutine(MoveAndReturn(honeyBee));
         }
         Debug.Log($"{randomBeeNumbers}付府 国 积己");
+        Invoke("QuizPopup", 3.5f);
     }
 
     private IEnumerator MoveAndReturn(GameObject honeyBee)

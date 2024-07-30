@@ -6,11 +6,14 @@ public class RunningTutorialManager : UI_Popup
 {
     public static RunningTutorialManager Instance;
 
-    public GameObject Player;
-    private PlayerController PlayerController;
+    private GameObject player;
+    private PlayerController playerController;
 
     public GameObject firstTutorial;
     public GameObject secondTutorial;
+    public GameObject thirdTutorial;
+    public GameObject fourthTutorial;
+
     public GameObject Tree;
 
     private int JumpCount = 0;
@@ -42,8 +45,9 @@ public class RunningTutorialManager : UI_Popup
 
         Init();
 
-        PlayerController = Player.GetComponent<PlayerController>();
-        tempSpeed = PlayerController.moveSpeed;
+        player = GameObject.FindWithTag("Player");
+        playerController = player.GetComponent<PlayerController>();
+        tempSpeed = playerController.moveSpeed;
     }
 
     public override bool Init()
@@ -59,7 +63,7 @@ public class RunningTutorialManager : UI_Popup
 
     private void Update()
     {
-        distanceFromTree = Vector3.Distance(Tree.transform.position, Player.transform.position);
+        distanceFromTree = Vector3.Distance(Tree.transform.position, player.transform.position);
         SecondTutorialStart();
     }
 
@@ -105,7 +109,7 @@ public class RunningTutorialManager : UI_Popup
         {
             for (int i = 0; i < stopCount; i++)
             {
-                PlayerController.moveSpeed = 0f;
+                playerController.moveSpeed = 0f;
                 stopCount--;
             }
             secondTutorial.SetActive(true);
@@ -120,6 +124,6 @@ public class RunningTutorialManager : UI_Popup
 
         firstDescription.gameObject.SetActive(false);
         secondDescription.gameObject.SetActive(true);
-        PlayerController.moveSpeed = tempSpeed;
+        playerController.moveSpeed = tempSpeed;
     }
 }
