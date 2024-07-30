@@ -1,5 +1,6 @@
 using System;
 using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -14,15 +15,29 @@ public class UI_BeeQuizPopup : UI_Popup
     enum Texts
     {
         SelectButton01Text,
-        SelectButton02Text
+        SelectButton02Text,
+        TimeText
     }
 
     public Action OnEndEvent;
     bool isCorrect;
+    TMP_Text timeText;
+
+    private float time = 3f;
+    private float timeoutTimer = 0;
 
     private void Awake()
     {
         Init();
+        timeText = GetText((int)Texts.TimeText);
+    }
+
+    private void Update()
+    {
+        time -= Time.deltaTime;
+
+        timeText.text = time.ToString("N2");
+        TimeOut();
     }
 
     public override bool Init()
@@ -94,6 +109,15 @@ public class UI_BeeQuizPopup : UI_Popup
         {
             GetButton((int)Buttons.SelectButton01).gameObject.BindEvent(IncorrectButton);
             GetButton((int)Buttons.SelectButton02).gameObject.BindEvent(CorrectButton);
+        }
+    }
+
+    private void TimeOut()
+    {
+        if (time <= timeoutTimer)
+        {
+            Managers.Game.GameOver();
+            Destroy(gameObject);
         }
     }
 }

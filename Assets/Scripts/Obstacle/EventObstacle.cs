@@ -40,8 +40,9 @@ public class EventObstacle : MonoBehaviour
 
     private void EndEvent()
     {
-        Destroy(this.gameObject);
+        Managers.Sound.Play("harp strum 1", Sound.Effect);
         playerController.moveSpeed = tempSpeed;
-        playerController.isPuzzlOn= false;
+        playerController.isPuzzlOn = false;
+        Destroy(this.gameObject);
     }
 }
