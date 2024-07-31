@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Jump
+  m_Name: Dying
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -20,7 +20,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: -0.4099998, y: 0.263, z: 0}
+        value: {x: -0.4099998, y: 0.255, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -37,19 +37,21 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: 9555b31810716134ba1afe081da416e2, type: 3}
+      value: {fileID: 21300000, guid: b989e2ffb3938cf46ad0add74583c752, type: 3}
     - time: 0.083333336
-      value: {fileID: 21300000, guid: e943575ebfee7ab468c33cd90f563a65, type: 3}
+      value: {fileID: 21300000, guid: 3fc4748cf059144449d45809ab7c65dd, type: 3}
     - time: 0.16666667
-      value: {fileID: 21300000, guid: 14286da38e1f58c47ab647818ee8bf74, type: 3}
+      value: {fileID: 21300000, guid: 3d8f719bc23e2f8469bd285e19a54b00, type: 3}
     - time: 0.25
-      value: {fileID: 21300000, guid: 5abeacefbedecc84ca68661bd8cdbc8d, type: 3}
+      value: {fileID: 21300000, guid: 3a2a6a40a88bdb94ea4b98187e995b49, type: 3}
     - time: 0.33333334
-      value: {fileID: 21300000, guid: 704962c3d0461f14d9a163229c7ccb17, type: 3}
+      value: {fileID: 21300000, guid: 1de432bd68733e94893fb703676ba002, type: 3}
     - time: 0.41666666
-      value: {fileID: 21300000, guid: 9769f1292d467dc4197b75b93a7b80fc, type: 3}
+      value: {fileID: 21300000, guid: dee154908a3a3804b82b57866f3b92e7, type: 3}
     - time: 0.5
-      value: {fileID: 21300000, guid: 1cc1bd755b9366147a1af38e79a9906e, type: 3}
+      value: {fileID: 21300000, guid: 61a7abd52d43e744596a5080b938fefa, type: 3}
+    - time: 0.5833333
+      value: {fileID: 21300000, guid: 1c2e346ed1c10d9458a51c4c6e32c883, type: 3}
     attribute: m_Sprite
     path: Dog
     classID: 212
@@ -81,19 +83,20 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 9555b31810716134ba1afe081da416e2, type: 3}
-    - {fileID: 21300000, guid: e943575ebfee7ab468c33cd90f563a65, type: 3}
-    - {fileID: 21300000, guid: 14286da38e1f58c47ab647818ee8bf74, type: 3}
-    - {fileID: 21300000, guid: 5abeacefbedecc84ca68661bd8cdbc8d, type: 3}
-    - {fileID: 21300000, guid: 704962c3d0461f14d9a163229c7ccb17, type: 3}
-    - {fileID: 21300000, guid: 9769f1292d467dc4197b75b93a7b80fc, type: 3}
-    - {fileID: 21300000, guid: 1cc1bd755b9366147a1af38e79a9906e, type: 3}
+    - {fileID: 21300000, guid: b989e2ffb3938cf46ad0add74583c752, type: 3}
+    - {fileID: 21300000, guid: 3fc4748cf059144449d45809ab7c65dd, type: 3}
+    - {fileID: 21300000, guid: 3d8f719bc23e2f8469bd285e19a54b00, type: 3}
+    - {fileID: 21300000, guid: 3a2a6a40a88bdb94ea4b98187e995b49, type: 3}
+    - {fileID: 21300000, guid: 1de432bd68733e94893fb703676ba002, type: 3}
+    - {fileID: 21300000, guid: dee154908a3a3804b82b57866f3b92e7, type: 3}
+    - {fileID: 21300000, guid: 61a7abd52d43e744596a5080b938fefa, type: 3}
+    - {fileID: 21300000, guid: 1c2e346ed1c10d9458a51c4c6e32c883, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.51666665
+    m_StopTime: 0.59999996
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -136,7 +139,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.263
+        value: 0.255
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -175,4 +178,11 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.5833333
+    functionName: AfterAnimationNExtAction
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: 3d08da59bb95f294abbfaab36fdc1b7b, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
