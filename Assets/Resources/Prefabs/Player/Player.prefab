@@ -100,7 +100,8 @@ GameObject:
   - component: {fileID: 5819999585277016220}
   - component: {fileID: 3234829088074272488}
   - component: {fileID: 337207786951229292}
-  - component: {fileID: 6113993479240892330}
+  - component: {fileID: 6406111444746699768}
+  - component: {fileID: 270113708970351408}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -201,6 +202,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: f13d5f52-42ba-4434-92ea-d63b9d8e5b26
     m_ActionName: PlaterActions/Skill[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 57d32dd0-5c46-4546-840c-ac725765dd48
+    m_ActionName: PlayerActions/TouchJump
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Mobile
   m_DefaultActionMap: PlayerActions
@@ -269,8 +274,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.85, y: 0.64}
-    newSize: {x: 0.85, y: 0.64}
+    oldSize: {x: 0.77, y: 0.64}
+    newSize: {x: 0.77, y: 0.64}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -300,6 +305,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 2048
+  isStunned: 0
+  isPuzzlOn: 0
 --- !u!114 &5819999585277016220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,7 +357,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
---- !u!212 &6113993479240892330
+--- !u!114 &6406111444746699768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3292661982725336173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b613c14b252fbb46998dcc9e1e883bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerRenderer: {fileID: 1685921985636065109}
+  animator: {fileID: 3234829088074272488}
+  baseSkin: 
+  skinName: BasicDog
+--- !u!212 &270113708970351408
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
