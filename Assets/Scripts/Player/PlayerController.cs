@@ -12,14 +12,13 @@ public class PlayerController : MonoBehaviour
     private InputAction touchJumpAction;
 
     public Joystick joystick;
-    //public Button jumpButton;
     public GameObject JoystickUI;
 
     private Rigidbody2D rigid;
     private PlayerShooting playerShooting;
     private PlayerAnimationController animController;
 
-    public float moveSpeed = 3f;
+    public float moveSpeed = 0;
     public float jumpForce = 13f;
     private int jumpCount = 0;
     public int life = 3;
@@ -98,10 +97,6 @@ public class PlayerController : MonoBehaviour
         touchJumpAction.performed -= OnJump;
     }
 
-    void Start()
-    {
-        //jumpButton.onClick.AddListener(OnJumpButtonClick);
-    }
     public void InitPlayerData()
     {
         int playerid = 0;
