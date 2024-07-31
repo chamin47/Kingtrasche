@@ -4,7 +4,7 @@ public class PlayerSkinManager : MonoBehaviour
 {
     public Renderer playerRenderer;
     public Animator animator;
-    public string baseSkin = "";
+    private string baseSkin = "BasicDog";
 
     public string skinName = "AfghanHoundBlack";
 
@@ -33,6 +33,7 @@ public class PlayerSkinManager : MonoBehaviour
         AnimationClip running = Resources.Load<AnimationClip>($"DogSkinAndAnimationClip/{skinName}/Running");
         AnimationClip sleeping = Resources.Load<AnimationClip>($"DogSkinAndAnimationClip/{skinName}/Sleeping");
 
+        // 애니메이션 컨트롤러 오버로딩
         AnimatorOverrideController overrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
         overrideController["DogIdle"] = idle;
         overrideController["DogDying"] = dying;
