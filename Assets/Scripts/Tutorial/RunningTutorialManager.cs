@@ -45,6 +45,7 @@ public class RunningTutorialManager : UI_Popup
 
         Init();
 
+        //player = PlayerManager.playerManager.GetPlayer();
         player = GameObject.FindWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
         tempSpeed = playerController.moveSpeed;
@@ -64,7 +65,10 @@ public class RunningTutorialManager : UI_Popup
     private void Update()
     {
         distanceFromTree = Vector3.Distance(Tree.transform.position, player.transform.position);
-        SecondTutorialStart();
+        if (distanceFromTree <= eventDistane && stopCount == 1)
+        {
+            SecondTutorialStart();
+        }
     }
 
     public void IncreaseJumpCount()
@@ -105,16 +109,11 @@ public class RunningTutorialManager : UI_Popup
 
     private void SecondTutorialStart()
     {
-        if (distanceFromTree <= eventDistane)
-        {
-            for (int i = 0; i < stopCount; i++)
-            {
-                playerController.moveSpeed = 0f;
-                stopCount--;
-            }
-            secondTutorial.SetActive(true);
-            Invoke("CloseFirstDescription", 2f);
-        }
+        playerController.moveSpeed = 0f;
+        stopCount--;
+
+        secondTutorial.SetActive(true);
+        Invoke("CloseFirstDescription", 2f);
     }
 
     private void CloseFirstDescription()

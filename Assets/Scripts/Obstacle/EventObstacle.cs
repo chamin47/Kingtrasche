@@ -3,13 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class EventObstacle : MonoBehaviour
 {
-    private GameObject EventObj;
-    private string puzzlePath = "Puzzle/Board";
-    private string BeeHivePath = "";
-    private string QuizPath = "";
-
     private GameObject player;
     private PlayerController playerController;
+
+    private GameObject EventObj;
+    private string puzzlePath = "Puzzle/Board";
 
     private float tempSpeed;
     private float eventDistance = 7f;
@@ -17,6 +15,7 @@ public class EventObstacle : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindWithTag("Player");
+        //player = PlayerManager.playerManager.GetPlayer();
         playerController = player.GetComponent<PlayerController>();
         tempSpeed = playerController.moveSpeed;
     }

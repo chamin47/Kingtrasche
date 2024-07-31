@@ -18,6 +18,7 @@ public class HoneyBeeEvent : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("Player");
+        //player = PlayerManager.playerManager.GetPlayer();
         childTransform = GetComponentsInChildren<Transform>();
         playerController = player.GetComponent<PlayerController>();
         tempSpeed = playerController.moveSpeed;
