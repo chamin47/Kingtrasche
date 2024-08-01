@@ -4,15 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class RedHoodController : MonoBehaviour
+public class RedHoodController : MonoBehaviour, IBossController
 {
     public BossState currentState = BossState.Idle;
-    public int currentHealth { get; private set; }
+    public int currentHealth { get; set; }
     public int maxHealth { get; private set; }
     private GameObject basicBulletPrefab;
-    private GameObject applePrefab;
+    private GameObject redAppleIndicatorPrefab;
+    private GameObject greenAppleIndicatorPrefab;
+    private GameObject redApplePrefab;
+    private GameObject greenApplePrefab;
     private GameObject basketPrefab;
     private GameObject laserPrefab;
+    private GameObject platformPrefab;
 
     private Transform player;
     private Animator anim;
@@ -40,9 +44,13 @@ public class RedHoodController : MonoBehaviour
         anim = GetComponent<Animator>();
 
         // 스킬 프리팹 로드
-        basicBulletPrefab = Managers.Resource.Load<GameObject>("BossSkill/RedHoodBoss/BasicBullet");
-        applePrefab = Managers.Resource.Load<GameObject>("BossSkill/RedHoodBoss/Apple");
+        basicBulletPrefab = Managers.Resource.Load<GameObject>("BossSkill/RedHoodBoss/RedBullet");
+        redAppleIndicatorPrefab = Managers.Resource.Load<GameObject>("BossSkill/RedHoodBoss/RedAppleIndicator");
+		greenAppleIndicatorPrefab = Managers.Resource.Load<GameObject>("BossSkill/RedHoodBoss/GreenAppleIndicator");
+		redApplePrefab = Managers.Resource.Load<GameObject>("BossSkill/RedHoodBoss/RedApple");
+        greenApplePrefab = Managers.Resource.Load<GameObject>("BossSkill/RedHoodBoss/GreenApple");
         basketPrefab = Managers.Resource.Load<GameObject>("BossSkill/RedHoodBoss/Basket");
+        platformPrefab = Managers.Resource.Load<GameObject>("BossSkill/RedHoodBoss/Platform");
         laserPrefab = Managers.Resource.Load<GameObject>("BossSkill/RedHoodBoss/Laser");
 
         // 초기 스킬 설정
@@ -54,12 +62,12 @@ public class RedHoodController : MonoBehaviour
         if (player.position.x < transform.position.x)
         {
             facingRight = false;
-            transform.rotation = Quaternion.Euler(0, 0, 0); // 왼쪽
+            transform.rotation = Quaternion.Euler(0, 180, 0); // 왼쪽
         }
         else
         {
             facingRight = true;
-            transform.rotation = Quaternion.Euler(0, 180, 0); // 오른쪽
+            transform.rotation = Quaternion.Euler(0, 0, 0); // 오른쪽
         }
 
         if (isSkillExecuting)
@@ -125,100 +133,179 @@ public class RedHoodController : MonoBehaviour
 
     private IEnumerator BasicAttack()
     {
-        for (int i = 0; i < 3; i++)
-        {
-            Vector2 direction = player.position.x > transform.position.x ? Vector2.right : Vector2.left;
-            GameObject bullet = Instantiate(basicBulletPrefab, transform.position, Quaternion.identity);
-            //bullet.GetComponent<Bullet>().Initialize(direction);
-            yield return new WaitForSeconds(1f);
-        }
-
-        yield return new WaitForSeconds(1f);
-        for (int i = 0; i < 3; i++)
-        {
-            Vector2 direction = new Vector2(Mathf.Cos(Mathf.PI / 3 * i), Mathf.Sin(Mathf.PI / 3 * i));
-            GameObject bullet = Instantiate(basicBulletPrefab, transform.position, Quaternion.identity);
-            //bullet.GetComponent<Bullet>().Initialize(direction);
-            yield return new WaitForSeconds(1f);
-        }
+        yield return new WaitForSeconds(0f);
+        //anim.SetTrigger("isAttack");
+        Vector2 direction = player.position.x > transform.position.x ? Vector2.right : Vector2.left;
+        GameObject fishbone = Instantiate(basicBulletPrefab, transform.position, Quaternion.identity);
+        fishbone.GetComponent<RedBullet>().direction = direction; // 발사 로직 예시
+        yield return new WaitForSeconds(1.5f);
     }
 
     private IEnumerator BasicAttackCType()
     {
-        yield return null;
-    }
+		yield return new WaitForSeconds(0f);
+		Vector2 direction = facingRight ? Vector2.right : Vector2.left;
 
-    private IEnumerator AppleDrop()
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            // 빨간 사과
-            Vector3 redApplePosition = new Vector3(Random.Range(-8f, 8f), 5f, 0);
-            Instantiate(applePrefab, redApplePosition, Quaternion.identity);
-            yield return new WaitForSeconds(2f);
+		//anim.SetTrigger("isAttack");
+		float[] angles = new float[] { -20f, 0f, 20f };
+		foreach (float angle in angles)
+		{
+			float radian = angle * Mathf.Deg2Rad;
+			Vector2 rotatedDirection = new Vector2(
+				direction.x * Mathf.Cos(radian) - direction.y * Mathf.Sin(radian),
+				direction.x * Mathf.Sin(radian) + direction.y * Mathf.Cos(radian)
+			);
 
-            // 초록 사과
-            Vector3 greenApplePosition = new Vector3(Random.Range(-8f, 8f), 5f, 0);
-            Instantiate(applePrefab, greenApplePosition, Quaternion.identity);
-            yield return new WaitForSeconds(2f);
-        }
-    }
+			GameObject fishbone = Instantiate(basicBulletPrefab, transform.position, Quaternion.identity);
+			fishbone.GetComponent<RedBullet>().direction = rotatedDirection;
+		}
 
-    private IEnumerator BasketThrow()
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            Vector3 basketPosition = new Vector3(Random.Range(-8f, 8f), 5f, 0);
-            GameObject basket = Instantiate(basketPrefab, basketPosition, Quaternion.identity);
-            basket.GetComponent<Rigidbody2D>().AddForce(new Vector2(1, -1) * 10f, ForceMode2D.Impulse);
-            yield return new WaitForSeconds(0.5f);
-        }
-    }
+		yield return new WaitForSeconds(1.5f);
+	}
 
-    private IEnumerator LaserAttack()
-    {
-        anim.SetTrigger("isCharging");
-        yield return new WaitForSeconds(3f);
-        anim.SetTrigger("isAttacking");
+	private IEnumerator AppleDrop()
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			// 빨간 사과 떨어질 곳 표시
+			Vector3 redApplePosition = new Vector3(Random.Range(-8f, 8f), 0.7291f, 0);
+			GameObject redAppleIndicator = Instantiate(redAppleIndicatorPrefab, redApplePosition, Quaternion.identity); // 빨간 사과 표시
 
-        GameObject laser = Instantiate(laserPrefab, transform.position, Quaternion.identity);
-        laser.transform.localScale = new Vector3(10f, 1f, 1f); // 예시 값
+			yield return new WaitForSeconds(2f);
+            Destroy(redAppleIndicator);
 
-        //Camera.main.GetComponent<CameraShake>().Shake(1f, 0.2f);
-        yield return new WaitForSeconds(3f);
-        Destroy(laser);
-    }
+			// 빨간 사과 떨어짐
+			Instantiate(redApplePrefab, new Vector3(redApplePosition.x, 5f, 0f), Quaternion.identity);
+			yield return new WaitForSeconds(1f);
 
-    private void Phase1()
+			// 초록 사과 떨어질 곳 표시
+			Vector3 greenApplePosition = new Vector3(Random.Range(-8f, 8f), 0.7291f, 0);
+			GameObject greenAppleIndicator = Instantiate(greenAppleIndicatorPrefab, greenApplePosition, Quaternion.identity); // 초록 사과 표시
+
+			yield return new WaitForSeconds(2f);
+            Destroy(greenAppleIndicator);
+
+			// 초록 사과 떨어짐
+			Instantiate(greenApplePrefab, new Vector3(greenApplePosition.x, 5f, 0f), Quaternion.identity);
+			yield return new WaitForSeconds(1f);
+		}
+	}
+
+	private IEnumerator BasketThrow()
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			// 바구니 던질 위치 설정 (랜덤)
+			Vector3 basketPosition = new Vector3(Random.Range(transform.position.x, transform.position.x - 3f), Random.Range(transform.position.y, transform.position.y + 2f), 0);
+			GameObject basket = Instantiate(basketPrefab, basketPosition, Quaternion.identity);
+
+			// 45도 각도로 던지기
+			basket.GetComponent<Basket>().initialForce = 15f;
+
+			yield return new WaitForSeconds(1f);
+		}
+	}
+
+	private IEnumerator LaserAttack()
+	{
+		// 점멸 및 레이저 준비
+		for (int i = 0; i < 3; i++)
+		{
+			// 점멸 효과
+			gameObject.GetComponent<SpriteRenderer>().enabled = !gameObject.GetComponent<SpriteRenderer>().enabled;
+			yield return new WaitForSeconds(1f);
+		}
+
+		// 레이저 발사
+		gameObject.GetComponent<SpriteRenderer>().enabled = true;
+		GameObject laser = Instantiate(laserPrefab, transform.position, Quaternion.identity);
+		laser.transform.localScale = new Vector3(10f, 1f, 1f); // 예시 값
+		laser.GetComponent<Laser>().SetDirection(facingRight ? Vector2.right : Vector2.left);
+
+		// 랜덤 발판 생성
+		Vector3 platformPosition = new Vector3(Random.Range(-5.5f, 1.1f), Random.Range(0.5f, 1.2f), 0);
+		GameObject platform = Instantiate(platformPrefab, platformPosition, Quaternion.identity);
+
+        // 화면 흔들림 효과
+        StartCoroutine(ShakeCamera(1.0f, 0.1f));
+
+		yield return new WaitForSeconds(3f);
+
+		// 레이저 제거
+		Destroy(laser);
+
+		yield return new WaitForSeconds(1f);
+
+		// 발판 제거
+		Destroy(platform);
+	}
+
+	private IEnumerator ShakeCamera(float duration, float magnitude)
+	{
+		Vector3 originalPos = Camera.main.transform.localPosition;
+		float elapsed = 0.0f;
+
+		while (elapsed < duration)
+		{
+			float x = Random.Range(-1f, 1f) * magnitude;
+			float y = Random.Range(-1f, 1f) * magnitude;
+
+			Camera.main.transform.localPosition = new Vector3(x, y, originalPos.z);
+
+			elapsed += Time.deltaTime;
+
+			yield return null;
+		}
+
+		Camera.main.transform.localPosition = originalPos;
+	}
+
+
+	private void Phase1()
     {
         skillList.Clear();
-        skillList.Add(new Skill(() => BasicAttack(), 0f, 1));
-        skillList.Add(new Skill(() => AppleDrop(), 0f, 1));
-    }
+        skillList.Add(new Skill(() => BasicAttack(), 0f, 3));
+		skillList.Add(new Skill(() => BasicAttackCType(), 0f, 3));
+		skillList.Add(new Skill(() => AppleDrop(), 0f, 1));
+	}
 
     private void Phase2()
     {
         skillList.Clear();
-        skillList.Add(new Skill(() => BasicAttack(), 0f, 1));
-        skillList.Add(new Skill(() => AppleDrop(), 0f, 1));
-        skillList.Add(new Skill(() => BasketThrow(), 0f, 1));
-    }
+        skillList.Add(new Skill(() => BasicAttack(), 0f, 3));
+		skillList.Add(new Skill(() => BasicAttackCType(), 0f, 3));
+		skillList.Add(new Skill(() => AppleDrop(), 0f, 1));
+		skillList.Add(new Skill(() => BasketThrow(), 0f, 1));
+	}
 
     private void Phase3()
     {
-        skillList.Clear();
-        skillList.Add(new Skill(() => BasicAttack(), 0f, 1));
-        skillList.Add(new Skill(() => AppleDrop(), 0f, 1));
-        skillList.Add(new Skill(() => BasketThrow(), 0f, 1));
-        skillList.Add(new Skill(() => LaserAttack(), 0f, 1));
-    }
+		skillList.Clear();
+
+		List<Skill> possibleSkills = new List<Skill>
+		{
+			new Skill(() => BasicAttack(), 0f, 1),
+			new Skill(() => BasicAttackCType(), 0f, 1),
+			new Skill(() => AppleDrop(), 0f, 1),
+			new Skill(() => BasketThrow(), 0f, 1),
+			new Skill(() => LaserAttack(), 0f, 1),
+		};
+
+		// 가능한 스킬 목록에서 랜덤하게 선택하여 스킬 리스트를 만듭니다.
+		while (possibleSkills.Count > 0)
+		{
+			int index = Random.Range(0, possibleSkills.Count);
+			skillList.Add(possibleSkills[index]);
+			possibleSkills.RemoveAt(index);
+		}
+	}
 
     public void TakeDamage(int damage)
     {
         if (currentState == BossState.Dead)
             return;
 
-        Managers.Sound.Play("11", Sound.Effect);
+        Managers.Sound.Play("7", Sound.Effect);
         currentHealth -= damage;
         OnHealthChanged?.Invoke();
         if (currentHealth <= 0)
@@ -230,11 +317,11 @@ public class RedHoodController : MonoBehaviour
 
     private class Skill
     {
-        public System.Func<IEnumerator> Action { get; private set; }
+        public Func<IEnumerator> Action { get; private set; }
         public float Cooldown { get; private set; }
         public int Count { get; private set; }
 
-        public Skill(System.Func<IEnumerator> action, float cooldown, int count)
+        public Skill(Func<IEnumerator> action, float cooldown, int count)
         {
             Action = action;
             Cooldown = cooldown;
