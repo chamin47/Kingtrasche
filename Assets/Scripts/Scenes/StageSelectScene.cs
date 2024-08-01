@@ -9,6 +9,7 @@ public class StageSelectScene : BaseScene
         SceneType = Scene.StageScene;
         Time.timeScale = 1.0f;
         Managers.UI.ShowSceneUI<UI_StageSelectScene>();
+        Managers.Sound.Play("BGM_04", Sound.Bgm);
     }
 
     public override void Clear()

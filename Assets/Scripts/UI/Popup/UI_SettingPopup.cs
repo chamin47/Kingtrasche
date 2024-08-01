@@ -27,8 +27,10 @@ public class UI_SettingPopup : UI_Popup
 
     enum Images
     {
-        BGMOnOff,
-        SoundEffectOnOff,
+        BGMOn,
+        BGMOff,
+        SoundEffectOn,
+        SoundEffectOff,
         MakePeople
     }
     #endregion
@@ -36,6 +38,8 @@ public class UI_SettingPopup : UI_Popup
     private void Awake()
     {
         Init();
+        EffectSoundImageUpdate();
+        BgmImageUpdate();
     }
 
     public override bool Init()
@@ -67,12 +71,51 @@ public class UI_SettingPopup : UI_Popup
 
     private void EffectSoundOnOff(PointerEventData eventData)
     {
+        Managers.Sound.Play("switch10", Sound.Effect);
+        Managers.Sound.ONOffEffect();
+        EffectSoundImageUpdate();
+    }
 
+    private void EffectSoundImageUpdate()
+    {
+        Image on = Get<Image>((int)Images.SoundEffectOn);
+        Image off = Get<Image>((int)Images.SoundEffectOff);
+        if (Managers.Sound._isEffectOn == false)
+        {
+            on.gameObject.SetActive(false);
+            off.gameObject.SetActive(true);
+
+        }
+        else if (Managers.Sound._isEffectOn == true)
+        {
+            on.gameObject.SetActive(true);
+            off.gameObject.SetActive(false);
+        }
     }
 
     private void BackgroundSoundOnOff(PointerEventData eventData)
     {
+        Managers.Sound.Play("switch10", Sound.Effect);
+        Managers.Sound.OnOffBgm();
+        BgmImageUpdate();
+    }
 
+    private void BgmImageUpdate()
+    {
+        Image on = Get<Image>((int)Images.BGMOn);
+        Image off = Get<Image>((int)Images.BGMOff);
+
+        if (Managers.Sound._isBgmOn == false)
+        {
+            on.gameObject.SetActive(false);
+            off.gameObject.SetActive(true);
+
+        }
+        else if (Managers.Sound._isBgmOn == true)
+        {
+            on.gameObject.SetActive(true);
+            off.gameObject.SetActive(false);
+        }
     }
 
     private void MakePeople(PointerEventData eventData)

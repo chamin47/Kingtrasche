@@ -41,12 +41,14 @@ public class CameraMove : MonoBehaviour
         }
         else if (stageNumber == 6 || stageNumber == 7 || stageNumber == 8 || stageNumber == 9)
         {
+            Managers.Sound.Play("Happy walk", Sound.Bgm);
             morning.gameObject.SetActive(false);
             night.gameObject.SetActive(false);
 
         }
         else if (stageNumber == 11 || stageNumber == 12 || stageNumber == 13 || stageNumber == 14)
         {
+            Managers.Sound.Play("one_0", Sound.Bgm);
             morning.gameObject.SetActive(false);
             sunset.gameObject.SetActive(false);
 

@@ -11,6 +11,9 @@ public class SoundManager
     // MP3 À½¿ø?		-> AudioClip
     // °ü°´(±Í)		-> AudioListner
 
+    public bool _isBgmOn = true;
+    public bool _isEffectOn = true;
+
     public void Init()
     {
         GameObject root = GameObject.Find("@Sound");
@@ -95,5 +98,19 @@ public class SoundManager
             Debug.Log($"AudioClip Missing ! {path}");
 
         return audioClip;
+    }
+
+    public void OnOffBgm()
+    {
+        _isBgmOn = !_isBgmOn;
+        AudioSource audioSource = _audioSources[(int)Sound.Bgm];
+        audioSource.mute = !_isBgmOn;
+    }
+
+    public void ONOffEffect()
+    {
+        _isEffectOn = !_isEffectOn;
+        AudioSource audioSource = _audioSources[(int)(Sound.Effect)];
+        audioSource.mute = !_isEffectOn;
     }
 }

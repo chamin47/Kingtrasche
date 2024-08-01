@@ -19,6 +19,7 @@ public class UI_LobbyScene : UI_Scene
     {
         Init();
         Managers.Player.SpawnPlayer();
+        Managers.Sound.Play("Nostalgia__LOOP", Sound.Bgm);
     }
 
     public override bool Init()
