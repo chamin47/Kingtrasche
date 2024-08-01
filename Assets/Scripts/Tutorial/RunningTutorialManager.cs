@@ -6,11 +6,14 @@ public class RunningTutorialManager : UI_Popup
 {
     public static RunningTutorialManager Instance;
 
-    public GameObject Player;
-    private PlayerController PlayerController;
+    private GameObject player;
+    private PlayerController playerController;
 
     public GameObject firstTutorial;
     public GameObject secondTutorial;
+    public GameObject thirdTutorial;
+    public GameObject fourthTutorial;
+
     public GameObject Tree;
 
     private int JumpCount = 0;
@@ -42,8 +45,10 @@ public class RunningTutorialManager : UI_Popup
 
         Init();
 
-        PlayerController = Player.GetComponent<PlayerController>();
-        tempSpeed = PlayerController.moveSpeed;
+        //player = PlayerManager.playerManager.GetPlayer();
+        player = GameObject.FindWithTag("Player");
+        playerController = player.GetComponent<PlayerController>();
+        tempSpeed = playerController.moveSpeed;
     }
 
     public override bool Init()
@@ -59,8 +64,11 @@ public class RunningTutorialManager : UI_Popup
 
     private void Update()
     {
-        distanceFromTree = Vector3.Distance(Tree.transform.position, Player.transform.position);
-        SecondTutorialStart();
+        distanceFromTree = Vector3.Distance(Tree.transform.position, player.transform.position);
+        if (distanceFromTree <= eventDistane && stopCount == 1)
+        {
+            SecondTutorialStart();
+        }
     }
 
     public void IncreaseJumpCount()
@@ -101,16 +109,11 @@ public class RunningTutorialManager : UI_Popup
 
     private void SecondTutorialStart()
     {
-        if (distanceFromTree <= eventDistane)
-        {
-            for (int i = 0; i < stopCount; i++)
-            {
-                PlayerController.moveSpeed = 0f;
-                stopCount--;
-            }
-            secondTutorial.SetActive(true);
-            Invoke("CloseFirstDescription", 2f);
-        }
+        playerController.moveSpeed = 0f;
+        stopCount--;
+
+        secondTutorial.SetActive(true);
+        Invoke("CloseFirstDescription", 2f);
     }
 
     private void CloseFirstDescription()
@@ -120,6 +123,6 @@ public class RunningTutorialManager : UI_Popup
 
         firstDescription.gameObject.SetActive(false);
         secondDescription.gameObject.SetActive(true);
-        PlayerController.moveSpeed = tempSpeed;
+        playerController.moveSpeed = tempSpeed;
     }
 }
