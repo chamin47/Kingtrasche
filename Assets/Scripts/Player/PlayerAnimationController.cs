@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -31,13 +30,11 @@ public class PlayerAnimationController : MonoBehaviour
     public void StartRunningAnim()
     {
         animator.SetBool(_Running, true);
-        //StartCoroutine("StepSound");
     }
 
     public void StopRunningAnim()
     {
         animator.SetBool(_Running, false);
-        //StopCoroutine("StepSound");
     }
 
     public void JumpAnim()
@@ -80,14 +77,5 @@ public class PlayerAnimationController : MonoBehaviour
     public void StopSleepingAnim()
     {
         animator.SetBool(_Sleeping, false);
-    }
-
-    IEnumerator StepSound()
-    {
-        while (true)
-        {
-            Managers.Sound.Play("sfx_step_grass_l", Sound.Effect);
-            yield return new WaitForSeconds(0.5f);
-        }
     }
 }
