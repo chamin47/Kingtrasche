@@ -172,7 +172,7 @@ public class UI_StageSelectScene : UI_Scene
     private void OnClickLevel15Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.BossScene1);
+        Managers.Scene.LoadScene(Scene.BossScene3);
         PlayerPrefs.SetInt("StageNumber", 15);
     }
     #endregion

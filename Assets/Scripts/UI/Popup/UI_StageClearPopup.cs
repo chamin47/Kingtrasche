@@ -75,8 +75,8 @@ public class UI_StageClearPopup : UI_Popup
         }
         else if (currentStage == 14)
         {
-            // 15 스테이지 보스씬으로 이동시키기
-            PlayerPrefs.SetInt("StageNumber", ++currentStage);
+			Managers.Scene.LoadScene(Scene.BossScene3);
+			PlayerPrefs.SetInt("StageNumber", ++currentStage);
         }
         else
         {

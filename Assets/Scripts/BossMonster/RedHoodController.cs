@@ -219,7 +219,6 @@ public class RedHoodController : MonoBehaviour, IBossController
 		// 레이저 발사
 		gameObject.GetComponent<SpriteRenderer>().enabled = true;
 		GameObject laser = Instantiate(laserPrefab, transform.position, Quaternion.identity);
-		laser.transform.localScale = new Vector3(10f, 1f, 1f); // 예시 값
 		laser.GetComponent<Laser>().SetDirection(facingRight ? Vector2.right : Vector2.left);
 
 		// 랜덤 발판 생성

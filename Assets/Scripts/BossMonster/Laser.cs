@@ -10,17 +10,7 @@ public class Laser : MonoBehaviour
 	{
 		direction = dir;
 	}
-
-	private void Start()
-	{
-		StartCoroutine(DestroyAfterDuration(3f));
-	}
-
-	private IEnumerator DestroyAfterDuration(float duration)
-	{
-		yield return new WaitForSeconds(duration);
-		Destroy(gameObject);
-	}
+	
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
@@ -28,10 +18,5 @@ public class Laser : MonoBehaviour
 		{
 			other.gameObject.GetComponent<PlayerController>().TakeDamage(1);
 		}
-	}
-
-	private void Update()
-	{
-		transform.Translate(direction * Time.deltaTime * 5f);
 	}
 }
