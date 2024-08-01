@@ -54,7 +54,6 @@ public class Joystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        isPointDown = false;
         input = Vector2.zero;
         handle.anchoredPosition = Vector2.zero;
     }
