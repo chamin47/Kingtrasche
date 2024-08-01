@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 public class InfinityManager : MonoBehaviour
 {
-    public Transform Player;
+    private Transform Player;
     private GameObject[] mapChunk;
     private List<GameObject> activeChunkList = new List<GameObject>(); // 劝己 没农 府胶飘
     private List<GameObject> deactiveChunkList = new List<GameObject>(); //厚劝己 没农 府胶飘
@@ -21,6 +21,7 @@ public class InfinityManager : MonoBehaviour
 
     private void Start()
     {
+        Player = Managers.Player.GetPlayer().transform;
         List<GameObject> mapChunkList = new List<GameObject>(mapChunk);
         Shuffle(mapChunkList);
         for (int i = 0; i < mapChunkList.Count; i++)

@@ -14,8 +14,8 @@ public class EventObstacle : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindWithTag("Player");
-        //player = PlayerManager.playerManager.GetPlayer();
+        //player = GameObject.FindWithTag("Player");
+        player = PlayerManager.playerManager.GetPlayer();
         playerController = player.GetComponent<PlayerController>();
         tempSpeed = playerController.moveSpeed;
     }

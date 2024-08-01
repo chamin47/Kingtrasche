@@ -15,6 +15,7 @@ public class ProgressCanvas : MonoBehaviour
 
     void Start()
     {
+        player = Managers.Player.GetPlayer().transform;
         playerStartX = player.position.x;
         initialMiniPlayerPosition = miniPlayer.anchoredPosition;
 

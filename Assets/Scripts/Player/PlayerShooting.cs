@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerShooting : MonoBehaviour
 {
@@ -10,7 +9,7 @@ public class PlayerShooting : MonoBehaviour
 
     public float boneSpeed = 10f;
 
-    public bool isFiring = true;
+    public bool isFiring = false;
 
     private PlayerController playerController;
 
@@ -19,14 +18,13 @@ public class PlayerShooting : MonoBehaviour
     {
         playerController = GetComponent<PlayerController>();
 
-        //[Todo] 씬 확정 시 추후 수정
-        if (SceneManager.GetActiveScene().name == "RunningTutorialScene" || SceneManager.GetActiveScene().name == "InfinityRunningScene")
-        {
-            isFiring = false;
-        }
-        if (isFiring)
+        if (isFiring == true)
         {
             StartCoroutine(AutoFire());
+        }
+        else
+        {
+            return;
         }
     }
 
@@ -37,13 +35,13 @@ public class PlayerShooting : MonoBehaviour
 
     private IEnumerator AutoFire()
     {
-        while (isFiring)
+        while (isFiring == true)
         {
             if (!playerController.isStunned)
             {
-				ShootingBone();
-			}
-            
+                ShootingBone();
+            }
+
             yield return new WaitForSeconds(fireRate);
         }
     }
