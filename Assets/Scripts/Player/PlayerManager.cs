@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager playerManager { get; private set; }
-    public GameObject playerPrefab;
+    private GameObject playerPrefab;
     private GameObject PlayerInstance;
 
     private void Awake()
@@ -12,7 +12,7 @@ public class PlayerManager : MonoBehaviour
         {
             playerManager = this;
             DontDestroyOnLoad(gameObject);
-            SpawnPlayer();
+            //SpawnPlayer();
         }
         else
         {
@@ -20,8 +20,9 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    private void SpawnPlayer()
+    public void SpawnPlayer()
     {
+        playerPrefab = Managers.Resource.Load<GameObject>("Player/Player");
         if (playerPrefab != null && PlayerInstance == null)
         {
             PlayerInstance = Instantiate(playerPrefab);

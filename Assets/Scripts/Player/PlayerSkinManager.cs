@@ -6,7 +6,7 @@ public class PlayerSkinManager : MonoBehaviour
     public Animator animator;
     private string baseSkin = "BasicDog";
 
-    public string skinName = "AfghanHoundBlack";
+    public string skinName = "BasicDog";
 
     private void Start()
     {

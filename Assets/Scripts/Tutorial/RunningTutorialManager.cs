@@ -45,8 +45,8 @@ public class RunningTutorialManager : UI_Popup
 
         Init();
 
-        //player = PlayerManager.playerManager.GetPlayer();
-        player = GameObject.FindWithTag("Player");
+        player = PlayerManager.playerManager.GetPlayer();
+        //player = GameObject.FindWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
         tempSpeed = playerController.moveSpeed;
     }
