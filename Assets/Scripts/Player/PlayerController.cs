@@ -249,7 +249,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        if (isStunned || isPuzzlOn)
+        if (isStunned || isPuzzlOn || SceneManager.GetActiveScene().name == "LobbyScene")
             return;
 
         if (isGrounded) //바닥이거나
