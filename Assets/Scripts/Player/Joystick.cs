@@ -19,15 +19,11 @@ public class Joystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
     void Start()
     {
         canvas = GameObject.Find("Joystick").GetComponent<Canvas>();
-        //outLine = gameObject.GetComponent<RectTransform>();
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (isPointDown)
-        {
-            isPointDown = true;
-        }
+        isPointDown = true;
         OnDrag(eventData);
     }
 
@@ -58,6 +54,7 @@ public class Joystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        isPointDown = false;
         input = Vector2.zero;
         handle.anchoredPosition = Vector2.zero;
     }

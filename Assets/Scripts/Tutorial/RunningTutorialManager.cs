@@ -44,11 +44,6 @@ public class RunningTutorialManager : UI_Popup
         }
 
         Init();
-
-        player = PlayerManager.playerManager.GetPlayer();
-        //player = GameObject.FindWithTag("Player");
-        playerController = player.GetComponent<PlayerController>();
-        tempSpeed = playerController.moveSpeed;
     }
 
     public override bool Init()
@@ -60,6 +55,14 @@ public class RunningTutorialManager : UI_Popup
         Bind<Image>(typeof(Images));
 
         return true;
+    }
+
+    private void Start()
+    {
+        player = PlayerManager.playerManager.GetPlayer();
+        //player = GameObject.FindWithTag("Player");
+        playerController = player.GetComponent<PlayerController>();
+        tempSpeed = playerController.moveSpeed;
     }
 
     private void Update()

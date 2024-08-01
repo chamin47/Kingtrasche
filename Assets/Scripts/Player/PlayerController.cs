@@ -224,27 +224,29 @@ public class PlayerController : MonoBehaviour
 
     private void HandleJumpInput()
     {
-        if (joystick.isPointDown) // Á¶ÀÌ½ºÆ½ÀÌ Ã³À½ ÅÍÄ¡°¡ µÆÀ»¶© Á¡ÇÁ X
+        if (joystick.isPointDown == true) // Á¶ÀÌ½ºÆ½ÀÌ Ã³À½ ÅÍÄ¡°¡ µÆÀ»¶© Á¡ÇÁ X
         {
             joystick.isPointDown = false;
             return;
         }
-
-        if (Input.touchCount > 0)
+        else if (joystick.isPointDown == false)
         {
-            foreach (Touch touch in Input.touches)
+            if (Input.touchCount > 0)
             {
-                if (touch.phase == UnityEngine.TouchPhase.Began)
+                foreach (Touch touch in Input.touches)
                 {
-                    Jump();
+                    if (touch.phase == UnityEngine.TouchPhase.Began)
+                    {
+                        Jump();
+                    }
                 }
             }
-        }
 
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    Jump();
-        //}
+            if (Input.GetMouseButtonDown(0))
+            {
+                Jump();
+            }
+        }
     }
 
     private void Jump()
