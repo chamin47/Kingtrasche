@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 13f;
     private int jumpCount = 0;
     public int life = 3;
+    private bool isDead = false;
 
     private Vector2 inputVector;
     private Vector3 moveVector;
@@ -251,7 +252,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        if (isStunned || isPuzzlOn || SceneManager.GetActiveScene().name == "LobbyScene")
+        if (isStunned || isPuzzlOn || SceneManager.GetActiveScene().name == "LobbyScene" || isDead == true)
             return;
 
         if (isGrounded) //¹Ù´ÚÀÌ°Å³ª
@@ -297,6 +298,8 @@ public class PlayerController : MonoBehaviour
 
     public void DirectDying()
     {
+        isDead = true;
+        Managers.Sound.Play("wind down 2", Sound.Effect);
         animController.DyingAnim();
     }
 
