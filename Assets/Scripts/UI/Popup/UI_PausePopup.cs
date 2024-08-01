@@ -15,8 +15,10 @@ public class UI_PausePopup : UI_Popup
         ContinueButton,
         RetryButton,
         StopButton,
-        BGMOnOff,
-        SoundEffectOnOff
+        BGMOn,
+        BGMOff,
+        SoundEffectOn,
+        SoundEffectOff
     }
 
     enum Texts
@@ -31,14 +33,18 @@ public class UI_PausePopup : UI_Popup
 
     enum Images
     {
-        BGMOnOff,
-        SoundEffectOnOff
+        BGMOn,
+        BGMOff,
+        SoundEffectOn,
+        SoundEffectOff
     }
     #endregion
 
     private void Awake()
     {
         Init();
+        EffectSoundImageUpdate();
+        BgmImageUpdate();
     }
 
     public override bool Init()
@@ -49,8 +55,10 @@ public class UI_PausePopup : UI_Popup
         Bind<Button>(typeof(Buttons));
         Bind<Image>(typeof(Images));
 
-        Get<Button>((int)Buttons.SoundEffectOnOff).gameObject.BindEvent(EffectSoundOnOff);
-        Get<Button>((int)Buttons.BGMOnOff).gameObject.BindEvent(BackgroundSoundOnOff);
+        Get<Button>((int)Buttons.BGMOn).gameObject.BindEvent(BackgroundSoundOnOff);
+        Get<Button>((int)Buttons.BGMOff).gameObject.BindEvent(BackgroundSoundOnOff);
+        Get<Button>((int)Buttons.SoundEffectOn).gameObject.BindEvent(EffectSoundOnOff);
+        Get<Button>((int)Buttons.SoundEffectOff).gameObject.BindEvent(EffectSoundOnOff);
         Get<Button>((int)Buttons.ContinueButton).gameObject.BindEvent(OnClickContinueButton);
         Get<Button>((int)Buttons.RetryButton).gameObject.BindEvent(OnClickRetryButton);
         Get<Button>((int)Buttons.StopButton).gameObject.BindEvent(OnClickStopButton);
@@ -70,11 +78,50 @@ public class UI_PausePopup : UI_Popup
     private void EffectSoundOnOff(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
+        Managers.Sound.ONOffEffect();
+        EffectSoundImageUpdate();
+    }
+
+    private void EffectSoundImageUpdate()
+    {
+        Image on = Get<Image>((int)Images.SoundEffectOn);
+        Image off = Get<Image>((int)Images.SoundEffectOff);
+        if (Managers.Sound._isEffectOn == false)
+        {
+            on.gameObject.SetActive(false);
+            off.gameObject.SetActive(true);
+
+        }
+        else if (Managers.Sound._isEffectOn == true)
+        {
+            on.gameObject.SetActive(true);
+            off.gameObject.SetActive(false);
+        }
     }
 
     private void BackgroundSoundOnOff(PointerEventData eventdata)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
+        Managers.Sound.OnOffBgm();
+        BgmImageUpdate();
+    }
+
+    private void BgmImageUpdate()
+    {
+        Image on = Get<Image>((int)Images.BGMOn);
+        Image off = Get<Image>((int)Images.BGMOff);
+
+        if (Managers.Sound._isBgmOn == false)
+        {
+            on.gameObject.SetActive(false);
+            off.gameObject.SetActive(true);
+
+        }
+        else if (Managers.Sound._isBgmOn == true)
+        {
+            on.gameObject.SetActive(true);
+            off.gameObject.SetActive(false);
+        }
     }
 
     private void OnClickContinueButton(PointerEventData eventdata)
