@@ -382,6 +382,12 @@ public class PlayerController : MonoBehaviour
             playerShooting.isFiring = true;
             return;
         }
+        else if (SceneManager.GetActiveScene().name == "LobbyScene")
+        {
+            OnDisable();
+            playerShooting.isFiring = false;
+            JoystickUI.SetActive(false);
+        }
         else // 그 외 씬이면
         {
             return;

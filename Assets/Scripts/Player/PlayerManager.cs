@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -25,7 +26,15 @@ public class PlayerManager : MonoBehaviour
         playerPrefab = Managers.Resource.Load<GameObject>("Player/Player");
         if (playerPrefab != null && PlayerInstance == null)
         {
-            PlayerInstance = Instantiate(playerPrefab);
+            if (SceneManager.GetActiveScene().name == "LobbyScene")
+            {
+                Vector3 newPosition = new Vector3(0, -2, 0);
+                PlayerInstance = Instantiate(playerPrefab, newPosition, Quaternion.identity);
+            }
+            else
+            {
+                PlayerInstance = Instantiate(playerPrefab);
+            }
         }
     }
 
