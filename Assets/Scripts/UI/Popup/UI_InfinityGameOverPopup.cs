@@ -48,7 +48,6 @@ public class UI_InfinityGameOverPopup : UI_Popup
         TMP_Text TakeCurrentScore = GetText((int)Texts.CurrentScoreText);
 
         int _currentScore = UI_GameScene.currentScore;
-        /*int _bestScore = int.Parse(SetBestScore.text);*/ //[todo] 저장해야함
         int _bestScore = PlayerPrefs.GetInt("BestScore");
 
         TakeCurrentScore.text = _currentScore.ToString();
@@ -73,6 +72,5 @@ public class UI_InfinityGameOverPopup : UI_Popup
             SetBestScore.text = _currentScore.ToString();
             PlayerPrefs.SetInt("BestScore", _bestScore);
         }
-
     }
 }

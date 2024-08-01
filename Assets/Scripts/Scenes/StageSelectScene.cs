@@ -1,20 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StageSelectScene : BaseScene
 {
-	protected override void Init()
-	{
-		base.Init();
+    protected override void Init()
+    {
+        base.Init();
 
-		SceneType = Scene.StageScene;
-		Time.timeScale = 1.0f;
-		Managers.UI.ShowSceneUI<UI_StageSelectScene>();
-	}
+        SceneType = Scene.StageScene;
+        Time.timeScale = 1.0f;
+        Managers.UI.ShowSceneUI<UI_StageSelectScene>();
+    }
 
-	public override void Clear()
-	{
-		Debug.Log("StageSelectScene Clear!");
-	}
+    public override void Clear()
+    {
+        Debug.Log("StageSelectScene Clear!");
+    }
 }
