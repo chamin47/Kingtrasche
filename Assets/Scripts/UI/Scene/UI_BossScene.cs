@@ -64,8 +64,8 @@ public class UI_BossScene : UI_Scene
         bossController = boss.GetComponent<IBossController>();
 
 
-        heartContainers = new GameObject[3];  // Assuming 5 is the max number of hearts
-        heartFills = new Image[3];
+        heartContainers = new GameObject[playerController.life];  // Assuming 5 is the max number of hearts
+        heartFills = new Image[playerController.life];
 
         currentHealthBar = Get<Image>((int)Images.HealthBar);
 

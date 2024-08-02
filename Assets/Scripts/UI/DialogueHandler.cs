@@ -45,8 +45,7 @@ public class DialogueHandler : UI_Popup
 		nameText = Get<TMP_Text>((int)Texts.NameText);
 		dialogueText = Get<TMP_Text>((int)Texts.DialogueText);
 
-		cutSceneImg = Get<Image>((int)Images.CutSceneImg);
-		cutSceneImg.sprite = Resources.Load<Sprite>("CutsceneImg/Img1");
+		Get<Image>((int)Images.CutSceneImg).sprite = Resources.Load<Sprite>("CutsceneImg/Img1");
 
 		return true;
 	}
