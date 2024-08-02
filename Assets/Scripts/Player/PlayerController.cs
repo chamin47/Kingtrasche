@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 13f;
     private int jumpCount = 0;
     public int life = 3;
+    private bool isDead = false;
 
     private Vector2 inputVector;
     private Vector3 moveVector;
@@ -224,32 +225,34 @@ public class PlayerController : MonoBehaviour
 
     private void HandleJumpInput()
     {
-        if (joystick.isPointDown) // Á¶ÀÌ½ºÆ½ÀÌ Ã³À½ ÅÍÄ¡°¡ µÆÀ»¶© Á¡ÇÁ X
+        if (joystick.isPointDown == true) // Á¶ÀÌ½ºÆ½ÀÌ Ã³À½ ÅÍÄ¡°¡ µÆÀ»¶© Á¡ÇÁ X
         {
             joystick.isPointDown = false;
             return;
         }
-
-        if (Input.touchCount > 0)
+        else if (joystick.isPointDown == false)
         {
-            foreach (Touch touch in Input.touches)
+            if (Input.touchCount > 0)
             {
-                if (touch.phase == UnityEngine.TouchPhase.Began)
+                foreach (Touch touch in Input.touches)
                 {
-                    Jump();
+                    if (touch.phase == UnityEngine.TouchPhase.Began)
+                    {
+                        Jump();
+                    }
                 }
             }
-        }
 
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    Jump();
-        //}
+            //if (Input.GetMouseButtonDown(0))
+            //{
+            //    Jump();
+            //}
+        }
     }
 
     private void Jump()
     {
-        if (isStunned || isPuzzlOn)
+        if (isStunned || isPuzzlOn || SceneManager.GetActiveScene().name == "LobbyScene" || isDead == true)
             return;
 
         if (isGrounded) //¹Ù´ÚÀÌ°Å³ª
@@ -295,6 +298,8 @@ public class PlayerController : MonoBehaviour
 
     public void DirectDying()
     {
+        isDead = true;
+        Managers.Sound.Play("wind down 2", Sound.Effect);
         animController.DyingAnim();
     }
 
@@ -381,6 +386,12 @@ public class PlayerController : MonoBehaviour
         {
             playerShooting.isFiring = true;
             return;
+        }
+        else if (SceneManager.GetActiveScene().name == "LobbyScene")
+        {
+            OnDisable();
+            playerShooting.isFiring = false;
+            JoystickUI.SetActive(false);
         }
         else // ±× ¿Ü ¾ÀÀÌ¸é
         {

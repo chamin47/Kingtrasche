@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -31,13 +30,11 @@ public class PlayerAnimationController : MonoBehaviour
     public void StartRunningAnim()
     {
         animator.SetBool(_Running, true);
-        //StartCoroutine("StepSound");
     }
 
     public void StopRunningAnim()
     {
         animator.SetBool(_Running, false);
-        //StopCoroutine("StepSound");
     }
 
     public void JumpAnim()
@@ -57,6 +54,10 @@ public class PlayerAnimationController : MonoBehaviour
         {
             Managers.Game.InfinityGameOver();
         }
+        else if (SceneManager.GetActiveScene().name == "RunningTutorialScene")
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
         else
         {
             Managers.Game.GameOver();
@@ -73,17 +74,8 @@ public class PlayerAnimationController : MonoBehaviour
         animator.SetBool(_Sleeping, true);
     }
 
-	public void StopSleepingAnim()
-	{
-		animator.SetBool(_Sleeping, false);
-	}
-
-	IEnumerator StepSound()
+    public void StopSleepingAnim()
     {
-        while (true)
-        {
-            Managers.Sound.Play("sfx_step_grass_l", Sound.Effect);
-            yield return new WaitForSeconds(0.5f);
-        }
+        animator.SetBool(_Sleeping, false);
     }
 }

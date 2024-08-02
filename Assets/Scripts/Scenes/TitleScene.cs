@@ -1,22 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using UGS;
 using UnityEngine;
 
 public class TitleScene : BaseScene
 {
-	protected override void Init()
-	{
-		base.Init();
+    protected override void Init()
+    {
+        base.Init();
 
-		SceneType = Scene.TitleScene;
+        SceneType = Scene.TitleScene;
 
-		Time.timeScale = 1.0f;
-		Managers.UI.ShowSceneUI<UI_TitleScene>();
-	}
+        Time.timeScale = 1.0f;
+        Managers.UI.ShowSceneUI<UI_TitleScene>();
+        Managers.Sound.Play("BGM_01", Sound.Bgm);
+    }
 
-	public override void Clear()
-	{
-		Debug.Log("TiltleScene Clear!");
-	}
+    public override void Clear()
+    {
+        Debug.Log("TiltleScene Clear!");
+    }
 }

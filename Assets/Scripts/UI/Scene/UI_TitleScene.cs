@@ -46,7 +46,7 @@ public class UI_TitleScene : UI_Scene
     private void OnStartButtonClicked(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.UI.ShowPopupUI<UI_ModeSelectPopup>();
+        Managers.Scene.LoadScene(Scene.LobbyScene);
     }
 
     private void OnOptionButtonClicked(PointerEventData eventData)

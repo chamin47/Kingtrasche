@@ -81,7 +81,7 @@ public class UI_StageSelectScene : UI_Scene
     private void OnClickBackButton(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.TitleScene);
+        Managers.Scene.LoadScene(Scene.LobbyScene);
     }
 
     #region LevelButton
