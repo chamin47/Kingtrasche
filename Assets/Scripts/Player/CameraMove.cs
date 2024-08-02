@@ -15,8 +15,6 @@ public class CameraMove : MonoBehaviour
         {
             stageNumber = RunningMapManager.Instance.currentStage;
         }
-
-        ChangeBackground();
     }
 
     void Update()
@@ -24,40 +22,6 @@ public class CameraMove : MonoBehaviour
         if (Player != null)
         {
             transform.position = new Vector3(Player.transform.position.x + 6f, 0, -10f);
-        }
-    }
-
-    private void ChangeBackground()
-    {
-        Transform morning = childGameObject[2];
-        Transform sunset = childGameObject[10];
-        Transform night = childGameObject[20];
-        if (stageNumber == 1 || stageNumber == 2 || stageNumber == 3 || stageNumber == 4)
-        {
-            Managers.Sound.Play("ArcadeGameBGM#17", Sound.Bgm);
-            sunset.gameObject.SetActive(false);
-            night.gameObject.SetActive(false);
-
-        }
-        else if (stageNumber == 6 || stageNumber == 7 || stageNumber == 8 || stageNumber == 9)
-        {
-            Managers.Sound.Play("Happy walk", Sound.Bgm);
-            morning.gameObject.SetActive(false);
-            night.gameObject.SetActive(false);
-
-        }
-        else if (stageNumber == 11 || stageNumber == 12 || stageNumber == 13 || stageNumber == 14)
-        {
-            Managers.Sound.Play("one_0", Sound.Bgm);
-            morning.gameObject.SetActive(false);
-            sunset.gameObject.SetActive(false);
-
-        }
-        else
-        {
-            Managers.Sound.Play("SummerChallenge", Sound.Bgm);
-            sunset.gameObject.SetActive(false);
-            night.gameObject.SetActive(false);
         }
     }
 }
