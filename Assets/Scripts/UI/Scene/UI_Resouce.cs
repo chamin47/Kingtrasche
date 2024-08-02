@@ -62,8 +62,4 @@ public class UI_Resouce : UI_Popup
             rubyTxt.text = zero;
         }
     }
-
-
-
-
 }
