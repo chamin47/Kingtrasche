@@ -8,6 +8,7 @@ public class Managers : MonoBehaviour
 
     // Contents
     GameManager _game = new GameManager();
+    DialogueManager _dialogue = new DialogueManager();
     TimeManager _time;
 
     // Core
@@ -17,7 +18,7 @@ public class Managers : MonoBehaviour
     SceneManagerEx _scene = new SceneManagerEx();
 
     //Player
-    PlayerManager _player = new PlayerManager();
+    PlayerManager _player;
 
     public static GameManager Game { get { return Instance._game; } }
     public static TimeManager Time { get { return Instance._time; } }
@@ -26,6 +27,8 @@ public class Managers : MonoBehaviour
     public static ResourceManager Resource { get { return Instance._resource; } }
     public static SceneManagerEx Scene { get { return Instance._scene; } }
     public static PlayerManager Player { get { return Instance._player; } }
+    public static DialogueManager Dialogue { get { return Instance._dialogue; } }
+
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void InitializeOnLoad()
@@ -50,6 +53,7 @@ public class Managers : MonoBehaviour
             s_instance = go.GetComponent<Managers>();
 
             s_instance._sound.Init();
+            s_instance._dialogue.Init();
             s_instance._time = go.AddComponent<TimeManager>();
 
             s_instance._player = go.AddComponent<PlayerManager>();
