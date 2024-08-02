@@ -4,9 +4,9 @@ public class PlayerSkinManager : MonoBehaviour
 {
     public Renderer playerRenderer;
     public Animator animator;
-    private string baseSkin = "BasicDog";
+    private string baseSkin = "MountainDogBernese";
 
-    public string skinName = "BasicDog";
+    public string skinName = "MountainDogBernese";
 
     private void Start()
     {
