@@ -1184,7 +1184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 358287138}
   - component: {fileID: 358287141}
-  - component: {fileID: 358287140}
+  - component: {fileID: 358287142}
   - component: {fileID: 358287139}
   m_Layer: 5
   m_Name: AfghanHoundBtn
@@ -1253,11 +1253,19 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 358287140}
+  m_TargetGraphic: {fileID: 358287142}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &358287140
+--- !u!222 &358287141
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358287137}
+  m_CullTransparentMesh: 1
+--- !u!114 &358287142
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1277,7 +1285,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -27483477, guid: b17574ef282005945bbbd1b48a0e46d8, type: 3}
+  m_Sprite: {fileID: -1305895265, guid: b8491e697eee0a941b488cf2c81b45fe, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1287,14 +1295,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!222 &358287141
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 358287137}
-  m_CullTransparentMesh: 1
 --- !u!1 &379121663
 GameObject:
   m_ObjectHideFlags: 0

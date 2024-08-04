@@ -31,6 +31,17 @@ public class UI_DogSkinPopup : UI_Popup
 
     enum Images
     {
+        AfghanHoundBtn,
+        BloodHoundBtn,
+        DalmationBtn,
+        DobermanBtn,
+        GreatDaneBtn,
+        GreyHoundBtn,
+        HuskyBtn,
+        MountainDogBtn,
+        ShepherdBtn,
+        ShibaBtn,
+
         // 색에 따라 이미지 찾아와서 변경
         FirstDogPicture,
         SecondDogPicture,
@@ -57,6 +68,9 @@ public class UI_DogSkinPopup : UI_Popup
     private SkinData skinData3;
 
     public Animator animator;
+
+    private Image originalBookmarkImage;
+    private Sprite originalBookmarkSprite;
 
     private Image firstClickImage;
     private Image secondClickImage;
@@ -114,6 +128,12 @@ public class UI_DogSkinPopup : UI_Popup
         skinData2 = SkinData.SkinDataMap[skinID2];
         skinData3 = SkinData.SkinDataMap[skinID3];
 
+        // 원래 북마크 이미지 변경
+        RestoreOriginalBookmark();
+
+        // 북마크
+        ChangeBookmark(GetImage((int)Images.AfghanHoundBtn));
+
         // 이미지 셋팅
         SettingPicture(GetImage((int)Images.FirstDogPicture), skinData1.PicturePath);
         SettingPicture(GetImage((int)Images.SecondDogPicture), skinData2.PicturePath);
@@ -140,6 +160,12 @@ public class UI_DogSkinPopup : UI_Popup
         skinData2 = SkinData.SkinDataMap[skinID2];
         skinData3 = SkinData.SkinDataMap[skinID3];
 
+        // 원래 북마크 이미지 변경
+        RestoreOriginalBookmark();
+
+        // 북마크
+        ChangeBookmark(GetImage((int)Images.BloodHoundBtn));
+
         // 이미지 셋팅
         SettingPicture(GetImage((int)Images.FirstDogPicture), skinData1.PicturePath);
         SettingPicture(GetImage((int)Images.SecondDogPicture), skinData2.PicturePath);
@@ -163,6 +189,12 @@ public class UI_DogSkinPopup : UI_Popup
         skinData1 = SkinData.SkinDataMap[skinID1];
         skinData2 = SkinData.SkinDataMap[skinID2];
         skinData3 = SkinData.SkinDataMap[skinID3];
+
+        // 원래 북마크 이미지 변경
+        RestoreOriginalBookmark();
+
+        // 북마크
+        ChangeBookmark(GetImage((int)Images.DalmationBtn));
 
         // 이미지 셋팅
         SettingPicture(GetImage((int)Images.FirstDogPicture), skinData1.PicturePath);
@@ -188,6 +220,12 @@ public class UI_DogSkinPopup : UI_Popup
         skinData2 = SkinData.SkinDataMap[skinID2];
         skinData3 = SkinData.SkinDataMap[skinID3];
 
+        // 원래 북마크 이미지 변경
+        RestoreOriginalBookmark();
+
+        // 북마크
+        ChangeBookmark(GetImage((int)Images.DobermanBtn));
+
         // 이미지 셋팅
         SettingPicture(GetImage((int)Images.FirstDogPicture), skinData1.PicturePath);
         SettingPicture(GetImage((int)Images.SecondDogPicture), skinData2.PicturePath);
@@ -211,6 +249,12 @@ public class UI_DogSkinPopup : UI_Popup
         skinData1 = SkinData.SkinDataMap[skinID1];
         skinData2 = SkinData.SkinDataMap[skinID2];
         skinData3 = SkinData.SkinDataMap[skinID3];
+
+        // 원래 북마크 이미지 변경
+        RestoreOriginalBookmark();
+
+        // 북마크
+        ChangeBookmark(GetImage((int)Images.GreatDaneBtn));
 
         // 이미지 셋팅
         SettingPicture(GetImage((int)Images.FirstDogPicture), skinData1.PicturePath);
@@ -236,6 +280,12 @@ public class UI_DogSkinPopup : UI_Popup
         skinData2 = SkinData.SkinDataMap[skinID2];
         skinData3 = SkinData.SkinDataMap[skinID3];
 
+        // 원래 북마크 이미지 변경
+        RestoreOriginalBookmark();
+
+        // 북마크
+        ChangeBookmark(GetImage((int)Images.GreyHoundBtn));
+
         // 이미지 셋팅
         SettingPicture(GetImage((int)Images.FirstDogPicture), skinData1.PicturePath);
         SettingPicture(GetImage((int)Images.SecondDogPicture), skinData2.PicturePath);
@@ -259,6 +309,12 @@ public class UI_DogSkinPopup : UI_Popup
         skinData1 = SkinData.SkinDataMap[skinID1];
         skinData2 = SkinData.SkinDataMap[skinID2];
         skinData3 = SkinData.SkinDataMap[skinID3];
+
+        // 원래 북마크 이미지 변경
+        RestoreOriginalBookmark();
+
+        // 북마크
+        ChangeBookmark(GetImage((int)Images.HuskyBtn));
 
         // 이미지 셋팅
         SettingPicture(GetImage((int)Images.FirstDogPicture), skinData1.PicturePath);
@@ -284,6 +340,12 @@ public class UI_DogSkinPopup : UI_Popup
         skinData2 = SkinData.SkinDataMap[skinID2];
         skinData3 = SkinData.SkinDataMap[skinID3];
 
+        // 원래 북마크 이미지 변경
+        RestoreOriginalBookmark();
+
+        // 북마크
+        ChangeBookmark(GetImage((int)Images.MountainDogBtn));
+
         // 이미지 셋팅
         SettingPicture(GetImage((int)Images.FirstDogPicture), skinData1.PicturePath);
         SettingPicture(GetImage((int)Images.SecondDogPicture), skinData2.PicturePath);
@@ -308,6 +370,12 @@ public class UI_DogSkinPopup : UI_Popup
         skinData2 = SkinData.SkinDataMap[skinID2];
         skinData3 = SkinData.SkinDataMap[skinID3];
 
+        // 원래 북마크 이미지 변경
+        RestoreOriginalBookmark();
+
+        // 북마크
+        ChangeBookmark(GetImage((int)Images.ShepherdBtn));
+
         // 이미지 셋팅
         SettingPicture(GetImage((int)Images.FirstDogPicture), skinData1.PicturePath);
         SettingPicture(GetImage((int)Images.SecondDogPicture), skinData2.PicturePath);
@@ -331,6 +399,12 @@ public class UI_DogSkinPopup : UI_Popup
         skinData1 = SkinData.SkinDataMap[skinID1];
         skinData2 = SkinData.SkinDataMap[skinID2];
         skinData3 = SkinData.SkinDataMap[skinID3];
+
+        // 원래 북마크 이미지 변경
+        RestoreOriginalBookmark();
+
+        // 북마크
+        ChangeBookmark(GetImage((int)Images.ShibaBtn));
 
         // 이미지 셋팅
         SettingPicture(GetImage((int)Images.FirstDogPicture), skinData1.PicturePath);
@@ -381,6 +455,25 @@ public class UI_DogSkinPopup : UI_Popup
         thirdClickImage.gameObject.SetActive(true);
     }
 
+    private void ChangeBookmark(Image bookmark)
+    {
+        originalBookmarkImage = bookmark;
+        originalBookmarkSprite = bookmark.sprite;
+
+        Sprite sprite = Resources.Load<Sprite>("Sprites/BookMark01");
+        bookmark.sprite = sprite;
+    }
+
+    private void RestoreOriginalBookmark()
+    {
+        if (originalBookmarkImage != null && originalBookmarkSprite != null)
+        {
+            originalBookmarkImage.sprite = originalBookmarkSprite;
+            originalBookmarkImage = null;
+            originalBookmarkSprite = null;
+            // 리셋
+        }
+    }
 
     private void SettingPicture(Image image, string path)
     {
