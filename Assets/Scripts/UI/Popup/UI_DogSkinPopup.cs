@@ -52,13 +52,15 @@ public class UI_DogSkinPopup : UI_Popup
         CostText, // 각 강아지마다의 입양 가격
     }
 
-    SkinData skinData1;
-    SkinData skinData2;
-    SkinData skinData3;
+    private SkinData skinData1;
+    private SkinData skinData2;
+    private SkinData skinData3;
 
-    Image firstClickImage;
-    Image secondClickImage;
-    Image thirdClickImage;
+    public Animator animator;
+
+    private Image firstClickImage;
+    private Image secondClickImage;
+    private Image thirdClickImage;
 
     private void Awake()
     {
@@ -125,6 +127,8 @@ public class UI_DogSkinPopup : UI_Popup
         SettingDescription(GetText((int)Texts.Description), skinData1.Description);
         // 비용셋팅
         SettingCost(GetText((int)Texts.CostText), skinData1.Cost);
+        // 애니메이션 세팅
+        SettingAnimation(skinData1.SkinName);
     }
 
     private void OnBloodHoundBtnClicked(PointerEventData eventData)
@@ -343,10 +347,12 @@ public class UI_DogSkinPopup : UI_Popup
         SettingCost(GetText((int)Texts.CostText), skinData1.Cost);
     }
 
+
     private void OnFirstDogBtnClicked(PointerEventData eventData)
     {
         SettingDescription(GetText((int)Texts.Description), skinData1.Description);
         SettingCost(GetText((int)Texts.CostText), skinData1.Cost);
+        SettingAnimation(skinData1.SkinName);
 
         firstClickImage.gameObject.SetActive(true);
         secondClickImage.gameObject.SetActive(false);
@@ -357,6 +363,7 @@ public class UI_DogSkinPopup : UI_Popup
     {
         SettingDescription(GetText((int)Texts.Description), skinData2.Description);
         SettingCost(GetText((int)Texts.CostText), skinData2.Cost);
+        SettingAnimation(skinData2.SkinName);
 
         firstClickImage.gameObject.SetActive(false);
         secondClickImage.gameObject.SetActive(true);
@@ -367,11 +374,13 @@ public class UI_DogSkinPopup : UI_Popup
     {
         SettingDescription(GetText((int)Texts.Description), skinData3.Description);
         SettingCost(GetText((int)Texts.CostText), skinData1.Cost);
+        SettingAnimation(skinData3.SkinName);
 
         firstClickImage.gameObject.SetActive(false);
         secondClickImage.gameObject.SetActive(false);
         thirdClickImage.gameObject.SetActive(true);
     }
+
 
     private void SettingPicture(Image image, string path)
     {
@@ -388,5 +397,15 @@ public class UI_DogSkinPopup : UI_Popup
     private void SettingCost(TMP_Text text, int cost)
     {
         text.text = cost.ToString("#,###");
+    }
+
+    private void SettingAnimation(string name)
+    {
+        AnimationClip clip = Resources.Load<AnimationClip>($"DogSkinAndAnimationClip/{name}/Running");
+
+        AnimatorOverrideController overrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
+        overrideController["ProgressDog"] = clip;
+
+        animator.runtimeAnimatorController = overrideController;
     }
 }
