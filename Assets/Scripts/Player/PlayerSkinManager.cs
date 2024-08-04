@@ -4,9 +4,12 @@ public class PlayerSkinManager : MonoBehaviour
 {
     public Renderer playerRenderer;
     public Animator animator;
-    private string baseSkin = "MountainDogBernese";
 
     public string skinName = "MountainDogBernese";
+
+    private void Awake()
+    {
+    }
 
     private void Start()
     {

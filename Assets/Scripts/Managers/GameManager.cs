@@ -7,7 +7,8 @@ public class GameManager
     public int RunningPlayCount { get; set; }   // 러닝플레이권
     public int NaturalRunningPlayCount { get; set; } // 자연 충전된 러닝플레이권
     public int MaxRunningPlayCount { get; set; } = 10; // 최대 러닝플레이권
-    public int BestScore { get; set; }
+    public int BestScore { get; set; } // 무한모드 최대점수
+    public string Skin { get; set; } //적용스킨
 
     private void Init()
     {
@@ -22,6 +23,7 @@ public class GameManager
         PlayerPrefs.SetInt("NaturalRunningPlayCount", NaturalRunningPlayCount);
         PlayerPrefs.SetInt("MaxRunningPlayCount", MaxRunningPlayCount);
         PlayerPrefs.SetInt("BestScore", BestScore);
+        PlayerPrefs.SetString("Skin", Skin);
         PlayerPrefs.Save();
     }
 
@@ -32,6 +34,7 @@ public class GameManager
         RunningPlayCount = PlayerPrefs.GetInt("RunningPlayCount", 0);
         NaturalRunningPlayCount = PlayerPrefs.GetInt("NaturalRunningPlayCount", 0);
         MaxRunningPlayCount = PlayerPrefs.GetInt("MaxRunningPlayCount", 10);
+        Skin = PlayerPrefs.GetString("Skin", "MountainDogBernese");
     }
 
     public void GameOver()

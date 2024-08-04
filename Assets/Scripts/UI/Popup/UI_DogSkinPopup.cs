@@ -1,3 +1,4 @@
+using GameBalance;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -50,6 +51,8 @@ public class UI_DogSkinPopup : UI_Popup
         CostText, // 각 강아지마다의 입양 가격
     }
 
+    SkinData skinData;
+
     private void Awake()
     {
         Init();
@@ -92,6 +95,7 @@ public class UI_DogSkinPopup : UI_Popup
 
     private void OnAfghanHoundBtnClicked(PointerEventData eventData)
     {
-
+        int skinID = 1;
+        skinData = SkinData.SkinDataMap[skinID]; //
     }
 }
