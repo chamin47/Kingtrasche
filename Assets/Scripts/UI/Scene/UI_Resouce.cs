@@ -35,7 +35,7 @@ public class UI_Resouce : UI_Popup
     {
         TMP_Text coinTxt = GetText((int)Texts.CoinTxt);
         TMP_Text rubyTxt = GetText((int)Texts.RubyTxt);
-        int max = 999999;
+        int max = 999999; // 최대 표기
         string zero = "0";
         string maxText = "+";
 
