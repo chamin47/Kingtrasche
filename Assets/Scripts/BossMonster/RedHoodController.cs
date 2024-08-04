@@ -310,7 +310,8 @@ public class RedHoodController : MonoBehaviour, IBossController
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            Destroy(gameObject);
+			Managers.Game.GameClear();
+			Destroy(gameObject);
         }
     }
 

@@ -52,8 +52,6 @@ public class UI_DialoguePopup : UI_Popup
 
 		Get<Button>((int)Buttons.DialogueBackground).gameObject.BindEvent(OnClickBackground);
 
-		cutSceneImg.sprite = Resources.Load<Sprite>("CutsceneImg/Img1");
-
 		return true;
 	}
 
@@ -97,7 +95,7 @@ public class UI_DialoguePopup : UI_Popup
 		if (dialogueIndex >= 0 && dialogueIndex < dialogues.Count)
 		{
 			var dialogue = dialogues[dialogueIndex]; // 현재 대화
-			ShowDialogueUI(dialogue.Talker, dialogue.Scripts); // 대화창 UI 표시
+			ShowDialogueUI(dialogue.Talker, dialogue.Scripts, dialogue.CutScenePath); // 대화창 UI 표시
 		}
 		else
 		{
@@ -106,10 +104,11 @@ public class UI_DialoguePopup : UI_Popup
 	}
 
 	// 대화창 UI 표시
-	private void ShowDialogueUI(string name, string dialogue)
+	private void ShowDialogueUI(string name, string dialogue, string CutScenePath)
 	{
 		nameText.text = name; // 이름 표시
 		dialogueText.text = dialogue; // 대사 표시
+		cutSceneImg.sprite = Resources.Load<Sprite>(CutScenePath);
 
 		// 기존 팝업을 다시 보여주기만 합니다.
 		gameObject.SetActive(true);
