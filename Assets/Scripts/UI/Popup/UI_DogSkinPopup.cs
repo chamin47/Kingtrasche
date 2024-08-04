@@ -321,9 +321,9 @@ public class UI_DogSkinPopup : UI_Popup
 
     private void OnShibaBtnClicked(PointerEventData eventData)
     {
-        int skinID1 = 25;
-        int skinID2 = 26;
-        int skinID3 = 27;
+        int skinID1 = 28;
+        int skinID2 = 29;
+        int skinID3 = 30;
         skinData1 = SkinData.SkinDataMap[skinID1];
         skinData2 = SkinData.SkinDataMap[skinID2];
         skinData3 = SkinData.SkinDataMap[skinID3];
