@@ -58,7 +58,7 @@ namespace GameBalance
 
 		public System.Int32 SkinID;
 		public System.String SkinName;
-		public System.String Scripts;
+		public System.String Description;
 		public System.String PicturePath;
 		public System.String AnimationPath;
 		public System.Int32 Cost;
