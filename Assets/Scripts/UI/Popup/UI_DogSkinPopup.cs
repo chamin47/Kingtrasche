@@ -66,6 +66,7 @@ public class UI_DogSkinPopup : UI_Popup
     private SkinData skinData1;
     private SkinData skinData2;
     private SkinData skinData3;
+    private SkinData clickedSkin;
 
     public Animator animator;
 
@@ -113,8 +114,8 @@ public class UI_DogSkinPopup : UI_Popup
         Get<Button>((int)Buttons.SecondDogBtn).gameObject.BindEvent(OnSecondDogBtnClicked);
         Get<Button>((int)Buttons.ThirdDogBtn).gameObject.BindEvent(OnThirdDogBtnClicked);
 
-        Get<Button>((int)Buttons.PurchaseBtn);
-        Get<Button>((int)Buttons.SelectBtn);
+        Get<Button>((int)Buttons.PurchaseBtn).gameObject.BindEvent(OnPurchaseBtnClicked);
+        Get<Button>((int)Buttons.SelectBtn).gameObject.BindEvent(OnSelectBtnClicked);
 
         return true;
     }
@@ -127,6 +128,9 @@ public class UI_DogSkinPopup : UI_Popup
         skinData1 = SkinData.SkinDataMap[skinID1];
         skinData2 = SkinData.SkinDataMap[skinID2];
         skinData3 = SkinData.SkinDataMap[skinID3];
+
+        // 첫번째 강아지 기본 선택
+        clickedSkin = skinData1;
 
         // 원래 북마크 이미지 변경
         RestoreOriginalBookmark();
@@ -148,7 +152,7 @@ public class UI_DogSkinPopup : UI_Popup
         // 비용셋팅
         SettingCost(GetText((int)Texts.CostText), skinData1.Cost);
         // 애니메이션 세팅
-        SettingAnimation(skinData1.SkinName);
+        SettingAnimation(skinData1.AnimationPath);
     }
 
     private void OnBloodHoundBtnClicked(PointerEventData eventData)
@@ -159,6 +163,8 @@ public class UI_DogSkinPopup : UI_Popup
         skinData1 = SkinData.SkinDataMap[skinID1];
         skinData2 = SkinData.SkinDataMap[skinID2];
         skinData3 = SkinData.SkinDataMap[skinID3];
+
+
 
         // 원래 북마크 이미지 변경
         RestoreOriginalBookmark();
@@ -424,9 +430,11 @@ public class UI_DogSkinPopup : UI_Popup
 
     private void OnFirstDogBtnClicked(PointerEventData eventData)
     {
+        clickedSkin = skinData1;
+
         SettingDescription(GetText((int)Texts.Description), skinData1.Description);
         SettingCost(GetText((int)Texts.CostText), skinData1.Cost);
-        SettingAnimation(skinData1.SkinName);
+        SettingAnimation(skinData1.AnimationPath);
 
         firstClickImage.gameObject.SetActive(true);
         secondClickImage.gameObject.SetActive(false);
@@ -435,9 +443,11 @@ public class UI_DogSkinPopup : UI_Popup
 
     private void OnSecondDogBtnClicked(PointerEventData eventData)
     {
+        clickedSkin = skinData2;
+
         SettingDescription(GetText((int)Texts.Description), skinData2.Description);
         SettingCost(GetText((int)Texts.CostText), skinData2.Cost);
-        SettingAnimation(skinData2.SkinName);
+        SettingAnimation(skinData2.AnimationPath);
 
         firstClickImage.gameObject.SetActive(false);
         secondClickImage.gameObject.SetActive(true);
@@ -446,17 +456,38 @@ public class UI_DogSkinPopup : UI_Popup
 
     private void OnThirdDogBtnClicked(PointerEventData eventData)
     {
+        clickedSkin = skinData3;
+
         SettingDescription(GetText((int)Texts.Description), skinData3.Description);
-        SettingCost(GetText((int)Texts.CostText), skinData1.Cost);
-        SettingAnimation(skinData3.SkinName);
+        SettingCost(GetText((int)Texts.CostText), skinData3.Cost);
+        SettingAnimation(skinData3.AnimationPath);
 
         firstClickImage.gameObject.SetActive(false);
         secondClickImage.gameObject.SetActive(false);
         thirdClickImage.gameObject.SetActive(true);
     }
 
+
+    private void OnPurchaseBtnClicked(PointerEventData eventData)
+    {
+        if (clickedSkin != null)
+        {
+            BuySkin(clickedSkin.Cost, clickedSkin.SkinName);
+        }
+    }
+
+    private void OnSelectBtnClicked(PointerEventData eventData)
+    {
+        if (clickedSkin != null && IsAdopted(clickedSkin.SkinName))
+        {
+            Debug.Log(clickedSkin.SkinName + "선택됨");
+        }
+    }
+
+
     private void ChangeBookmark(Image bookmark)
     {
+        // 원래 이미지 저장
         originalBookmarkImage = bookmark;
         originalBookmarkSprite = bookmark.sprite;
 
@@ -484,7 +515,7 @@ public class UI_DogSkinPopup : UI_Popup
 
     private void SettingDescription(TMP_Text text, string script)
     {
-        text.text = script.ToString();
+        text.text = script;
     }
 
     private void SettingCost(TMP_Text text, int cost)
@@ -492,13 +523,71 @@ public class UI_DogSkinPopup : UI_Popup
         text.text = cost.ToString("#,###");
     }
 
-    private void SettingAnimation(string name)
+    private void SettingAnimation(string path)
     {
-        AnimationClip clip = Resources.Load<AnimationClip>($"DogSkinAndAnimationClip/{name}/Running");
+        AnimationClip clip = Resources.Load<AnimationClip>(path);
 
         AnimatorOverrideController overrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
         overrideController["ProgressDog"] = clip;
 
         animator.runtimeAnimatorController = overrideController;
     }
+
+    private bool IsAdopted(string skinNsme)
+    {
+        int adopt = PlayerPrefs.GetInt(skinNsme);
+        if (adopt == 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    private void BuySkin(int cost, string skinName)
+    {
+        TMP_Text adoptText = GetText((int)Texts.AdoptText);
+        Image purchaseImage = GetImage((int)Images.PurchaseImage);
+        Image adoptImage = GetImage((int)Images.AdoptImage);
+        Image lockImage = GetImage((int)Images.LockImage);
+        Button selectBtn = GetButton((int)Buttons.SelectBtn);
+        Button PurchaseBtn = GetButton((int)Buttons.PurchaseBtn);
+
+        if (IsAdopted(skinName) == false) //입양 안된경우
+        {
+            int gold = PlayerPrefs.GetInt("Gold");
+            if (gold >= cost)
+            {
+                gold -= cost;
+                PlayerPrefs.SetInt("Gold", gold);
+                PlayerPrefs.SetInt(skinName, 1);
+
+                string adopt = "입양 중";
+                adoptText.text = adopt;
+
+                purchaseImage.gameObject.SetActive(false);
+                adoptImage.gameObject.SetActive(true);
+                lockImage.gameObject.SetActive(false);
+
+                //PurchaseBtn.interactable = false;
+                //selectBtn.interactable = true;
+                // 버튼컴포넌트만 활성화/비활성화
+            }
+            else
+            {
+                // [todo] 구매불가 팝업 
+                Debug.Log(" 고기가 부족합니다.");
+            }
+        }
+        else // 입양 중인 경우
+        {
+            PlayerPrefs.SetInt(skinName, 0);
+            // 버튼컴포넌트만 활성화/비활성화
+            Debug.Log("이미 가족이 된 강아지입니다.");
+        }
+    }
+
+
 }
