@@ -2,13 +2,21 @@ using UnityEngine;
 
 public class PlayerSkinManager : MonoBehaviour
 {
+    public static PlayerSkinManager Instance;
+
     public Renderer playerRenderer;
     public Animator animator;
 
-    public string skinName = "MountainDogBernese";
+    private string skinName;
 
     private void Awake()
     {
+        if (Instance == null)
+
+        {
+            Instance = this;
+        }
+        skinName = PlayerPrefs.GetString("Skin");
     }
 
     private void Start()
@@ -18,7 +26,7 @@ public class PlayerSkinManager : MonoBehaviour
 
     public void ApplySkin(string skinName)
     {
-        ChangeRenderer(skinName);
+        //ChangeRenderer(skinName);
         ChangeAnimations(skinName);
     }
 
@@ -45,5 +53,14 @@ public class PlayerSkinManager : MonoBehaviour
         overrideController["DogSleeping"] = sleeping;
 
         animator.runtimeAnimatorController = overrideController;
+    }
+
+    public void ChangeSkin(string newSkinName)
+    {
+        if (skinName != newSkinName)
+        {
+            skinName = newSkinName;
+            ApplySkin(skinName);
+        }
     }
 }

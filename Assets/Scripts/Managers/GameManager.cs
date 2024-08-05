@@ -66,9 +66,46 @@ public class GameManager
         PlayerPrefs.SetInt("BestScore", BestScore);
         PlayerPrefs.SetString("Skin", Skin);
 
+        // °­¾ÆÁö
         PlayerPrefs.SetInt("AfghanHoundBlack", AfghanHoundBlack);
         PlayerPrefs.SetInt("AfghanHoundRed", AfghanHoundRed);
         PlayerPrefs.SetInt("AfghanHoundTan", AfghanHoundTan);
+
+        PlayerPrefs.SetInt("BloodHoundBlack", BloodHoundBlack);
+        PlayerPrefs.SetInt("BloodHoundOrange", BloodHoundOrange);
+        PlayerPrefs.SetInt("BloodHoundRed", BloodHoundRed);
+
+        PlayerPrefs.SetInt("DalmationBlack", DalmationBlack);
+        PlayerPrefs.SetInt("DalmationBrown", DalmationBrown);
+        PlayerPrefs.SetInt("DalmationTricolor", DalmationTricolor);
+
+        PlayerPrefs.SetInt("DobermanBlack", DobermanBlack);
+        PlayerPrefs.SetInt("DobermanGray", DobermanGray);
+        PlayerPrefs.SetInt("DobermanRed", DobermanRed);
+
+        PlayerPrefs.SetInt("GreatDaneBlackWhite", GreatDaneBlackWhite);
+        PlayerPrefs.SetInt("GreatDaneSpottedGray", GreatDaneSpottedGray);
+        PlayerPrefs.SetInt("GreatDaneTan", GreatDaneTan);
+
+        PlayerPrefs.SetInt("GreyHoundBlack", GreyHoundBlack);
+        PlayerPrefs.SetInt("GreyHoundTan", GreyHoundTan);
+        PlayerPrefs.SetInt("GreyHoundWhiteSpotted", GreyHoundWhiteSpotted);
+
+        PlayerPrefs.SetInt("HuskyBlue", HuskyBlue);
+        PlayerPrefs.SetInt("HuskyBrown", HuskyBrown);
+        PlayerPrefs.SetInt("HuskyGray", HuskyGray);
+
+        PlayerPrefs.SetInt("MountainDogAustralian", MountainDogAustralian);
+        PlayerPrefs.SetInt("MountainDogBernese", MountainDogBernese);
+        PlayerPrefs.SetInt("MountainDogLeonBerger", MountainDogLeonBerger);
+
+        PlayerPrefs.SetInt("ShepherdBlack", ShepherdBlack);
+        PlayerPrefs.SetInt("ShepherdGray", ShepherdGray);
+        PlayerPrefs.SetInt("ShepherdPanda", ShepherdPanda);
+
+        PlayerPrefs.SetInt("ShibaBlackTan", ShibaBlackTan);
+        PlayerPrefs.SetInt("ShibaCream", ShibaCream);
+        PlayerPrefs.SetInt("ShibaOrange", ShibaOrange);
 
         PlayerPrefs.Save();
     }
