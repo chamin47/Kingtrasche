@@ -77,6 +77,13 @@ public class UI_DogSkinPopup : UI_Popup
     private Image secondClickImage;
     private Image thirdClickImage;
 
+    TMP_Text adoptText;
+    Image purchaseImage;
+    Image adoptImage;
+    Image lockImage;
+    Button selectBtn;
+    Button PurchaseBtn;
+
     private void Awake()
     {
         Init();
@@ -87,6 +94,13 @@ public class UI_DogSkinPopup : UI_Popup
         firstClickImage = GetImage((int)Images.FirstClickImage);
         secondClickImage = GetImage((int)Images.SecondClickImage);
         thirdClickImage = GetImage((int)Images.ThirdClickImage);
+
+        adoptText = GetText((int)Texts.AdoptText);
+        purchaseImage = GetImage((int)Images.PurchaseImage);
+        adoptImage = GetImage((int)Images.AdoptImage);
+        lockImage = GetImage((int)Images.LockImage);
+        selectBtn = GetButton((int)Buttons.SelectBtn);
+        PurchaseBtn = GetButton((int)Buttons.PurchaseBtn);
         // 초기는 MountainDogBernese
     }
 
@@ -439,6 +453,20 @@ public class UI_DogSkinPopup : UI_Popup
         firstClickImage.gameObject.SetActive(true);
         secondClickImage.gameObject.SetActive(false);
         thirdClickImage.gameObject.SetActive(false);
+
+        // 구매/입양 버튼 세팅
+        if (IsAdopted(clickedSkin.SkinName) == false)
+        {
+            purchaseImage.gameObject.SetActive(true);
+            adoptImage.gameObject.SetActive(false);
+            lockImage.gameObject.SetActive(true);
+        }
+        else
+        {
+            purchaseImage.gameObject.SetActive(false);
+            adoptImage.gameObject.SetActive(true);
+            lockImage.gameObject.SetActive(false);
+        }
     }
 
     private void OnSecondDogBtnClicked(PointerEventData eventData)
@@ -452,6 +480,20 @@ public class UI_DogSkinPopup : UI_Popup
         firstClickImage.gameObject.SetActive(false);
         secondClickImage.gameObject.SetActive(true);
         thirdClickImage.gameObject.SetActive(false);
+
+        // 구매/입양 버튼 세팅
+        if (IsAdopted(clickedSkin.SkinName) == false)
+        {
+            purchaseImage.gameObject.SetActive(true);
+            adoptImage.gameObject.SetActive(false);
+            lockImage.gameObject.SetActive(true);
+        }
+        else
+        {
+            purchaseImage.gameObject.SetActive(false);
+            adoptImage.gameObject.SetActive(true);
+            lockImage.gameObject.SetActive(false);
+        }
     }
 
     private void OnThirdDogBtnClicked(PointerEventData eventData)
@@ -465,6 +507,20 @@ public class UI_DogSkinPopup : UI_Popup
         firstClickImage.gameObject.SetActive(false);
         secondClickImage.gameObject.SetActive(false);
         thirdClickImage.gameObject.SetActive(true);
+
+        // 구매/입양 버튼 세팅
+        if (IsAdopted(clickedSkin.SkinName) == false)
+        {
+            purchaseImage.gameObject.SetActive(true);
+            adoptImage.gameObject.SetActive(false);
+            lockImage.gameObject.SetActive(true);
+        }
+        else
+        {
+            purchaseImage.gameObject.SetActive(false);
+            adoptImage.gameObject.SetActive(true);
+            lockImage.gameObject.SetActive(false);
+        }
     }
 
 
@@ -478,7 +534,7 @@ public class UI_DogSkinPopup : UI_Popup
 
     private void OnSelectBtnClicked(PointerEventData eventData)
     {
-        if (clickedSkin != null && IsAdopted(clickedSkin.SkinName))
+        if (clickedSkin != null && IsAdopted(clickedSkin.SkinName) == true)
         {
             Debug.Log(clickedSkin.SkinName + "선택됨");
         }
@@ -533,6 +589,7 @@ public class UI_DogSkinPopup : UI_Popup
         animator.runtimeAnimatorController = overrideController;
     }
 
+
     private bool IsAdopted(string skinNsme)
     {
         int adopt = PlayerPrefs.GetInt(skinNsme);
@@ -548,12 +605,7 @@ public class UI_DogSkinPopup : UI_Popup
 
     private void BuySkin(int cost, string skinName)
     {
-        TMP_Text adoptText = GetText((int)Texts.AdoptText);
-        Image purchaseImage = GetImage((int)Images.PurchaseImage);
-        Image adoptImage = GetImage((int)Images.AdoptImage);
-        Image lockImage = GetImage((int)Images.LockImage);
-        Button selectBtn = GetButton((int)Buttons.SelectBtn);
-        Button PurchaseBtn = GetButton((int)Buttons.PurchaseBtn);
+
 
         if (IsAdopted(skinName) == false) //입양 안된경우
         {
@@ -570,6 +622,8 @@ public class UI_DogSkinPopup : UI_Popup
                 purchaseImage.gameObject.SetActive(false);
                 adoptImage.gameObject.SetActive(true);
                 lockImage.gameObject.SetActive(false);
+
+                Debug.Log("압양 성공!");
 
                 //PurchaseBtn.interactable = false;
                 //selectBtn.interactable = true;
