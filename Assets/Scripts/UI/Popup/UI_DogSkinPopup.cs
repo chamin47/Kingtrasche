@@ -77,6 +77,13 @@ public class UI_DogSkinPopup : UI_Popup
     private Image secondClickImage;
     private Image thirdClickImage;
 
+    TMP_Text adoptText;
+    Image purchaseImage;
+    Image adoptImage;
+    Image lockImage;
+    Button selectBtn;
+    Button PurchaseBtn;
+
     private void Awake()
     {
         Init();
@@ -87,6 +94,13 @@ public class UI_DogSkinPopup : UI_Popup
         firstClickImage = GetImage((int)Images.FirstClickImage);
         secondClickImage = GetImage((int)Images.SecondClickImage);
         thirdClickImage = GetImage((int)Images.ThirdClickImage);
+
+        adoptText = GetText((int)Texts.AdoptText);
+        purchaseImage = GetImage((int)Images.PurchaseImage);
+        adoptImage = GetImage((int)Images.AdoptImage);
+        lockImage = GetImage((int)Images.LockImage);
+        selectBtn = GetButton((int)Buttons.SelectBtn);
+        PurchaseBtn = GetButton((int)Buttons.PurchaseBtn);
         // 초기는 MountainDogBernese
     }
 
@@ -125,34 +139,13 @@ public class UI_DogSkinPopup : UI_Popup
         int skinID1 = 1;
         int skinID2 = 2;
         int skinID3 = 3;
-        skinData1 = SkinData.SkinDataMap[skinID1];
-        skinData2 = SkinData.SkinDataMap[skinID2];
-        skinData3 = SkinData.SkinDataMap[skinID3];
-
-        // 첫번째 강아지 기본 선택
-        clickedSkin = skinData1;
 
         // 원래 북마크 이미지 변경
         RestoreOriginalBookmark();
-
         // 북마크
         ChangeBookmark(GetImage((int)Images.AfghanHoundBtn));
-
-        // 이미지 셋팅
-        SettingPicture(GetImage((int)Images.FirstDogPicture), skinData1.PicturePath);
-        SettingPicture(GetImage((int)Images.SecondDogPicture), skinData2.PicturePath);
-        SettingPicture(GetImage((int)Images.ThirdDogPicture), skinData3.PicturePath);
-
-        firstClickImage.gameObject.SetActive(true);
-        secondClickImage.gameObject.SetActive(false);
-        thirdClickImage.gameObject.SetActive(false);
-
-        // 설명셋팅
-        SettingDescription(GetText((int)Texts.Description), skinData1.Description);
-        // 비용셋팅
-        SettingCost(GetText((int)Texts.CostText), skinData1.Cost);
-        // 애니메이션 세팅
-        SettingAnimation(skinData1.AnimationPath);
+        //세팅
+        SkinSetting(skinID1, skinID2, skinID3);
     }
 
     private void OnBloodHoundBtnClicked(PointerEventData eventData)
@@ -160,31 +153,13 @@ public class UI_DogSkinPopup : UI_Popup
         int skinID1 = 4;
         int skinID2 = 5;
         int skinID3 = 6;
-        skinData1 = SkinData.SkinDataMap[skinID1];
-        skinData2 = SkinData.SkinDataMap[skinID2];
-        skinData3 = SkinData.SkinDataMap[skinID3];
-
-
 
         // 원래 북마크 이미지 변경
         RestoreOriginalBookmark();
-
         // 북마크
         ChangeBookmark(GetImage((int)Images.BloodHoundBtn));
-
-        // 이미지 셋팅
-        SettingPicture(GetImage((int)Images.FirstDogPicture), skinData1.PicturePath);
-        SettingPicture(GetImage((int)Images.SecondDogPicture), skinData2.PicturePath);
-        SettingPicture(GetImage((int)Images.ThirdDogPicture), skinData3.PicturePath);
-
-        firstClickImage.gameObject.SetActive(true);
-        secondClickImage.gameObject.SetActive(false);
-        thirdClickImage.gameObject.SetActive(false);
-
-        // 설명셋팅
-        SettingDescription(GetText((int)Texts.Description), skinData1.Description);
-        // 비용셋팅
-        SettingCost(GetText((int)Texts.CostText), skinData1.Cost);
+        //세팅
+        SkinSetting(skinID1, skinID2, skinID3);
     }
 
     private void OnDalmationBtnClicked(PointerEventData eventData)
@@ -192,29 +167,13 @@ public class UI_DogSkinPopup : UI_Popup
         int skinID1 = 7;
         int skinID2 = 8;
         int skinID3 = 9;
-        skinData1 = SkinData.SkinDataMap[skinID1];
-        skinData2 = SkinData.SkinDataMap[skinID2];
-        skinData3 = SkinData.SkinDataMap[skinID3];
 
         // 원래 북마크 이미지 변경
         RestoreOriginalBookmark();
-
         // 북마크
         ChangeBookmark(GetImage((int)Images.DalmationBtn));
-
-        // 이미지 셋팅
-        SettingPicture(GetImage((int)Images.FirstDogPicture), skinData1.PicturePath);
-        SettingPicture(GetImage((int)Images.SecondDogPicture), skinData2.PicturePath);
-        SettingPicture(GetImage((int)Images.ThirdDogPicture), skinData3.PicturePath);
-
-        firstClickImage.gameObject.SetActive(true);
-        secondClickImage.gameObject.SetActive(false);
-        thirdClickImage.gameObject.SetActive(false);
-
-        // 설명셋팅
-        SettingDescription(GetText((int)Texts.Description), skinData1.Description);
-        // 비용셋팅
-        SettingCost(GetText((int)Texts.CostText), skinData1.Cost);
+        //세팅
+        SkinSetting(skinID1, skinID2, skinID3);
     }
 
     private void OnDobermanBtnClicked(PointerEventData eventData)
@@ -222,29 +181,13 @@ public class UI_DogSkinPopup : UI_Popup
         int skinID1 = 10;
         int skinID2 = 11;
         int skinID3 = 12;
-        skinData1 = SkinData.SkinDataMap[skinID1];
-        skinData2 = SkinData.SkinDataMap[skinID2];
-        skinData3 = SkinData.SkinDataMap[skinID3];
 
         // 원래 북마크 이미지 변경
         RestoreOriginalBookmark();
-
         // 북마크
         ChangeBookmark(GetImage((int)Images.DobermanBtn));
-
-        // 이미지 셋팅
-        SettingPicture(GetImage((int)Images.FirstDogPicture), skinData1.PicturePath);
-        SettingPicture(GetImage((int)Images.SecondDogPicture), skinData2.PicturePath);
-        SettingPicture(GetImage((int)Images.ThirdDogPicture), skinData3.PicturePath);
-
-        firstClickImage.gameObject.SetActive(true);
-        secondClickImage.gameObject.SetActive(false);
-        thirdClickImage.gameObject.SetActive(false);
-
-        // 설명셋팅
-        SettingDescription(GetText((int)Texts.Description), skinData1.Description);
-        // 비용셋팅
-        SettingCost(GetText((int)Texts.CostText), skinData1.Cost);
+        //세팅
+        SkinSetting(skinID1, skinID2, skinID3);
     }
 
     private void OnGreatDaneBtnClicked(PointerEventData eventData)
@@ -252,29 +195,13 @@ public class UI_DogSkinPopup : UI_Popup
         int skinID1 = 13;
         int skinID2 = 14;
         int skinID3 = 15;
-        skinData1 = SkinData.SkinDataMap[skinID1];
-        skinData2 = SkinData.SkinDataMap[skinID2];
-        skinData3 = SkinData.SkinDataMap[skinID3];
 
         // 원래 북마크 이미지 변경
         RestoreOriginalBookmark();
-
         // 북마크
         ChangeBookmark(GetImage((int)Images.GreatDaneBtn));
-
-        // 이미지 셋팅
-        SettingPicture(GetImage((int)Images.FirstDogPicture), skinData1.PicturePath);
-        SettingPicture(GetImage((int)Images.SecondDogPicture), skinData2.PicturePath);
-        SettingPicture(GetImage((int)Images.ThirdDogPicture), skinData3.PicturePath);
-
-        firstClickImage.gameObject.SetActive(true);
-        secondClickImage.gameObject.SetActive(false);
-        thirdClickImage.gameObject.SetActive(false);
-
-        // 설명셋팅
-        SettingDescription(GetText((int)Texts.Description), skinData1.Description);
-        // 비용셋팅
-        SettingCost(GetText((int)Texts.CostText), skinData1.Cost);
+        //세팅
+        SkinSetting(skinID1, skinID2, skinID3);
     }
 
     private void OnGreyHoundBtnClicked(PointerEventData eventData)
@@ -282,29 +209,13 @@ public class UI_DogSkinPopup : UI_Popup
         int skinID1 = 16;
         int skinID2 = 17;
         int skinID3 = 18;
-        skinData1 = SkinData.SkinDataMap[skinID1];
-        skinData2 = SkinData.SkinDataMap[skinID2];
-        skinData3 = SkinData.SkinDataMap[skinID3];
 
         // 원래 북마크 이미지 변경
         RestoreOriginalBookmark();
-
         // 북마크
         ChangeBookmark(GetImage((int)Images.GreyHoundBtn));
-
-        // 이미지 셋팅
-        SettingPicture(GetImage((int)Images.FirstDogPicture), skinData1.PicturePath);
-        SettingPicture(GetImage((int)Images.SecondDogPicture), skinData2.PicturePath);
-        SettingPicture(GetImage((int)Images.ThirdDogPicture), skinData3.PicturePath);
-
-        firstClickImage.gameObject.SetActive(true);
-        secondClickImage.gameObject.SetActive(false);
-        thirdClickImage.gameObject.SetActive(false);
-
-        // 설명셋팅
-        SettingDescription(GetText((int)Texts.Description), skinData1.Description);
-        // 비용셋팅
-        SettingCost(GetText((int)Texts.CostText), skinData1.Cost);
+        //세팅
+        SkinSetting(skinID1, skinID2, skinID3);
     }
 
     private void OnHuskyBtnClicked(PointerEventData eventData)
@@ -312,29 +223,13 @@ public class UI_DogSkinPopup : UI_Popup
         int skinID1 = 19;
         int skinID2 = 20;
         int skinID3 = 21;
-        skinData1 = SkinData.SkinDataMap[skinID1];
-        skinData2 = SkinData.SkinDataMap[skinID2];
-        skinData3 = SkinData.SkinDataMap[skinID3];
 
         // 원래 북마크 이미지 변경
         RestoreOriginalBookmark();
-
         // 북마크
         ChangeBookmark(GetImage((int)Images.HuskyBtn));
-
-        // 이미지 셋팅
-        SettingPicture(GetImage((int)Images.FirstDogPicture), skinData1.PicturePath);
-        SettingPicture(GetImage((int)Images.SecondDogPicture), skinData2.PicturePath);
-        SettingPicture(GetImage((int)Images.ThirdDogPicture), skinData3.PicturePath);
-
-        firstClickImage.gameObject.SetActive(true);
-        secondClickImage.gameObject.SetActive(false);
-        thirdClickImage.gameObject.SetActive(false);
-
-        // 설명셋팅
-        SettingDescription(GetText((int)Texts.Description), skinData1.Description);
-        // 비용셋팅
-        SettingCost(GetText((int)Texts.CostText), skinData1.Cost);
+        //세팅
+        SkinSetting(skinID1, skinID2, skinID3);
     }
 
     private void OnMountainDogBtnClicked(PointerEventData eventData)
@@ -342,29 +237,13 @@ public class UI_DogSkinPopup : UI_Popup
         int skinID1 = 22;
         int skinID2 = 23;
         int skinID3 = 24;
-        skinData1 = SkinData.SkinDataMap[skinID1];
-        skinData2 = SkinData.SkinDataMap[skinID2];
-        skinData3 = SkinData.SkinDataMap[skinID3];
 
         // 원래 북마크 이미지 변경
         RestoreOriginalBookmark();
-
         // 북마크
         ChangeBookmark(GetImage((int)Images.MountainDogBtn));
-
-        // 이미지 셋팅
-        SettingPicture(GetImage((int)Images.FirstDogPicture), skinData1.PicturePath);
-        SettingPicture(GetImage((int)Images.SecondDogPicture), skinData2.PicturePath);
-        SettingPicture(GetImage((int)Images.ThirdDogPicture), skinData3.PicturePath);
-
-        firstClickImage.gameObject.SetActive(true);
-        secondClickImage.gameObject.SetActive(false);
-        thirdClickImage.gameObject.SetActive(false);
-
-        // 설명셋팅
-        SettingDescription(GetText((int)Texts.Description), skinData1.Description);
-        // 비용셋팅
-        SettingCost(GetText((int)Texts.CostText), skinData1.Cost);
+        //세팅
+        SkinSetting(skinID1, skinID2, skinID3);
     }
 
     private void OnShepherdBtnClicked(PointerEventData eventData)
@@ -372,29 +251,13 @@ public class UI_DogSkinPopup : UI_Popup
         int skinID1 = 25;
         int skinID2 = 26;
         int skinID3 = 27;
-        skinData1 = SkinData.SkinDataMap[skinID1];
-        skinData2 = SkinData.SkinDataMap[skinID2];
-        skinData3 = SkinData.SkinDataMap[skinID3];
 
         // 원래 북마크 이미지 변경
         RestoreOriginalBookmark();
-
         // 북마크
         ChangeBookmark(GetImage((int)Images.ShepherdBtn));
-
-        // 이미지 셋팅
-        SettingPicture(GetImage((int)Images.FirstDogPicture), skinData1.PicturePath);
-        SettingPicture(GetImage((int)Images.SecondDogPicture), skinData2.PicturePath);
-        SettingPicture(GetImage((int)Images.ThirdDogPicture), skinData3.PicturePath);
-
-        firstClickImage.gameObject.SetActive(true);
-        secondClickImage.gameObject.SetActive(false);
-        thirdClickImage.gameObject.SetActive(false);
-
-        // 설명셋팅
-        SettingDescription(GetText((int)Texts.Description), skinData1.Description);
-        // 비용셋팅
-        SettingCost(GetText((int)Texts.CostText), skinData1.Cost);
+        //세팅
+        SkinSetting(skinID1, skinID2, skinID3);
     }
 
     private void OnShibaBtnClicked(PointerEventData eventData)
@@ -402,29 +265,13 @@ public class UI_DogSkinPopup : UI_Popup
         int skinID1 = 28;
         int skinID2 = 29;
         int skinID3 = 30;
-        skinData1 = SkinData.SkinDataMap[skinID1];
-        skinData2 = SkinData.SkinDataMap[skinID2];
-        skinData3 = SkinData.SkinDataMap[skinID3];
 
         // 원래 북마크 이미지 변경
         RestoreOriginalBookmark();
-
         // 북마크
         ChangeBookmark(GetImage((int)Images.ShibaBtn));
-
-        // 이미지 셋팅
-        SettingPicture(GetImage((int)Images.FirstDogPicture), skinData1.PicturePath);
-        SettingPicture(GetImage((int)Images.SecondDogPicture), skinData2.PicturePath);
-        SettingPicture(GetImage((int)Images.ThirdDogPicture), skinData3.PicturePath);
-
-        firstClickImage.gameObject.SetActive(true);
-        secondClickImage.gameObject.SetActive(false);
-        thirdClickImage.gameObject.SetActive(false);
-
-        // 설명셋팅
-        SettingDescription(GetText((int)Texts.Description), skinData1.Description);
-        // 비용셋팅
-        SettingCost(GetText((int)Texts.CostText), skinData1.Cost);
+        //세팅
+        SkinSetting(skinID1, skinID2, skinID3);
     }
 
 
@@ -439,6 +286,20 @@ public class UI_DogSkinPopup : UI_Popup
         firstClickImage.gameObject.SetActive(true);
         secondClickImage.gameObject.SetActive(false);
         thirdClickImage.gameObject.SetActive(false);
+
+        // 구매/입양 버튼 세팅
+        if (IsAdopted(clickedSkin.SkinName) == false)
+        {
+            purchaseImage.gameObject.SetActive(true);
+            adoptImage.gameObject.SetActive(false);
+            lockImage.gameObject.SetActive(true);
+        }
+        else
+        {
+            purchaseImage.gameObject.SetActive(false);
+            adoptImage.gameObject.SetActive(true);
+            lockImage.gameObject.SetActive(false);
+        }
     }
 
     private void OnSecondDogBtnClicked(PointerEventData eventData)
@@ -452,6 +313,20 @@ public class UI_DogSkinPopup : UI_Popup
         firstClickImage.gameObject.SetActive(false);
         secondClickImage.gameObject.SetActive(true);
         thirdClickImage.gameObject.SetActive(false);
+
+        // 구매/입양 버튼 세팅
+        if (IsAdopted(clickedSkin.SkinName) == false)
+        {
+            purchaseImage.gameObject.SetActive(true);
+            adoptImage.gameObject.SetActive(false);
+            lockImage.gameObject.SetActive(true);
+        }
+        else
+        {
+            purchaseImage.gameObject.SetActive(false);
+            adoptImage.gameObject.SetActive(true);
+            lockImage.gameObject.SetActive(false);
+        }
     }
 
     private void OnThirdDogBtnClicked(PointerEventData eventData)
@@ -465,6 +340,20 @@ public class UI_DogSkinPopup : UI_Popup
         firstClickImage.gameObject.SetActive(false);
         secondClickImage.gameObject.SetActive(false);
         thirdClickImage.gameObject.SetActive(true);
+
+        // 구매/입양 버튼 세팅
+        if (IsAdopted(clickedSkin.SkinName) == false)
+        {
+            purchaseImage.gameObject.SetActive(true);
+            adoptImage.gameObject.SetActive(false);
+            lockImage.gameObject.SetActive(true);
+        }
+        else
+        {
+            purchaseImage.gameObject.SetActive(false);
+            adoptImage.gameObject.SetActive(true);
+            lockImage.gameObject.SetActive(false);
+        }
     }
 
 
@@ -478,9 +367,13 @@ public class UI_DogSkinPopup : UI_Popup
 
     private void OnSelectBtnClicked(PointerEventData eventData)
     {
-        if (clickedSkin != null && IsAdopted(clickedSkin.SkinName))
+        if (clickedSkin != null && IsAdopted(clickedSkin.SkinName) == true)
         {
             Debug.Log(clickedSkin.SkinName + "선택됨");
+            PlayerPrefs.SetString("Skin", clickedSkin.SkinName);
+            Debug.Log(clickedSkin.SkinName + "저장");
+            PlayerSkinManager.Instance.ChangeSkin(clickedSkin.SkinName);
+            Debug.Log(clickedSkin.SkinName + "스킨적용");
         }
     }
 
@@ -504,6 +397,33 @@ public class UI_DogSkinPopup : UI_Popup
             originalBookmarkSprite = null;
             // 리셋
         }
+    }
+
+
+    private void SkinSetting(int skinID1, int skinID2, int skinID3)
+    {
+        skinData1 = SkinData.SkinDataMap[skinID1];
+        skinData2 = SkinData.SkinDataMap[skinID2];
+        skinData3 = SkinData.SkinDataMap[skinID3];
+
+        // 첫번째 강아지 기본 선택
+        clickedSkin = skinData1;
+
+        // 이미지 셋팅
+        SettingPicture(GetImage((int)Images.FirstDogPicture), skinData1.PicturePath);
+        SettingPicture(GetImage((int)Images.SecondDogPicture), skinData2.PicturePath);
+        SettingPicture(GetImage((int)Images.ThirdDogPicture), skinData3.PicturePath);
+
+        firstClickImage.gameObject.SetActive(true);
+        secondClickImage.gameObject.SetActive(false);
+        thirdClickImage.gameObject.SetActive(false);
+
+        // 설명셋팅
+        SettingDescription(GetText((int)Texts.Description), skinData1.Description);
+        // 비용셋팅
+        SettingCost(GetText((int)Texts.CostText), skinData1.Cost);
+        // 애니메이션 세팅
+        SettingAnimation(skinData1.AnimationPath);
     }
 
     private void SettingPicture(Image image, string path)
@@ -533,6 +453,7 @@ public class UI_DogSkinPopup : UI_Popup
         animator.runtimeAnimatorController = overrideController;
     }
 
+
     private bool IsAdopted(string skinNsme)
     {
         int adopt = PlayerPrefs.GetInt(skinNsme);
@@ -548,13 +469,6 @@ public class UI_DogSkinPopup : UI_Popup
 
     private void BuySkin(int cost, string skinName)
     {
-        TMP_Text adoptText = GetText((int)Texts.AdoptText);
-        Image purchaseImage = GetImage((int)Images.PurchaseImage);
-        Image adoptImage = GetImage((int)Images.AdoptImage);
-        Image lockImage = GetImage((int)Images.LockImage);
-        Button selectBtn = GetButton((int)Buttons.SelectBtn);
-        Button PurchaseBtn = GetButton((int)Buttons.PurchaseBtn);
-
         if (IsAdopted(skinName) == false) //입양 안된경우
         {
             int gold = PlayerPrefs.GetInt("Gold");
@@ -570,6 +484,8 @@ public class UI_DogSkinPopup : UI_Popup
                 purchaseImage.gameObject.SetActive(false);
                 adoptImage.gameObject.SetActive(true);
                 lockImage.gameObject.SetActive(false);
+
+                Debug.Log("압양 성공!");
 
                 //PurchaseBtn.interactable = false;
                 //selectBtn.interactable = true;
@@ -588,6 +504,4 @@ public class UI_DogSkinPopup : UI_Popup
             Debug.Log("이미 가족이 된 강아지입니다.");
         }
     }
-
-
 }
