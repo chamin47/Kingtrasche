@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UI_DialoguePopup : UI_Popup
+public class UI_StoryScene : UI_Scene
 {
 	enum Texts
 	{
@@ -95,7 +95,7 @@ public class UI_DialoguePopup : UI_Popup
 		if (dialogueIndex >= 0 && dialogueIndex < dialogues.Count)
 		{
 			var dialogue = dialogues[dialogueIndex]; // 현재 대화
-			ShowDialogueUI(dialogue.Talker, dialogue.Scripts, dialogue.CutScenePath); // 대화창 UI 표시
+			ShowDialogueUI(dialogue.Talker, dialogue.Scripts, dialogue.CharacterPortraitPath); // 대화창 UI 표시
 		}
 		else
 		{

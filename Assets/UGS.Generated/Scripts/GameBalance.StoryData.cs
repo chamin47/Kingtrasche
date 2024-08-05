@@ -59,6 +59,7 @@ namespace GameBalance
 		public System.Int32 DialogueID;
 		public System.String Talker;
 		public System.String Scripts;
+		public System.String CharacterPortraitPath;
 		public System.String CutScenePath;
   
 
