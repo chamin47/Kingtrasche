@@ -6,7 +6,9 @@ public class UI_Resouce : UI_Popup
     enum Texts
     {
         CoinTxt,
-        RubyTxt
+        RubyTxt,
+        ActiveAbilityNumberTxt,
+        AddAbilityTimeTxt
     }
 
     private void Awake()
@@ -29,6 +31,12 @@ public class UI_Resouce : UI_Popup
     private void Start()
     {
         ShowYouTheMoney();
+        ShowActiveAbility();
+    }
+
+    private void Update()
+    {
+
     }
 
     private void ShowYouTheMoney()
@@ -61,5 +69,14 @@ public class UI_Resouce : UI_Popup
         {
             rubyTxt.text = zero;
         }
+    }
+
+    private void ShowActiveAbility()
+    {
+        TMP_Text activeAbilityNumberTxt = Get<TMP_Text>((int)Texts.ActiveAbilityNumberTxt);
+        string x = " X ";
+        int ability = PlayerPrefs.GetInt("RunningPlayCount");
+
+        activeAbilityNumberTxt.text = x + ability.ToString();
     }
 }
