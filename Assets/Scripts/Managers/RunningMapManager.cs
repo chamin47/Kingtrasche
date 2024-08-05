@@ -15,8 +15,6 @@ public class RunningMapManager : MonoBehaviour
 
 	public static event Action<Vector3> EndMapSpawn;
 
-	private Dictionary<int, int> stageDialogueMap;
-
 	private void Awake()
 	{
 		if (Instance == null)
@@ -24,11 +22,6 @@ public class RunningMapManager : MonoBehaviour
 			Instance = this;
 		}
 		currentStage = PlayerPrefs.GetInt("StageNumber");
-		stageDialogueMap = new Dictionary<int, int>
-		{
-			{ 1, 011 }, { 3, 031 }, { 5, 051 }, { 6, 061 }, { 8, 081 }, 
-			{ 10, 101 }, { 11, 111 }, { 13, 131 }, { 15, 151 },
-        };
 	}
 
 	void Start()
@@ -51,23 +44,5 @@ public class RunningMapManager : MonoBehaviour
 			}
 		}
 		EndMapSpawn?.Invoke(lastMapTransform);
-
-		ShowDialoguePopup(currentStage);
-	}
-
-	private void ShowDialoguePopup(int stage)
-	{
-		if (stageDialogueMap.TryGetValue(stage, out int dialogueStage))
-		{
-			List<StoryData> dialogues = Managers.Dialogue.GetDialogueForStage(dialogueStage);
-			if (dialogues != null && dialogues.Count > 0)
-			{
-				UI_DialoguePopup dialoguePopup = Managers.UI.ShowPopupUI<UI_DialoguePopup>();
-				if (dialoguePopup != null)
-				{
-					dialoguePopup.InitDialogues(dialogues);
-				}
-			}
-		}
 	}
 }
