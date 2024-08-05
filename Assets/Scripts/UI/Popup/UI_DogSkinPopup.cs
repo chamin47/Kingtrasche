@@ -55,7 +55,9 @@ public class UI_DogSkinPopup : UI_Popup
 
         PurchaseImage,
         AdoptImage, // 입양 중인 이미지
-        LockImage //입양 전 락 이미지 -> SelectBtn비활성
+        LockImage, //입양 전 락 이미지 -> SelectBtn비활성
+
+        MirrorDog
     }
 
     enum Texts
