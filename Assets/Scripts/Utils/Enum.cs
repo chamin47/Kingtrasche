@@ -12,7 +12,8 @@ public enum Scene
     BossScene3,
     InfinityRunningScene,
     RunningTutorialScene,
-    LobbyScene
+    LobbyScene,
+    StoryScene
 }
 
 [UGS(typeof(Sound))]

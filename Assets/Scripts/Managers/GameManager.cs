@@ -10,6 +10,47 @@ public class GameManager
     public int BestScore { get; set; } // 무한모드 최대점수
     public string Skin { get; set; } //적용스킨
 
+    // 강아지 입양 여부
+    public int AfghanHoundBlack { get; set; }
+    public int AfghanHoundRed { get; set; }
+    public int AfghanHoundTan { get; set; }
+
+    public int BloodHoundBlack { get; set; }
+    public int BloodHoundOrange { get; set; }
+    public int BloodHoundRed { get; set; }
+
+    public int DalmationBlack { get; set; }
+    public int DalmationBrown { get; set; }
+    public int DalmationTricolor { get; set; }
+
+    public int DobermanBlack { get; set; }
+    public int DobermanGray { get; set; }
+    public int DobermanRed { get; set; }
+
+    public int GreatDaneBlackWhite { get; set; }
+    public int GreatDaneSpottedGray { get; set; }
+    public int GreatDaneTan { get; set; }
+
+    public int GreyHoundBlack { get; set; }
+    public int GreyHoundTan { get; set; }
+    public int GreyHoundWhiteSpotted { get; set; }
+
+    public int HuskyBlue { get; set; }
+    public int HuskyBrown { get; set; }
+    public int HuskyGray { get; set; }
+
+    public int MountainDogAustralian { get; set; }
+    public int MountainDogBernese { get; set; }
+    public int MountainDogLeonBerger { get; set; }
+
+    public int ShepherdBlack { get; set; }
+    public int ShepherdGray { get; set; }
+    public int ShepherdPanda { get; set; }
+
+    public int ShibaBlackTan { get; set; }
+    public int ShibaCream { get; set; }
+    public int ShibaOrange { get; set; }
+
     private void Init()
     {
         LoadGame();
@@ -24,6 +65,48 @@ public class GameManager
         PlayerPrefs.SetInt("MaxRunningPlayCount", MaxRunningPlayCount);
         PlayerPrefs.SetInt("BestScore", BestScore);
         PlayerPrefs.SetString("Skin", Skin);
+
+        // 강아지
+        PlayerPrefs.SetInt("AfghanHoundBlack", AfghanHoundBlack);
+        PlayerPrefs.SetInt("AfghanHoundRed", AfghanHoundRed);
+        PlayerPrefs.SetInt("AfghanHoundTan", AfghanHoundTan);
+
+        PlayerPrefs.SetInt("BloodHoundBlack", BloodHoundBlack);
+        PlayerPrefs.SetInt("BloodHoundOrange", BloodHoundOrange);
+        PlayerPrefs.SetInt("BloodHoundRed", BloodHoundRed);
+
+        PlayerPrefs.SetInt("DalmationBlack", DalmationBlack);
+        PlayerPrefs.SetInt("DalmationBrown", DalmationBrown);
+        PlayerPrefs.SetInt("DalmationTricolor", DalmationTricolor);
+
+        PlayerPrefs.SetInt("DobermanBlack", DobermanBlack);
+        PlayerPrefs.SetInt("DobermanGray", DobermanGray);
+        PlayerPrefs.SetInt("DobermanRed", DobermanRed);
+
+        PlayerPrefs.SetInt("GreatDaneBlackWhite", GreatDaneBlackWhite);
+        PlayerPrefs.SetInt("GreatDaneSpottedGray", GreatDaneSpottedGray);
+        PlayerPrefs.SetInt("GreatDaneTan", GreatDaneTan);
+
+        PlayerPrefs.SetInt("GreyHoundBlack", GreyHoundBlack);
+        PlayerPrefs.SetInt("GreyHoundTan", GreyHoundTan);
+        PlayerPrefs.SetInt("GreyHoundWhiteSpotted", GreyHoundWhiteSpotted);
+
+        PlayerPrefs.SetInt("HuskyBlue", HuskyBlue);
+        PlayerPrefs.SetInt("HuskyBrown", HuskyBrown);
+        PlayerPrefs.SetInt("HuskyGray", HuskyGray);
+
+        PlayerPrefs.SetInt("MountainDogAustralian", MountainDogAustralian);
+        PlayerPrefs.SetInt("MountainDogBernese", MountainDogBernese);
+        PlayerPrefs.SetInt("MountainDogLeonBerger", MountainDogLeonBerger);
+
+        PlayerPrefs.SetInt("ShepherdBlack", ShepherdBlack);
+        PlayerPrefs.SetInt("ShepherdGray", ShepherdGray);
+        PlayerPrefs.SetInt("ShepherdPanda", ShepherdPanda);
+
+        PlayerPrefs.SetInt("ShibaBlackTan", ShibaBlackTan);
+        PlayerPrefs.SetInt("ShibaCream", ShibaCream);
+        PlayerPrefs.SetInt("ShibaOrange", ShibaOrange);
+
         PlayerPrefs.Save();
     }
 
@@ -35,6 +118,43 @@ public class GameManager
         NaturalRunningPlayCount = PlayerPrefs.GetInt("NaturalRunningPlayCount", 0);
         MaxRunningPlayCount = PlayerPrefs.GetInt("MaxRunningPlayCount", 10);
         Skin = PlayerPrefs.GetString("Skin", "MountainDogBernese");
+
+        //강아지
+        AfghanHoundBlack = PlayerPrefs.GetInt("AfghanHoundBlack", 0);
+        AfghanHoundRed = PlayerPrefs.GetInt("AfghanHoundRed", 0);
+        AfghanHoundTan = PlayerPrefs.GetInt("AfghanHoundTan", 0);
+
+        BloodHoundBlack = PlayerPrefs.GetInt("BloodHoundBlack", 0);
+        BloodHoundOrange = PlayerPrefs.GetInt("BloodHoundOrange", 0);
+        BloodHoundRed = PlayerPrefs.GetInt("BloodHoundRed", 0);
+
+        DalmationBlack = PlayerPrefs.GetInt("DalmationBlack", 0);
+        DalmationBrown = PlayerPrefs.GetInt("DalmationBrown", 0);
+        DalmationTricolor = PlayerPrefs.GetInt("DalmationTricolor", 0);
+
+        DobermanBlack = PlayerPrefs.GetInt("DobermanBlack", 0);
+        DobermanGray = PlayerPrefs.GetInt("DobermanGray", 0);
+        DobermanRed = PlayerPrefs.GetInt("DobermanRed", 0);
+
+        GreatDaneBlackWhite = PlayerPrefs.GetInt("GreatDaneBlackWhite", 0);
+        GreatDaneSpottedGray = PlayerPrefs.GetInt("GreatDaneSpottedGray", 0);
+        GreatDaneTan = PlayerPrefs.GetInt("GreatDaneTan", 0);
+
+        HuskyBlue = PlayerPrefs.GetInt("HuskyBlue", 0);
+        HuskyBrown = PlayerPrefs.GetInt("HuskyBrown", 0);
+        HuskyGray = PlayerPrefs.GetInt("HuskyGray", 0);
+
+        MountainDogAustralian = PlayerPrefs.GetInt("MountainDogAustralian", 0);
+        MountainDogBernese = PlayerPrefs.GetInt("MountainDogBernese", 1);
+        MountainDogLeonBerger = PlayerPrefs.GetInt("MountainDogLeonBerger", 0);
+
+        ShepherdBlack = PlayerPrefs.GetInt("ShepherdBlack", 0);
+        ShepherdGray = PlayerPrefs.GetInt("ShepherdGray", 0);
+        ShepherdPanda = PlayerPrefs.GetInt("ShepherdPanda", 0);
+
+        ShibaBlackTan = PlayerPrefs.GetInt("ShibaBlackTan", 0);
+        ShibaCream = PlayerPrefs.GetInt("ShibaCream", 0);
+        ShibaOrange = PlayerPrefs.GetInt("ShibaOrange", 0);
     }
 
     public void GameOver()
