@@ -33,6 +33,7 @@ public class UI_StoryScene : UI_Scene
 
 	public List<StoryData> dialogues = new List<StoryData>(); // 대화 리스트
 	public int dialogueIndex = 0; // 대화 인덱스
+	public bool IsDialogueFinished { get; private set; } = false;
 
 	private void Awake()
 	{
@@ -70,6 +71,7 @@ public class UI_StoryScene : UI_Scene
 		}
 		else
 		{
+			IsDialogueFinished = true;
 			HideDialogueUI(); // 대화창 UI 숨기기
 			Debug.Log("대화 끝");
 		}
