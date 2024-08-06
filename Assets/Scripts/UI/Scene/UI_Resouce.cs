@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -14,7 +15,9 @@ public class UI_Resouce : UI_Popup
     private void Awake()
     {
         Init();
-    }
+		Managers.Game.OnRunningPlayCountChanged += UpdateRunningPlayCountUI;
+		TimeManager.OnStaminaTimeChanged += UpdateStaminaTimeUI;
+	}
 
     public override bool Init()
     {
@@ -34,12 +37,13 @@ public class UI_Resouce : UI_Popup
         ShowActiveAbility();
     }
 
-    private void Update()
-    {
+	private void OnDestroy()
+	{
+		Managers.Game.OnRunningPlayCountChanged -= UpdateRunningPlayCountUI;
+		TimeManager.OnStaminaTimeChanged -= UpdateStaminaTimeUI;
+	}
 
-    }
-
-    private void ShowYouTheMoney()
+	private void ShowYouTheMoney()
     {
         TMP_Text coinTxt = GetText((int)Texts.CoinTxt);
         TMP_Text rubyTxt = GetText((int)Texts.RubyTxt);
@@ -47,7 +51,7 @@ public class UI_Resouce : UI_Popup
         string zero = "0";
         string maxText = "+";
 
-        int coin = PlayerPrefs.GetInt("Gold");
+        int coin = Managers.Game.Gold;
         coinTxt.text = coin.ToString("#,###");
         if (coin > 99999)
         {
@@ -58,7 +62,7 @@ public class UI_Resouce : UI_Popup
             coinTxt.text = zero;
         }
 
-        int ruby = PlayerPrefs.GetInt("Diamond");
+        int ruby = Managers.Game.Diamond;
         rubyTxt.text = ruby.ToString("#,###");
 
         if (ruby > 99999)
@@ -75,8 +79,22 @@ public class UI_Resouce : UI_Popup
     {
         TMP_Text activeAbilityNumberTxt = Get<TMP_Text>((int)Texts.ActiveAbilityNumberTxt);
         string x = " X ";
-        int ability = PlayerPrefs.GetInt("RunningPlayCount");
+        int ability = Managers.Game.RunningPlayCount;
 
         activeAbilityNumberTxt.text = x + ability.ToString();
     }
+
+	private void UpdateRunningPlayCountUI(int newCount)
+	{
+		TMP_Text activeAbilityNumberTxt = Get<TMP_Text>((int)Texts.ActiveAbilityNumberTxt);
+		string x = " X ";
+		activeAbilityNumberTxt.text = x + newCount.ToString();
+	}
+
+	private void UpdateStaminaTimeUI(float staminaTime)
+	{
+		TMP_Text addAbilityTimeTxt = GetText((int)Texts.AddAbilityTimeTxt);
+		TimeSpan time = TimeSpan.FromSeconds(staminaTime);
+		addAbilityTimeTxt.text = string.Format("{0:D2}:{1:D2}", time.Minutes, time.Seconds);
+	}
 }

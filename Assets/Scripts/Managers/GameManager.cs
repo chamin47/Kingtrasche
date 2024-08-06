@@ -1,18 +1,33 @@
+using System;
 using UnityEngine;
 
 public class GameManager
 {
     public int Gold { get; set; }               // 무료재화
     public int Diamond { get; set; }            // 유료재화
-    public int RunningPlayCount { get; set; }   // 러닝플레이권
-    public int NaturalRunningPlayCount { get; set; } // 자연 충전된 러닝플레이권
-    public int MaxRunningPlayCount { get; set; } = 999; // 최대 러닝플레이권
-    public int BestScore { get; set; } // 무한모드 최대점수
+	private int _runningPlayCount;
+	public int RunningPlayCount
+	{
+		get => _runningPlayCount;
+		set
+		{
+			_runningPlayCount = value;
+			PlayerPrefs.SetInt("RunningPlayCount", value);
+			PlayerPrefs.Save();
+			OnRunningPlayCountChanged?.Invoke(_runningPlayCount);
+		}
+	}
+	public int NaturalRunningPlayCount { get; set; } // 자연 충전된 러닝플레이권
+    public int MaxRunningPlayCount { get; set; } = 5; // 최대 자연 충전 런닝플레이권
+	public int MaxPurchaseRunningPlayCount { get; set; } = 999; // 최대 구매 가능 러닝플레이권
+	public int BestScore { get; set; } // 무한모드 최대점수
     public string Skin { get; set; } //적용스킨
 
-    #region DogAdopt
-    // 강아지 입양 여부
-    public int AfghanHoundBlack { get; set; }
+	public event Action<int> OnRunningPlayCountChanged;
+
+	#region DogAdopt
+	// 강아지 입양 여부
+	public int AfghanHoundBlack { get; set; }
     public int AfghanHoundRed { get; set; }
     public int AfghanHoundTan { get; set; }
 
@@ -73,19 +88,33 @@ public class GameManager
     public int InfinityGoal { get; set; }
     public int InfinityComplete { get; set; }
 
-    private void Init()
+    public void Init()
     {
         LoadGame();
     }
 
-    private void SaveGame()
+	private void OnApplicationQuit()
+	{
+		SaveGame();
+	}
+
+	private void OnApplicationPause(bool pause)
+	{
+		if (pause)
+		{
+			SaveGame();
+		}
+	}
+
+	private void SaveGame()
     {
         PlayerPrefs.SetInt("Gold", Gold);
         PlayerPrefs.SetInt("Diamond", Diamond);
         PlayerPrefs.SetInt("RunningPlayCount", RunningPlayCount);
         PlayerPrefs.SetInt("NaturalRunningPlayCount", NaturalRunningPlayCount);
         PlayerPrefs.SetInt("MaxRunningPlayCount", MaxRunningPlayCount);
-        PlayerPrefs.SetInt("BestScore", BestScore);
+		PlayerPrefs.SetInt("MaxPurchaseRunningPlayCount", MaxPurchaseRunningPlayCount);
+		PlayerPrefs.SetInt("BestScore", BestScore);
         PlayerPrefs.SetString("Skin", Skin);
 
         #region SkinName
@@ -158,10 +187,11 @@ public class GameManager
     {
         Gold = PlayerPrefs.GetInt("Gold", 0);
         Diamond = PlayerPrefs.GetInt("Diamond", 0);
-        RunningPlayCount = PlayerPrefs.GetInt("RunningPlayCount", 0);
-        NaturalRunningPlayCount = PlayerPrefs.GetInt("NaturalRunningPlayCount", 0);
-        MaxRunningPlayCount = PlayerPrefs.GetInt("MaxRunningPlayCount", 10);
-        Skin = PlayerPrefs.GetString("Skin", "MountainDogBernese");
+		_runningPlayCount = PlayerPrefs.GetInt("RunningPlayCount", 0);
+		NaturalRunningPlayCount = PlayerPrefs.GetInt("NaturalRunningPlayCount", 0);
+        MaxRunningPlayCount = PlayerPrefs.GetInt("MaxRunningPlayCount", 5);
+		MaxPurchaseRunningPlayCount = PlayerPrefs.GetInt("MaxPurchaseRunningPlayCount", 999);
+		Skin = PlayerPrefs.GetString("Skin", "MountainDogBernese");
 
         #region Skin
         //강아지
@@ -242,19 +272,25 @@ public class GameManager
         Time.timeScale = 0;
     }
 
-    public void PurchaseRunningPlayCount(int amount)
-    {
-        if (Diamond >= amount)
-        {
-            Diamond -= amount;
-            RunningPlayCount += amount;
+	public void PurchaseRunningPlayCount(int amount)
+	{
+		if (Diamond >= amount)
+		{
+			int newRunningPlayCount = RunningPlayCount + amount;
+			if (newRunningPlayCount > MaxPurchaseRunningPlayCount)
+			{
+				Debug.Log("구매 가능한 최대 러닝플레이권 갯수를 초과합니다.");
+				return;
+			}
 
-            // 유료재화로 구매한 러닝플레이권은 최대치 제한 없음
-            SaveGame();
-        }
-        else
-        {
-            Debug.Log("유료재화가 부족합니다.");
-        }
-    }
+			Diamond -= amount;
+			RunningPlayCount = newRunningPlayCount;
+
+			SaveGame();
+		}
+		else
+		{
+			Debug.Log("유료재화가 부족합니다.");
+		}
+	}
 }
