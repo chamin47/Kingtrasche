@@ -56,9 +56,7 @@ public class UI_DogSkinPopup : UI_Popup
 
         PurchaseImage,
         AdoptImage, // 입양 중인 이미지
-        LockImage, //입양 전 락 이미지 -> SelectBtn비활성
-
-        MirrorDog
+        LockImage //입양 전 락 이미지 -> SelectBtn비활성
     }
 
     enum Texts
@@ -492,8 +490,11 @@ public class UI_DogSkinPopup : UI_Popup
 
         AnimatorOverrideController overrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
         overrideController["ProgressDog"] = clip;
+        //Debug.Log("스킨적용됨");
 
         animator.runtimeAnimatorController = overrideController;
+
+        //Debug.Log("컨트롤러 적용됨");
     }
 
 
