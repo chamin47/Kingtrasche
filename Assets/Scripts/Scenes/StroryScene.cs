@@ -65,13 +65,29 @@ public class StoryScene : BaseScene
 		else
 		{
 			int startFrom = PlayerPrefs.GetInt("StartFrom");
-			if (startFrom == 1)  // Started from start scene
+			if (startFrom == 1)  
 			{
-				Managers.Scene.LoadScene(Scene.LobbyScene);  // Load lobby scene
+				Managers.Scene.LoadScene(Scene.LobbyScene);  
 			}
-			else if (startFrom == 2)  // Started from stage button
+			else if (startFrom == 2)  
 			{
-				Managers.Scene.LoadScene(Scene.RunningScene);  // Load running scene
+				Managers.Scene.LoadScene(Scene.StageScene);  
+			}
+			else if (startFrom == 3)
+			{
+				Managers.Scene.LoadScene(Scene.RunningScene);
+			}
+			else if (startFrom == 4)
+			{
+				Managers.Scene.LoadScene(Scene.BossScene1);
+			}
+			else if (startFrom == 5)
+			{
+				Managers.Scene.LoadScene(Scene.BossScene2);
+			}
+			else if (startFrom == 6)
+			{
+				Managers.Scene.LoadScene(Scene.BossScene3);
 			}
 		}
 	}

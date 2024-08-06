@@ -173,7 +173,7 @@ public class DialogueManager
 				}
 			},
 			{
-				1139, new List<StoryData>
+				1130, new List<StoryData>
 				{
 					StoryData.StoryDataMap[10001],
 					StoryData.StoryDataMap[10002],

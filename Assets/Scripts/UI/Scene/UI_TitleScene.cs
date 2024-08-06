@@ -46,7 +46,7 @@ public class UI_TitleScene : UI_Scene
     private void OnStartButtonClicked(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-		if (PlayerPrefs.GetInt("TitleFirstTimePlaying") == 0)
+		if (PlayerPrefs.GetInt("TitleFirstTimePlaying") == 1)
 		{
 			PlayerPrefs.SetInt("TitleFirstTimePlaying", 1);
             PlayerPrefs.SetInt("StoryNumber", 1000);
