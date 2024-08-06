@@ -6,7 +6,9 @@ public class UI_Resouce : UI_Popup
     enum Texts
     {
         CoinTxt,
-        RubyTxt
+        RubyTxt,
+        ActiveAbilityNumberTxt,
+        AddAbilityTimeTxt
     }
 
     private void Awake()
@@ -29,19 +31,25 @@ public class UI_Resouce : UI_Popup
     private void Start()
     {
         ShowYouTheMoney();
+        ShowActiveAbility();
+    }
+
+    private void Update()
+    {
+
     }
 
     private void ShowYouTheMoney()
     {
         TMP_Text coinTxt = GetText((int)Texts.CoinTxt);
         TMP_Text rubyTxt = GetText((int)Texts.RubyTxt);
-        int max = 999999; // 최대 표기
+        int max = 99999; // 최대 표기
         string zero = "0";
         string maxText = "+";
 
         int coin = PlayerPrefs.GetInt("Gold");
         coinTxt.text = coin.ToString("#,###");
-        if (coin > 999999)
+        if (coin > 99999)
         {
             coinTxt.text = max.ToString("#,###") + maxText;
         }
@@ -53,7 +61,7 @@ public class UI_Resouce : UI_Popup
         int ruby = PlayerPrefs.GetInt("Diamond");
         rubyTxt.text = ruby.ToString("#,###");
 
-        if (ruby > 999999)
+        if (ruby > 99999)
         {
             rubyTxt.text = max.ToString("#,###") + maxText;
         }
@@ -61,5 +69,14 @@ public class UI_Resouce : UI_Popup
         {
             rubyTxt.text = zero;
         }
+    }
+
+    private void ShowActiveAbility()
+    {
+        TMP_Text activeAbilityNumberTxt = Get<TMP_Text>((int)Texts.ActiveAbilityNumberTxt);
+        string x = " X ";
+        int ability = PlayerPrefs.GetInt("RunningPlayCount");
+
+        activeAbilityNumberTxt.text = x + ability.ToString();
     }
 }

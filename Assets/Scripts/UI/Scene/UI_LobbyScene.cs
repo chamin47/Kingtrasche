@@ -56,6 +56,7 @@ public class UI_LobbyScene : UI_Scene
     private void OnDogCollectionButtonClicked(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
+        Managers.UI.ShowPopupUI<UI_DogSkinPopup>();
 
     }
 
