@@ -17,7 +17,7 @@ public class DialogueManager
 		stageDialogues = new Dictionary<int, List<StoryData>>
 		{
 			{
-				001, new List<StoryData>
+				1000, new List<StoryData>		// 타이틀 -> 스타트버튼
 				{
 					StoryData.StoryDataMap[1001],
 					StoryData.StoryDataMap[1002],
@@ -26,12 +26,7 @@ public class DialogueManager
 					StoryData.StoryDataMap[1005],
 					StoryData.StoryDataMap[1006],
 					StoryData.StoryDataMap[1007],
-					StoryData.StoryDataMap[1008]
-				}
-			},
-			{
-				002, new List<StoryData>
-				{
+					StoryData.StoryDataMap[1008],
 					StoryData.StoryDataMap[1101],
 					StoryData.StoryDataMap[1102],
 					StoryData.StoryDataMap[1103],
@@ -40,12 +35,11 @@ public class DialogueManager
 					StoryData.StoryDataMap[1106],
 					StoryData.StoryDataMap[1107],
 					StoryData.StoryDataMap[1108],
-					StoryData.StoryDataMap[1009]
-
+					StoryData.StoryDataMap[1009],					
 				}
 			},
 			{
-				003, new List<StoryData>
+				1001, new List<StoryData>		// 스토리모드 선택 이후
 				{
 					StoryData.StoryDataMap[2001],
 					StoryData.StoryDataMap[2002],
@@ -71,7 +65,7 @@ public class DialogueManager
 				}
 			},
 			{
-				011, new List<StoryData>
+				1010, new List<StoryData>
 				{
 					StoryData.StoryDataMap[3001],
 					StoryData.StoryDataMap[3002],
@@ -81,7 +75,7 @@ public class DialogueManager
 				}
 			},
 			{
-				031, new List<StoryData>
+				1030, new List<StoryData>
 				{
 					StoryData.StoryDataMap[4001],
 					StoryData.StoryDataMap[4002],
@@ -99,7 +93,7 @@ public class DialogueManager
 				}
 			},
 			{
-				051, new List<StoryData>
+				1050, new List<StoryData>
 				{
 					StoryData.StoryDataMap[5001],
 					StoryData.StoryDataMap[5002],
@@ -110,18 +104,13 @@ public class DialogueManager
 				}
 			},
 			{
-				061, new List<StoryData>
+				1060, new List<StoryData>
 				{
 					StoryData.StoryDataMap[6001],
 					StoryData.StoryDataMap[6002],
 					StoryData.StoryDataMap[6003],
 					StoryData.StoryDataMap[6004],
 					StoryData.StoryDataMap[6005],
-				}
-			},
-			{
-				062, new List<StoryData>
-				{
 					StoryData.StoryDataMap[6101],
 					StoryData.StoryDataMap[6102],
 					StoryData.StoryDataMap[6103],
@@ -140,18 +129,13 @@ public class DialogueManager
 				}
 			},
 			{
-				081, new List<StoryData>
+				1070, new List<StoryData>
 				{
 					StoryData.StoryDataMap[7001],
 					StoryData.StoryDataMap[7002],
 					StoryData.StoryDataMap[7003],
 					StoryData.StoryDataMap[7004],
 					StoryData.StoryDataMap[7005],
-				}
-			},
-			{
-				082, new List<StoryData>
-				{
 					StoryData.StoryDataMap[7101],
 					StoryData.StoryDataMap[7102],
 					StoryData.StoryDataMap[7103],
@@ -159,7 +143,7 @@ public class DialogueManager
 				}
 			},
 			{
-				101, new List<StoryData>
+				1100, new List<StoryData>
 				{
 					StoryData.StoryDataMap[8001],
 					StoryData.StoryDataMap[8002],
@@ -174,7 +158,7 @@ public class DialogueManager
 				}
 			},
 			{
-				111, new List<StoryData>
+				1110, new List<StoryData>
 				{
 					StoryData.StoryDataMap[9001],
 					StoryData.StoryDataMap[9002],
@@ -189,7 +173,7 @@ public class DialogueManager
 				}
 			},
 			{
-				131, new List<StoryData>
+				1139, new List<StoryData>
 				{
 					StoryData.StoryDataMap[10001],
 					StoryData.StoryDataMap[10002],
@@ -200,7 +184,7 @@ public class DialogueManager
 				}
 			},
 			{
-				151, new List<StoryData>
+				1150, new List<StoryData>
 				{
 					StoryData.StoryDataMap[11001],
 					StoryData.StoryDataMap[11002],
@@ -214,7 +198,7 @@ public class DialogueManager
 				}
 			},
 			{
-				161, new List<StoryData>
+				1160, new List<StoryData>
 				{
 					StoryData.StoryDataMap[12001],
 					StoryData.StoryDataMap[12002],
@@ -255,11 +239,6 @@ public class DialogueManager
 					StoryData.StoryDataMap[12310],
 					StoryData.StoryDataMap[12311],
 					StoryData.StoryDataMap[12312],
-				}
-			},
-			{
-				162, new List<StoryData>
-				{
 					StoryData.StoryDataMap[1010],
 					StoryData.StoryDataMap[1011],
 					StoryData.StoryDataMap[1012],
@@ -270,7 +249,6 @@ public class DialogueManager
 					StoryData.StoryDataMap[1017],
 				}
 			},
-            // 필요한 스테이지 추가
         };
 	}
 
