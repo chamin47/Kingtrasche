@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class StoryScene : BaseScene
 {
 	public int currentStage;
+	private Dictionary<int, int> stageToStoryMap;
 
 	protected override void Init()
 	{
@@ -14,10 +15,32 @@ public class StoryScene : BaseScene
 		SceneType = Scene.StoryScene;
 		Time.timeScale = 1.0f;
 
-		currentStage = PlayerPrefs.GetInt("StoryNumber");
-		
+		InitializeStageToStoryMap();
+
+		int stageNumber = PlayerPrefs.GetInt("StageNumber");
+		currentStage = stageToStoryMap.ContainsKey(stageNumber) ? stageToStoryMap[stageNumber] : 0;
+
 
 		PlayStory(currentStage);
+	}
+
+	private void InitializeStageToStoryMap()
+	{
+		stageToStoryMap = new Dictionary<int, int>
+		{
+			{1, 1010},
+			{3, 1030},
+			{5, 1050},
+			{6, 1060},
+			{8, 1080},
+			{10, 1100},
+			{11, 1110},
+			{13, 1130},
+			{15, 1150},
+			{16, 1160},
+			{1000, 1000},
+			{1001, 1001},
+		};
 	}
 
 	public override void Clear()

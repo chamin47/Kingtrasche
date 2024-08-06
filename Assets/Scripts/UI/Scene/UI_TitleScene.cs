@@ -49,7 +49,7 @@ public class UI_TitleScene : UI_Scene
 		if (PlayerPrefs.GetInt("TitleFirstTimePlaying") == 1)
 		{
 			PlayerPrefs.SetInt("TitleFirstTimePlaying", 1);
-            PlayerPrefs.SetInt("StoryNumber", 1000);
+            PlayerPrefs.SetInt("StageNumber", 1000);
 			PlayerPrefs.SetInt("StartFrom", 1);
 			PlayerPrefs.Save();
 			Managers.Scene.LoadScene(Scene.StoryScene);

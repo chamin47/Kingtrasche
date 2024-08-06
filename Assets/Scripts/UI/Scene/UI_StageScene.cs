@@ -91,7 +91,6 @@ public class UI_StageSelectScene : UI_Scene
         Managers.Scene.LoadScene(Scene.StoryScene);
         PlayerPrefs.SetInt("StageNumber", 1);
         PlayerPrefs.SetInt("StartFrom", 3);
-        PlayerPrefs.SetInt("StoryNumber", 1010);
     }
     private void OnClickLevel2Button(PointerEventData eventData)
     {
@@ -105,7 +104,6 @@ public class UI_StageSelectScene : UI_Scene
         Managers.Scene.LoadScene(Scene.StoryScene);
         PlayerPrefs.SetInt("StageNumber", 3);
 		PlayerPrefs.SetInt("StartFrom", 3);
-		PlayerPrefs.SetInt("StoryNumber", 1030);
 	}
     private void OnClickLevel4Button(PointerEventData eventData)
     {
@@ -119,7 +117,6 @@ public class UI_StageSelectScene : UI_Scene
         Managers.Scene.LoadScene(Scene.StoryScene);
         PlayerPrefs.SetInt("StageNumber", 5);
 		PlayerPrefs.SetInt("StartFrom", 4);
-		PlayerPrefs.SetInt("StoryNumber", 1050);
 	}
     private void OnClickLevel6Button(PointerEventData eventData)
     {
@@ -127,7 +124,6 @@ public class UI_StageSelectScene : UI_Scene
         Managers.Scene.LoadScene(Scene.StoryScene);
         PlayerPrefs.SetInt("StageNumber", 6);
 		PlayerPrefs.SetInt("StartFrom", 3);
-		PlayerPrefs.SetInt("StoryNumber", 1060);
 	}
     private void OnClickLevel7Button(PointerEventData eventData)
     {
@@ -135,7 +131,6 @@ public class UI_StageSelectScene : UI_Scene
         Managers.Scene.LoadScene(Scene.StoryScene);
         PlayerPrefs.SetInt("StageNumber", 7);
 		PlayerPrefs.SetInt("StartFrom", 3);
-		PlayerPrefs.SetInt("StoryNumber", 1070);
 	}
     private void OnClickLevel8Button(PointerEventData eventData)
     {
@@ -155,7 +150,6 @@ public class UI_StageSelectScene : UI_Scene
         Managers.Scene.LoadScene(Scene.StoryScene);
         PlayerPrefs.SetInt("StageNumber", 10);
 		PlayerPrefs.SetInt("StartFrom", 5);
-		PlayerPrefs.SetInt("StoryNumber", 1100);
 	}
     private void OnClickLevel11Button(PointerEventData eventData)
     {
@@ -163,7 +157,6 @@ public class UI_StageSelectScene : UI_Scene
         Managers.Scene.LoadScene(Scene.StoryScene);
         PlayerPrefs.SetInt("StageNumber", 11);
 		PlayerPrefs.SetInt("StartFrom", 3);
-		PlayerPrefs.SetInt("StoryNumber", 1110);
 	}
     private void OnClickLevel12Button(PointerEventData eventData)
     {
@@ -177,7 +170,6 @@ public class UI_StageSelectScene : UI_Scene
         Managers.Scene.LoadScene(Scene.StoryScene);
         PlayerPrefs.SetInt("StageNumber", 13);
 		PlayerPrefs.SetInt("StartFrom", 3);
-		PlayerPrefs.SetInt("StoryNumber", 1130);
 	}
     private void OnClickLevel14Button(PointerEventData eventData)
     {
@@ -191,7 +183,6 @@ public class UI_StageSelectScene : UI_Scene
         Managers.Scene.LoadScene(Scene.StoryScene);
         PlayerPrefs.SetInt("StageNumber", 15);
 		PlayerPrefs.SetInt("StartFrom", 6);
-		PlayerPrefs.SetInt("StoryNumber", 1150);
 	}
     #endregion
 }

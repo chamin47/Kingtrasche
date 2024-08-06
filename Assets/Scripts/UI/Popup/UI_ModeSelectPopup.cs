@@ -38,7 +38,7 @@ public class UI_ModeSelectPopup : UI_Popup
 		if (PlayerPrefs.GetInt("StoryFirstTimePlaying") == 1)
 		{
 			PlayerPrefs.SetInt("StoryFirstTimePlaying", 1);
-			PlayerPrefs.SetInt("StoryNumber", 1001);
+			PlayerPrefs.SetInt("StageNumber", 1001);
 			PlayerPrefs.SetInt("StartFrom", 2);
 			PlayerPrefs.Save();
 			Managers.Scene.LoadScene(Scene.StoryScene);
