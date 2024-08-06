@@ -196,13 +196,13 @@ public class UI_MissionPopup : UI_Popup
         for (int i = 0; i < missionImage.Length; i++)
         {
             MissionData missionData = MissionData.MissionDataMap[i + 1];
-            if (IsGoal(missionData.Complete) == false) // 미션이 완료되지 않았으면 그대로
-            {
-                return;
-            }
-            else // 완료됐으면 이미지 교체
+            if (IsGoal(missionData.Complete) == true) // 완료됐으면 이미지 교체
             {
                 ChangeTitleImage(missionImage[i]);
+            }
+            else // 미션이 완료되지 않았으면 그대로
+            {
+                return;
             }
         }
     }
@@ -223,14 +223,17 @@ public class UI_MissionPopup : UI_Popup
     {
         Button rewardBtn = Get<Button>((int)Buttons.RewardBtn);
         int currentLevel = PlayerPrefs.GetInt(clickedMission.Level);
+        Debug.Log(clickedMission.Level);
         int goalLevel = PlayerPrefs.GetInt(clickedMission.GoalLevel);
+        Debug.Log(clickedMission.GoalLevel);
         int reward = PlayerPrefs.GetInt(clickedMission.Reward);
+        Debug.Log(clickedMission.Reward);
         string slash = " / ";
         string currentLevelstr = currentLevel.ToString("#,##0");
-        string goalLevelStr = goalLevel.ToString("#,###");
+        string goalLevelStr = goalLevel.ToString("#,##0");
 
         missionGoalText.text = currentLevelstr + slash + goalLevelStr;
-        rewardText.text = reward.ToString("#,###");
+        rewardText.text = reward.ToString("#,##0");
 
 
         // 목표달성 여부에 따라 보상버튼 활성/비활성화
@@ -248,6 +251,11 @@ public class UI_MissionPopup : UI_Popup
         {
             rewardBtn.interactable = false;
         }
+
+        Debug.Log("Current Level: " + PlayerPrefs.GetInt(clickedMission.Level));
+        Debug.Log("Goal Level: " + PlayerPrefs.GetInt(clickedMission.GoalLevel));
+        Debug.Log("Reward: " + PlayerPrefs.GetInt(clickedMission.Reward));
+        Debug.Log("Complete: " + PlayerPrefs.GetInt(clickedMission.Complete));
     }
 
     private void UpdateGoalAndReward()
