@@ -46,8 +46,19 @@ public class UI_TitleScene : UI_Scene
     private void OnStartButtonClicked(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.LobbyScene);
-    }
+		if (PlayerPrefs.GetInt("TitleFirstTimePlaying") == 1)
+		{
+			PlayerPrefs.SetInt("TitleFirstTimePlaying", 1);
+            PlayerPrefs.SetInt("StageNumber", 1000);
+			PlayerPrefs.SetInt("StartFrom", 1);
+			PlayerPrefs.Save();
+			Managers.Scene.LoadScene(Scene.StoryScene);
+		}
+		else
+		{
+			Managers.Scene.LoadScene(Scene.LobbyScene);
+		}
+	}
 
     private void OnOptionButtonClicked(PointerEventData eventData)
     {
