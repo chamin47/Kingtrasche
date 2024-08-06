@@ -88,8 +88,9 @@ public class UI_StageSelectScene : UI_Scene
     private void OnClickLevel1Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.RunningScene);
+        Managers.Scene.LoadScene(Scene.StoryScene);
         PlayerPrefs.SetInt("StageNumber", 1);
+        PlayerPrefs.SetInt("StartFrom", 3);
     }
     private void OnClickLevel2Button(PointerEventData eventData)
     {
@@ -100,9 +101,10 @@ public class UI_StageSelectScene : UI_Scene
     private void OnClickLevel3Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.RunningScene);
+        Managers.Scene.LoadScene(Scene.StoryScene);
         PlayerPrefs.SetInt("StageNumber", 3);
-    }
+		PlayerPrefs.SetInt("StartFrom", 3);
+	}
     private void OnClickLevel4Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
@@ -112,21 +114,24 @@ public class UI_StageSelectScene : UI_Scene
     private void OnClickLevel5Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.BossScene1);
+        Managers.Scene.LoadScene(Scene.StoryScene);
         PlayerPrefs.SetInt("StageNumber", 5);
-    }
+		PlayerPrefs.SetInt("StartFrom", 4);
+	}
     private void OnClickLevel6Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.RunningScene);
+        Managers.Scene.LoadScene(Scene.StoryScene);
         PlayerPrefs.SetInt("StageNumber", 6);
-    }
+		PlayerPrefs.SetInt("StartFrom", 3);
+	}
     private void OnClickLevel7Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.RunningScene);
+        Managers.Scene.LoadScene(Scene.StoryScene);
         PlayerPrefs.SetInt("StageNumber", 7);
-    }
+		PlayerPrefs.SetInt("StartFrom", 3);
+	}
     private void OnClickLevel8Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
@@ -142,15 +147,17 @@ public class UI_StageSelectScene : UI_Scene
     private void OnClickLevel10Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.BossScene2);
+        Managers.Scene.LoadScene(Scene.StoryScene);
         PlayerPrefs.SetInt("StageNumber", 10);
-    }
+		PlayerPrefs.SetInt("StartFrom", 5);
+	}
     private void OnClickLevel11Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.RunningScene);
+        Managers.Scene.LoadScene(Scene.StoryScene);
         PlayerPrefs.SetInt("StageNumber", 11);
-    }
+		PlayerPrefs.SetInt("StartFrom", 3);
+	}
     private void OnClickLevel12Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
@@ -160,20 +167,22 @@ public class UI_StageSelectScene : UI_Scene
     private void OnClickLevel13Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.RunningScene);
+        Managers.Scene.LoadScene(Scene.StoryScene);
         PlayerPrefs.SetInt("StageNumber", 13);
-    }
+		PlayerPrefs.SetInt("StartFrom", 3);
+	}
     private void OnClickLevel14Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.RunningScene);
+        Managers.Scene.LoadScene(Scene.StoryScene);
         PlayerPrefs.SetInt("StageNumber", 14);
     }
     private void OnClickLevel15Button(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.BossScene3);
+        Managers.Scene.LoadScene(Scene.StoryScene);
         PlayerPrefs.SetInt("StageNumber", 15);
-    }
+		PlayerPrefs.SetInt("StartFrom", 6);
+	}
     #endregion
 }

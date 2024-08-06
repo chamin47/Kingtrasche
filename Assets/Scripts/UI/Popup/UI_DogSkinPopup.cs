@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class UI_DogSkinPopup : UI_Popup
 {
+    #region Enum
     enum Buttons
     {
         // 강아지 종 선택 -> 각 첫번째 색의 강아지로 첫 화면
@@ -64,6 +65,7 @@ public class UI_DogSkinPopup : UI_Popup
         AdoptText, // 입양했을 시 텍스트 변경
         CostText, // 각 강아지마다의 입양 가격
     }
+    #endregion
 
     private SkinData skinData1;
     private SkinData skinData2;
@@ -147,6 +149,7 @@ public class UI_DogSkinPopup : UI_Popup
         return true;
     }
 
+    #region SkinBtn
     private void OnAfghanHoundBtnClicked(PointerEventData eventData)
     {
         int skinID1 = 1;
@@ -306,7 +309,7 @@ public class UI_DogSkinPopup : UI_Popup
         //세팅
         SkinSetting(skinID1, skinID2, skinID3);
     }
-
+    #endregion
 
     private void OnFirstDogBtnClicked(PointerEventData eventData)
     {

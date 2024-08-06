@@ -17,7 +17,8 @@ public class UI_StoryScene : UI_Scene
 
 	enum Images
 	{
-		CutSceneImg
+		CutSceneImg,
+		CharacterPortraitImg,
 	}
 
 	enum Buttons
@@ -27,6 +28,7 @@ public class UI_StoryScene : UI_Scene
 
 	private TMP_Text nameText; // 대화창 이름 Text
 	private TMP_Text dialogueText; // 대화창 대사 Text
+	private Image characterPortraitImg;
 	private Image cutSceneImg;
 
 	public List<StoryData> dialogues = new List<StoryData>(); // 대화 리스트
@@ -48,6 +50,7 @@ public class UI_StoryScene : UI_Scene
 
 		nameText = Get<TMP_Text>((int)Texts.NameText);
 		dialogueText = Get<TMP_Text>((int)Texts.DialogueText);
+		characterPortraitImg = Get<Image>((int)Images.CharacterPortraitImg);
 		cutSceneImg = Get<Image>((int)Images.CutSceneImg);
 
 		Get<Button>((int)Buttons.DialogueBackground).gameObject.BindEvent(OnClickBackground);
@@ -95,7 +98,7 @@ public class UI_StoryScene : UI_Scene
 		if (dialogueIndex >= 0 && dialogueIndex < dialogues.Count)
 		{
 			var dialogue = dialogues[dialogueIndex]; // 현재 대화
-			ShowDialogueUI(dialogue.Talker, dialogue.Scripts, dialogue.CharacterPortraitPath); // 대화창 UI 표시
+			ShowDialogueUI(dialogue.Talker, dialogue.Scripts, dialogue.CharacterPortraitPath, dialogue.CutScenePath); // 대화창 UI 표시
 		}
 		else
 		{
@@ -104,11 +107,12 @@ public class UI_StoryScene : UI_Scene
 	}
 
 	// 대화창 UI 표시
-	private void ShowDialogueUI(string name, string dialogue, string CutScenePath)
+	private void ShowDialogueUI(string name, string dialogue, string characterPortraitPath, string cutScenePath)
 	{
 		nameText.text = name; // 이름 표시
 		dialogueText.text = dialogue; // 대사 표시
-		cutSceneImg.sprite = Resources.Load<Sprite>(CutScenePath);
+		characterPortraitImg.sprite = Resources.Load<Sprite>(characterPortraitPath);
+		cutSceneImg.sprite = Resources.Load<Sprite>(cutScenePath);
 
 		// 기존 팝업을 다시 보여주기만 합니다.
 		gameObject.SetActive(true);

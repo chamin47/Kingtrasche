@@ -35,11 +35,13 @@ public class UI_ModeSelectPopup : UI_Popup
 
 	private void OnclickStoryButton(PointerEventData eventData)
 	{
-		if (PlayerPrefs.GetInt("FirstTimePlaying") == 0)
+		if (PlayerPrefs.GetInt("StoryFirstTimePlaying") == 1)
 		{
-			PlayerPrefs.SetInt("FirstTimePlaying", 1);
+			PlayerPrefs.SetInt("StoryFirstTimePlaying", 1);
+			PlayerPrefs.SetInt("StageNumber", 1001);
+			PlayerPrefs.SetInt("StartFrom", 2);
 			PlayerPrefs.Save();
-			Managers.Scene.LoadScene(Scene.RunningTutorialScene);
+			Managers.Scene.LoadScene(Scene.StoryScene);
 		}
 		else
 		{
