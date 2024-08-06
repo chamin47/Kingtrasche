@@ -6,7 +6,7 @@ public class GameManager
     public int Diamond { get; set; }            // 유료재화
     public int RunningPlayCount { get; set; }   // 러닝플레이권
     public int NaturalRunningPlayCount { get; set; } // 자연 충전된 러닝플레이권
-    public int MaxRunningPlayCount { get; set; } = 10; // 최대 러닝플레이권
+    public int MaxRunningPlayCount { get; set; } = 999; // 최대 러닝플레이권
     public int BestScore { get; set; } // 무한모드 최대점수
     public string Skin { get; set; } //적용스킨
 
@@ -52,6 +52,26 @@ public class GameManager
     public int ShibaCream { get; set; }
     public int ShibaOrange { get; set; }
     #endregion
+
+    public int StoryLevel { get; set; } // 현재 진행중인 레벨
+    public int StoryGoal { get; set; } // 목표 레벨
+    public int StoryComplete { get; set; } //미션 클리어 여부
+
+    public int BossLevel { get; set; }
+    public int BossGoal { get; set; }
+    public int BossComplete { get; set; }
+
+    public int BeeLevel { get; set; }
+    public int BeeGoal { get; set; }
+    public int BeeComplete { get; set; }
+
+    public int PuzzleLevel { get; set; }
+    public int PuzzleGoal { get; set; }
+    public int PuzzleComplete { get; set; }
+
+    public int InfinityLevel { get; set; }
+    public int InfinityGoal { get; set; }
+    public int InfinityComplete { get; set; }
 
     private void Init()
     {
@@ -111,6 +131,26 @@ public class GameManager
         PlayerPrefs.SetInt("ShibaOrange", ShibaOrange);
         #endregion
 
+        PlayerPrefs.SetInt("StoryLevel", StoryLevel);
+        PlayerPrefs.SetInt("StoryGoal", StoryGoal);
+        PlayerPrefs.SetInt("StoryComplete", StoryComplete);
+
+        PlayerPrefs.SetInt("BossLevel", BossLevel);
+        PlayerPrefs.SetInt("BossGoal", BossGoal);
+        PlayerPrefs.SetInt("BossComplete", BossComplete);
+
+        PlayerPrefs.SetInt("BeeLevel", BeeLevel);
+        PlayerPrefs.SetInt("BeeGoal", BeeGoal);
+        PlayerPrefs.SetInt("BeeComplete", BeeComplete);
+
+        PlayerPrefs.SetInt("PuzzleLevel", PuzzleLevel);
+        PlayerPrefs.SetInt("PuzzleGoal", PuzzleGoal);
+        PlayerPrefs.SetInt("PuzzleComplete", PuzzleComplete);
+
+        PlayerPrefs.SetInt("InfinityLevel", InfinityLevel);
+        PlayerPrefs.SetInt("InfinityGoal", InfinityGoal);
+        PlayerPrefs.SetInt("InfinityComplete", InfinityComplete);
+
         PlayerPrefs.Save();
     }
 
@@ -161,6 +201,26 @@ public class GameManager
         ShibaCream = PlayerPrefs.GetInt("ShibaCream", 0);
         ShibaOrange = PlayerPrefs.GetInt("ShibaOrange", 0);
         #endregion
+
+        StoryLevel = PlayerPrefs.GetInt("StoryLevel", 0);
+        StoryGoal = PlayerPrefs.GetInt("StoryGoal", 1);
+        StoryComplete = PlayerPrefs.GetInt("StoryComplete", 0);
+
+        BossLevel = PlayerPrefs.GetInt("BossLevel", 0);
+        BossGoal = PlayerPrefs.GetInt("BossGoal", 10);
+        BossComplete = PlayerPrefs.GetInt("BossComplete", 0);
+
+        BeeLevel = PlayerPrefs.GetInt("BeeLevel", 0);
+        BeeGoal = PlayerPrefs.GetInt("BeeGoal", 10);
+        BeeComplete = PlayerPrefs.GetInt("BeeComplete", 0);
+
+        PuzzleLevel = PlayerPrefs.GetInt("PuzzleLevel", 0);
+        PuzzleGoal = PlayerPrefs.GetInt("PuzzleGoal", 10);
+        PuzzleComplete = PlayerPrefs.GetInt("PuzzleComplete", 0);
+
+        InfinityLevel = PlayerPrefs.GetInt("InfinityLevel", 0);
+        InfinityGoal = PlayerPrefs.GetInt("InfinityGoal", 1000);
+        InfinityComplete = PlayerPrefs.GetInt("InfinityComplete", 0);
     }
 
     public void GameOver()
