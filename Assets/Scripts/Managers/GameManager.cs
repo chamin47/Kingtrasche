@@ -10,6 +10,7 @@ public class GameManager
     public int BestScore { get; set; } // 무한모드 최대점수
     public string Skin { get; set; } //적용스킨
 
+    #region DogAdopt
     // 강아지 입양 여부
     public int AfghanHoundBlack { get; set; }
     public int AfghanHoundRed { get; set; }
@@ -50,6 +51,7 @@ public class GameManager
     public int ShibaBlackTan { get; set; }
     public int ShibaCream { get; set; }
     public int ShibaOrange { get; set; }
+    #endregion
 
     private void Init()
     {
@@ -66,6 +68,7 @@ public class GameManager
         PlayerPrefs.SetInt("BestScore", BestScore);
         PlayerPrefs.SetString("Skin", Skin);
 
+        #region SkinName
         // 강아지
         PlayerPrefs.SetInt("AfghanHoundBlack", AfghanHoundBlack);
         PlayerPrefs.SetInt("AfghanHoundRed", AfghanHoundRed);
@@ -106,6 +109,7 @@ public class GameManager
         PlayerPrefs.SetInt("ShibaBlackTan", ShibaBlackTan);
         PlayerPrefs.SetInt("ShibaCream", ShibaCream);
         PlayerPrefs.SetInt("ShibaOrange", ShibaOrange);
+        #endregion
 
         PlayerPrefs.Save();
     }
@@ -119,6 +123,7 @@ public class GameManager
         MaxRunningPlayCount = PlayerPrefs.GetInt("MaxRunningPlayCount", 10);
         Skin = PlayerPrefs.GetString("Skin", "MountainDogBernese");
 
+        #region Skin
         //강아지
         AfghanHoundBlack = PlayerPrefs.GetInt("AfghanHoundBlack", 0);
         AfghanHoundRed = PlayerPrefs.GetInt("AfghanHoundRed", 0);
@@ -155,6 +160,7 @@ public class GameManager
         ShibaBlackTan = PlayerPrefs.GetInt("ShibaBlackTan", 0);
         ShibaCream = PlayerPrefs.GetInt("ShibaCream", 0);
         ShibaOrange = PlayerPrefs.GetInt("ShibaOrange", 0);
+        #endregion
     }
 
     public void GameOver()

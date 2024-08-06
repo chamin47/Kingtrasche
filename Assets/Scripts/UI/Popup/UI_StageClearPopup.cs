@@ -41,6 +41,7 @@ public class UI_StageClearPopup : UI_Popup
     {
         currentStage = PlayerPrefs.GetInt("StageNumber");
         Debug.Log($"currentStage : {currentStage}");
+        ShowStarLevel(); // 별 1개는 1, 2개는 2, 3개는 3으로 숫자로 반환됨.
     }
 
     public override bool Init()
@@ -75,13 +76,18 @@ public class UI_StageClearPopup : UI_Popup
         }
         else if (currentStage == 14)
         {
-			Managers.Scene.LoadScene(Scene.BossScene3);
-			PlayerPrefs.SetInt("StageNumber", ++currentStage);
+            Managers.Scene.LoadScene(Scene.BossScene3);
+            PlayerPrefs.SetInt("StageNumber", ++currentStage);
         }
         else
         {
             PlayerPrefs.SetInt("StageNumber", ++currentStage);
             Managers.Scene.LoadScene(Scene.RunningScene);
         }
+    }
+
+    private void ShowStarLevel()
+    {
+        RunningMapManager.Instance.CheckStarLevel();
     }
 }
