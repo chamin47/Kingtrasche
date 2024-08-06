@@ -294,6 +294,10 @@ public class CatBossController : MonoBehaviour, IBossController
 
         if (currentHealth <= 0)
         {
+            int bossLevel = PlayerPrefs.GetInt("BossLevel");
+            bossLevel += 1;
+            PlayerPrefs.SetInt("BossLevel", bossLevel);
+
             currentHealth = 0;
             Managers.Game.GameClear();
             Destroy(gameObject);

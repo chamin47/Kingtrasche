@@ -7,7 +7,7 @@ public class GameManager
     public int RunningPlayCount { get; set; }   // 러닝플레이권
     public int NaturalRunningPlayCount { get; set; } // 자연 충전된 러닝플레이권
     public int MaxRunningPlayCount { get; set; } = 999; // 최대 러닝플레이권
-    public int BestScore { get; set; } // 무한모드 최대점수
+    //public int BestScore { get; set; } // 무한모드 최대점수
     public string Skin { get; set; } //적용스킨
 
     #region DogAdopt
@@ -73,7 +73,7 @@ public class GameManager
     public int PuzzleComplete { get; set; }
     public int PuzzleReward { get; set; }
 
-    public int InfinityLevel { get; set; }
+    public int InfinityLevel { get; set; } // 무한모드 최대 점수
     public int InfinityGoal { get; set; }
     public int InfinityComplete { get; set; }
     public int InfinityReward { get; set; }
@@ -90,7 +90,7 @@ public class GameManager
         PlayerPrefs.SetInt("RunningPlayCount", RunningPlayCount);
         PlayerPrefs.SetInt("NaturalRunningPlayCount", NaturalRunningPlayCount);
         PlayerPrefs.SetInt("MaxRunningPlayCount", MaxRunningPlayCount);
-        PlayerPrefs.SetInt("BestScore", BestScore);
+        //PlayerPrefs.SetInt("BestScore", BestScore);
         PlayerPrefs.SetString("Skin", Skin);
 
         #region SkinName

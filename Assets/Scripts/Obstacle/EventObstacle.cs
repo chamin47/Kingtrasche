@@ -62,6 +62,11 @@ public class EventObstacle : MonoBehaviour
         Managers.Sound.Play("harp strum 1", Sound.Effect);
         playerController.moveSpeed = tempSpeed;
         playerController.isPuzzlOn = false;
+
+        int puzzleLevel = PlayerPrefs.GetInt("PuzzleLevel");
+        puzzleLevel += 1;
+        PlayerPrefs.SetInt("PuzzleLevel", puzzleLevel);
+
         Destroy(this.gameObject);
     }
 }

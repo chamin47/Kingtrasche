@@ -48,7 +48,7 @@ public class UI_InfinityGameOverPopup : UI_Popup
         TMP_Text TakeCurrentScore = GetText((int)Texts.CurrentScoreText);
 
         int _currentScore = UI_GameScene.currentScore;
-        int _bestScore = PlayerPrefs.GetInt("BestScore");
+        int _bestScore = PlayerPrefs.GetInt("InfinityLevel");
 
         TakeCurrentScore.text = _currentScore.ToString();
 
@@ -58,11 +58,11 @@ public class UI_InfinityGameOverPopup : UI_Popup
             {
                 _bestScore = _currentScore;
                 SetBestScore.text = _currentScore.ToString();
-                PlayerPrefs.SetInt("BestScore", _bestScore);
+                PlayerPrefs.SetInt("InfinityLevel", _bestScore);
             }
             else
             {
-                _bestScore = PlayerPrefs.GetInt("BestScore");
+                _bestScore = PlayerPrefs.GetInt("InfinityLevel");
                 SetBestScore.text = _bestScore.ToString();
             }
         }
@@ -70,7 +70,7 @@ public class UI_InfinityGameOverPopup : UI_Popup
         {
             _bestScore = _currentScore;
             SetBestScore.text = _currentScore.ToString();
-            PlayerPrefs.SetInt("BestScore", _bestScore);
+            PlayerPrefs.SetInt("InfinityLevel", _bestScore);
         }
     }
 }

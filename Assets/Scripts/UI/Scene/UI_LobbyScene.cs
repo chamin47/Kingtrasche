@@ -57,7 +57,6 @@ public class UI_LobbyScene : UI_Scene
     {
         Managers.Sound.Play("switch10", Sound.Effect);
         Managers.UI.ShowPopupUI<UI_DogSkinPopup>();
-
     }
 
     private void OnGiftButtonClicked(PointerEventData eventData)
@@ -75,7 +74,7 @@ public class UI_LobbyScene : UI_Scene
     private void OnMissionButtonClicked(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-
+        Managers.UI.ShowPopupUI<UI_MissionPopup>();
     }
 
     private void OnBackButtonClicked(PointerEventData eventData)
