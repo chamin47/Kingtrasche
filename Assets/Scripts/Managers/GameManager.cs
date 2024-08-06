@@ -71,22 +71,27 @@ public class GameManager
     public int StoryLevel { get; set; } // 현재 진행중인 레벨
     public int StoryGoal { get; set; } // 목표 레벨
     public int StoryComplete { get; set; } //미션 클리어 여부
+    public int StoryReward { get; set; } // 보상
 
     public int BossLevel { get; set; }
     public int BossGoal { get; set; }
     public int BossComplete { get; set; }
+    public int BossReward { get; set; }
 
     public int BeeLevel { get; set; }
     public int BeeGoal { get; set; }
     public int BeeComplete { get; set; }
+    public int BeeReward { get; set; }
 
     public int PuzzleLevel { get; set; }
     public int PuzzleGoal { get; set; }
     public int PuzzleComplete { get; set; }
+    public int PuzzleReward { get; set; }
 
     public int InfinityLevel { get; set; }
     public int InfinityGoal { get; set; }
     public int InfinityComplete { get; set; }
+    public int InfinityReward { get; set; }
 
     public void Init()
     {
@@ -163,22 +168,27 @@ public class GameManager
         PlayerPrefs.SetInt("StoryLevel", StoryLevel);
         PlayerPrefs.SetInt("StoryGoal", StoryGoal);
         PlayerPrefs.SetInt("StoryComplete", StoryComplete);
+        PlayerPrefs.SetInt("StoryReward", StoryReward);
 
         PlayerPrefs.SetInt("BossLevel", BossLevel);
         PlayerPrefs.SetInt("BossGoal", BossGoal);
         PlayerPrefs.SetInt("BossComplete", BossComplete);
+        PlayerPrefs.SetInt("BossReward", BossReward);
 
         PlayerPrefs.SetInt("BeeLevel", BeeLevel);
         PlayerPrefs.SetInt("BeeGoal", BeeGoal);
         PlayerPrefs.SetInt("BeeComplete", BeeComplete);
+        PlayerPrefs.SetInt("BeeReward", BeeReward);
 
         PlayerPrefs.SetInt("PuzzleLevel", PuzzleLevel);
         PlayerPrefs.SetInt("PuzzleGoal", PuzzleGoal);
         PlayerPrefs.SetInt("PuzzleComplete", PuzzleComplete);
+        PlayerPrefs.SetInt("PuzzleReward", PuzzleReward);
 
         PlayerPrefs.SetInt("InfinityLevel", InfinityLevel);
         PlayerPrefs.SetInt("InfinityGoal", InfinityGoal);
         PlayerPrefs.SetInt("InfinityComplete", InfinityComplete);
+        PlayerPrefs.SetInt("InfinityReward", InfinityReward);
 
         PlayerPrefs.Save();
     }
@@ -235,22 +245,27 @@ public class GameManager
         StoryLevel = PlayerPrefs.GetInt("StoryLevel", 0);
         StoryGoal = PlayerPrefs.GetInt("StoryGoal", 1);
         StoryComplete = PlayerPrefs.GetInt("StoryComplete", 0);
+        StoryReward = PlayerPrefs.GetInt("StoryReward", 100);
 
         BossLevel = PlayerPrefs.GetInt("BossLevel", 0);
         BossGoal = PlayerPrefs.GetInt("BossGoal", 10);
         BossComplete = PlayerPrefs.GetInt("BossComplete", 0);
+        BossReward = PlayerPrefs.GetInt("BossReward", 300);
 
         BeeLevel = PlayerPrefs.GetInt("BeeLevel", 0);
         BeeGoal = PlayerPrefs.GetInt("BeeGoal", 10);
         BeeComplete = PlayerPrefs.GetInt("BeeComplete", 0);
+        BeeReward = PlayerPrefs.GetInt("BeeReward", 100);
 
         PuzzleLevel = PlayerPrefs.GetInt("PuzzleLevel", 0);
         PuzzleGoal = PlayerPrefs.GetInt("PuzzleGoal", 10);
         PuzzleComplete = PlayerPrefs.GetInt("PuzzleComplete", 0);
+        PuzzleReward = PlayerPrefs.GetInt("PuzzleReward", 100);
 
         InfinityLevel = PlayerPrefs.GetInt("InfinityLevel", 0);
         InfinityGoal = PlayerPrefs.GetInt("InfinityGoal", 1000);
-        InfinityComplete = PlayerPrefs.GetInt("InfinityComplete", 0);
+        InfinityComplete = PlayerPrefs.GetInt("InfinityComplete", 1);
+        InfinityReward = PlayerPrefs.GetInt("InfinityReward", 3);
     }
 
     public void GameOver()
