@@ -87,102 +87,223 @@ public class UI_StageSelectScene : UI_Scene
     #region LevelButton
     private void OnClickLevel1Button(PointerEventData eventData)
     {
-        Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.StoryScene);
-        PlayerPrefs.SetInt("StageNumber", 1);
-        PlayerPrefs.SetInt("StartFrom", 3);
-    }
+		if (Managers.Game.RunningPlayCount > 0)
+		{
+			Managers.Sound.Play("switch10", Sound.Effect);
+			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
+			Managers.Scene.LoadScene(Scene.StoryScene);
+			PlayerPrefs.SetInt("StageNumber", 1);
+			PlayerPrefs.SetInt("StartFrom", 3);
+		}
+		else
+		{
+			Debug.Log("러닝 플레이권이 부족합니다.");
+		}
+	}
     private void OnClickLevel2Button(PointerEventData eventData)
     {
-        Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.RunningScene);
-        PlayerPrefs.SetInt("StageNumber", 2);
-    }
+		if (Managers.Game.RunningPlayCount > 0)
+		{
+			Managers.Sound.Play("switch10", Sound.Effect);
+			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
+			Managers.Scene.LoadScene(Scene.RunningScene);
+			PlayerPrefs.SetInt("StageNumber", 2);
+		}
+		else
+		{
+			Debug.Log("러닝 플레이권이 부족합니다.");
+		}
+	}
     private void OnClickLevel3Button(PointerEventData eventData)
     {
-        Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.StoryScene);
-        PlayerPrefs.SetInt("StageNumber", 3);
-		PlayerPrefs.SetInt("StartFrom", 3);
+		if (Managers.Game.RunningPlayCount > 0)
+		{
+			Managers.Sound.Play("switch10", Sound.Effect);
+			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
+			Managers.Scene.LoadScene(Scene.StoryScene);
+			PlayerPrefs.SetInt("StageNumber", 3);
+			PlayerPrefs.SetInt("StartFrom", 3);
+		}
+		else
+		{
+			Debug.Log("러닝 플레이권이 부족합니다.");
+		}
 	}
+
     private void OnClickLevel4Button(PointerEventData eventData)
     {
-        Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.RunningScene);
-        PlayerPrefs.SetInt("StageNumber", 4);
-    }
+		if (Managers.Game.RunningPlayCount > 0)
+		{
+			Managers.Sound.Play("switch10", Sound.Effect);
+			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
+			Managers.Scene.LoadScene(Scene.RunningScene);
+			PlayerPrefs.SetInt("StageNumber", 4);
+		}
+		else
+		{
+			Debug.Log("러닝 플레이권이 부족합니다.");
+		}
+	}
     private void OnClickLevel5Button(PointerEventData eventData)
     {
-        Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.StoryScene);
-        PlayerPrefs.SetInt("StageNumber", 5);
-		PlayerPrefs.SetInt("StartFrom", 4);
+		if (Managers.Game.RunningPlayCount > 0)
+		{
+			Managers.Sound.Play("switch10", Sound.Effect);
+			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
+			Managers.Scene.LoadScene(Scene.StoryScene);
+			PlayerPrefs.SetInt("StageNumber", 5);
+			PlayerPrefs.SetInt("StartFrom", 4);
+		}
+		else
+		{
+			Debug.Log("러닝 플레이권이 부족합니다.");
+		}
 	}
     private void OnClickLevel6Button(PointerEventData eventData)
     {
-        Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.StoryScene);
-        PlayerPrefs.SetInt("StageNumber", 6);
-		PlayerPrefs.SetInt("StartFrom", 3);
+		if (Managers.Game.RunningPlayCount > 0)
+		{
+			Managers.Sound.Play("switch10", Sound.Effect);
+			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
+			Managers.Scene.LoadScene(Scene.StoryScene);
+			PlayerPrefs.SetInt("StageNumber", 6);
+			PlayerPrefs.SetInt("StartFrom", 3);
+		}
+		else
+		{
+			Debug.Log("러닝 플레이권이 부족합니다.");
+		}
 	}
     private void OnClickLevel7Button(PointerEventData eventData)
     {
-        Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.StoryScene);
-        PlayerPrefs.SetInt("StageNumber", 7);
-		PlayerPrefs.SetInt("StartFrom", 3);
+		if (Managers.Game.RunningPlayCount > 0)
+		{
+			Managers.Sound.Play("switch10", Sound.Effect);
+			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
+			Managers.Scene.LoadScene(Scene.StoryScene);
+			PlayerPrefs.SetInt("StageNumber", 7);
+			PlayerPrefs.SetInt("StartFrom", 3);
+		}
+		else
+		{
+			Debug.Log("러닝 플레이권이 부족합니다.");
+		}
 	}
     private void OnClickLevel8Button(PointerEventData eventData)
     {
-        Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.RunningScene);
-        PlayerPrefs.SetInt("StageNumber", 8);
-    }
+		if (Managers.Game.RunningPlayCount > 0)
+		{
+			Managers.Sound.Play("switch10", Sound.Effect);
+			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
+			Managers.Scene.LoadScene(Scene.RunningScene);
+			PlayerPrefs.SetInt("StageNumber", 8);
+		}
+		else
+		{
+			Debug.Log("러닝 플레이권이 부족합니다.");
+		}
+	}
     private void OnClickLevel9Button(PointerEventData eventData)
     {
-        Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.RunningScene);
-        PlayerPrefs.SetInt("StageNumber", 9);
-    }
+		if (Managers.Game.RunningPlayCount > 0)
+		{
+			Managers.Sound.Play("switch10", Sound.Effect);
+			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
+			Managers.Scene.LoadScene(Scene.RunningScene);
+			PlayerPrefs.SetInt("StageNumber", 9);
+		}
+		else
+		{
+			Debug.Log("러닝 플레이권이 부족합니다.");
+		}
+	}
     private void OnClickLevel10Button(PointerEventData eventData)
     {
-        Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.StoryScene);
-        PlayerPrefs.SetInt("StageNumber", 10);
-		PlayerPrefs.SetInt("StartFrom", 5);
+		if (Managers.Game.RunningPlayCount > 0)
+		{
+			Managers.Sound.Play("switch10", Sound.Effect);
+			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
+			Managers.Scene.LoadScene(Scene.StoryScene);
+			PlayerPrefs.SetInt("StageNumber", 10);
+			PlayerPrefs.SetInt("StartFrom", 5);
+		}
+		else
+		{
+			Debug.Log("러닝 플레이권이 부족합니다.");
+		}
 	}
     private void OnClickLevel11Button(PointerEventData eventData)
     {
-        Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.StoryScene);
-        PlayerPrefs.SetInt("StageNumber", 11);
-		PlayerPrefs.SetInt("StartFrom", 3);
+		if (Managers.Game.RunningPlayCount > 0)
+		{
+			Managers.Sound.Play("switch10", Sound.Effect);
+			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
+			Managers.Scene.LoadScene(Scene.StoryScene);
+			PlayerPrefs.SetInt("StageNumber", 11);
+			PlayerPrefs.SetInt("StartFrom", 3);
+		}
+		else
+		{
+			Debug.Log("러닝 플레이권이 부족합니다.");
+		}
 	}
     private void OnClickLevel12Button(PointerEventData eventData)
     {
-        Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.RunningScene);
-        PlayerPrefs.SetInt("StageNumber", 12);
-    }
+		if (Managers.Game.RunningPlayCount > 0)
+		{
+			Managers.Sound.Play("switch10", Sound.Effect);
+			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
+			Managers.Scene.LoadScene(Scene.RunningScene);
+			PlayerPrefs.SetInt("StageNumber", 12);
+		}
+		else
+		{
+			Debug.Log("러닝 플레이권이 부족합니다.");
+		}
+	}
     private void OnClickLevel13Button(PointerEventData eventData)
     {
-        Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.StoryScene);
-        PlayerPrefs.SetInt("StageNumber", 13);
-		PlayerPrefs.SetInt("StartFrom", 3);
+		if (Managers.Game.RunningPlayCount > 0)
+		{
+			Managers.Sound.Play("switch10", Sound.Effect);
+			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
+			Managers.Scene.LoadScene(Scene.StoryScene);
+			PlayerPrefs.SetInt("StageNumber", 13);
+			PlayerPrefs.SetInt("StartFrom", 3);
+		}
+		else
+		{
+			Debug.Log("러닝 플레이권이 부족합니다.");
+		}
 	}
     private void OnClickLevel14Button(PointerEventData eventData)
     {
-        Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.StoryScene);
-        PlayerPrefs.SetInt("StageNumber", 14);
-    }
+		if (Managers.Game.RunningPlayCount > 0)
+		{
+			Managers.Sound.Play("switch10", Sound.Effect);
+			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
+			Managers.Scene.LoadScene(Scene.StoryScene);
+			PlayerPrefs.SetInt("StageNumber", 14);
+		}
+		else
+		{
+			Debug.Log("러닝 플레이권이 부족합니다.");
+		}
+	}
     private void OnClickLevel15Button(PointerEventData eventData)
     {
-        Managers.Sound.Play("switch10", Sound.Effect);
-        Managers.Scene.LoadScene(Scene.StoryScene);
-        PlayerPrefs.SetInt("StageNumber", 15);
-		PlayerPrefs.SetInt("StartFrom", 6);
+		if (Managers.Game.RunningPlayCount > 0)
+		{
+			Managers.Sound.Play("switch10", Sound.Effect);
+			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
+			Managers.Scene.LoadScene(Scene.StoryScene);
+			PlayerPrefs.SetInt("StageNumber", 15);
+			PlayerPrefs.SetInt("StartFrom", 6);
+		}
+		else
+		{
+			Debug.Log("러닝 플레이권이 부족합니다.");
+		}
 	}
     #endregion
 }
