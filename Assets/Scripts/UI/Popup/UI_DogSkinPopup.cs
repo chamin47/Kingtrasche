@@ -528,7 +528,7 @@ public class UI_DogSkinPopup : UI_Popup
                 adoptImage.gameObject.SetActive(true);
                 lockImage.gameObject.SetActive(false);
 
-                Debug.Log("압양 성공!");
+                Debug.Log("입양 성공!");
 
                 //PurchaseBtn.interactable = false;
                 //selectBtn.interactable = true;
@@ -542,7 +542,7 @@ public class UI_DogSkinPopup : UI_Popup
         }
         else // 입양 중인 경우
         {
-            PlayerPrefs.SetInt(skinName, 0);
+            // PlayerPrefs.SetInt(skinName, 0);
             // 버튼컴포넌트만 활성화/비활성화
             Debug.Log("이미 가족이 된 강아지입니다.");
         }

@@ -62,9 +62,11 @@ namespace GameBalance
 		public System.String Level;
 		public System.String GoalLevel;
 		public System.String Complete;
+		public System.String Reward;
 		public System.String RewardImagePath;
 		public System.Int32 Goal;
 		public System.Int32 MaxGoal;
+		public System.Int32 IncreadeReward;
   
 
 #region fuctions
