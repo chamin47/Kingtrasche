@@ -13,9 +13,10 @@ public class RunningMapManager : MonoBehaviour
     public int currentStage = 1;
     private Vector3 lastMapTransform;
 
-    private List<GameObject> meats = new List<GameObject>(); //고기 리스트
-    private int totalMeats = 0; // 총 고기 갯수
-    private int eatMeat = 0; //플레이어가 먹은 고기 갯수
+    private List<GameObject> meats = new List<GameObject>(); // 
+    private int totalMeats = 0; // 
+    private int eatMeat = 0; //
+
 
     public static event Action<Vector3> EndMapSpawn;
 
@@ -33,33 +34,24 @@ public class RunningMapManager : MonoBehaviour
         chunkData = MapChunkData.MapChunkDataMap[currentStage];
         List<string> prefabPaths = chunkData.MapChunksPath;
         GameObject[] mapChunk = new GameObject[prefabPaths.Count];
-        for (int i = 0; i < prefabPaths.Count; i++) // 맵청크 저장
+        for (int i = 0; i < prefabPaths.Count; i++)
         {
             mapChunk[i] = Managers.Resource.Load<GameObject>(prefabPaths[i]);
         }
 
-        for (int i = 0; i < mapChunk.Length; i++) // 맵청크 각 포지션에 생성 
+        for (int i = 0; i < mapChunk.Length; i++)
         {
             Vector3 chunkPosition = new Vector3(chunkSpace + i * chunkSpace, 0, 0);
-            GameObject chunk = Instantiate(mapChunk[i], chunkPosition, Quaternion.identity);
-
-            // meat 다 가져와서 저장
-            Meat[] meatPrefabs = chunk.GetComponentsInChildren<Meat>();
-            foreach (Meat meat in meatPrefabs)
-            {
-                meats.Add(meat.gameObject);
-            }
-
+            Instantiate(mapChunk[i], chunkPosition, Quaternion.identity);
             if (i == mapChunk.Length - 1)
             {
                 lastMapTransform = chunkPosition;
             }
         }
-        totalMeats = meats.Count;
         EndMapSpawn?.Invoke(lastMapTransform);
     }
 
-    public int CheckStarLevel() // 별 갯수 반환
+    public int CheckStarLevel() // ?? ???? ???
     {
         eatMeat = UI_GameScene.currentScore;
         int oneStar = 1;
@@ -70,17 +62,17 @@ public class RunningMapManager : MonoBehaviour
 
         if (ratio >= 0.9f)
         {
-            Debug.Log("별 3개!");
+            Debug.Log("?? 3??!");
             return oneStar;
         }
         else if (ratio >= 0.5f)
         {
-            Debug.Log("별 2개!");
+            Debug.Log("?? 2??!");
             return twoStar;
         }
         else
         {
-            Debug.Log("별 1개!");
+            Debug.Log("?? 1??!");
             return threeStar;
         }
     }
