@@ -41,7 +41,7 @@ public class UI_StageClearPopup : UI_Popup
     {
         currentStage = PlayerPrefs.GetInt("StageNumber");
         Debug.Log($"currentStage : {currentStage}");
-        ShowStarLevel();
+        ShowStarLevel(); // 별 1개는 1, 2개는 2, 3개는 3으로 숫자로 반환됨.
     }
 
     public override bool Init()
