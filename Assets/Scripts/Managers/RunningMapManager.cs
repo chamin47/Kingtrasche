@@ -13,9 +13,9 @@ public class RunningMapManager : MonoBehaviour
     public int currentStage = 1;
     private Vector3 lastMapTransform;
 
-    private List<GameObject> meats = new List<GameObject>(); // 
-    private int totalMeats = 0; // 
-    private int eatMeat = 0; //
+    private List<GameObject> meats = new List<GameObject>(); // 고기 리스트
+    private int totalMeats = 0; // 총 고기 갯수
+    private int eatMeat = 0; // 플레이어가 먹은 고기 양
 
 
     public static event Action<Vector3> EndMapSpawn;
@@ -51,7 +51,7 @@ public class RunningMapManager : MonoBehaviour
         EndMapSpawn?.Invoke(lastMapTransform);
     }
 
-    public int CheckStarLevel() // ?? ???? ???
+    public int CheckStarLevel() // 비율따라 별 레벨 정해짐
     {
         eatMeat = UI_GameScene.currentScore;
         int oneStar = 1;
@@ -62,17 +62,17 @@ public class RunningMapManager : MonoBehaviour
 
         if (ratio >= 0.9f)
         {
-            Debug.Log("?? 3??!");
+            Debug.Log("별 3개!");
             return oneStar;
         }
         else if (ratio >= 0.5f)
         {
-            Debug.Log("?? 2??!");
+            Debug.Log("별 2개!");
             return twoStar;
         }
         else
         {
-            Debug.Log("?? 1??!");
+            Debug.Log("별 1개!");
             return threeStar;
         }
     }
