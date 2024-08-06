@@ -1,4 +1,3 @@
-using GameBalance;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -39,7 +38,7 @@ public class UI_MissionPopup : UI_Popup
     }
     #endregion
 
-    private MissionData clickedMission;
+    //private MissionDataclickedMission;
 
     private TMP_Text missionTitleText;
     private TMP_Text missionDescription;
@@ -121,11 +120,11 @@ public class UI_MissionPopup : UI_Popup
     {
         Managers.Sound.Play("switch10", Sound.Effect);
 
-        MissionData missionData = MissionData.MissionDataMap[missionNum];
-        clickedMission = missionData;
+        //MissionData missionData = MissionData.MissionDataMap[missionNum];
+        //clickedMission = missionData;
 
-        missionTitleText.text = missionData.MissionTitle;
-        missionDescription.text = missionData.Description;
+        //missionTitleText.text = missionData.MissionTitle;
+        //missionDescription.text = missionData.Description;
 
     }
 
