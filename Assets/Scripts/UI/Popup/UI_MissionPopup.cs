@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class UI_MissionPopup : UI_Popup
 {
+    #region Enum
     enum Buttons
     {
         FirstMission,
@@ -36,6 +37,13 @@ public class UI_MissionPopup : UI_Popup
 
         RewardText
     }
+    #endregion
+
+    private MissionData clickedMission;
+
+    private TMP_Text missionTitleText;
+    private TMP_Text missionDescription;
+    private TMP_Text missionGoalText;
 
     private void Awake()
     {
@@ -44,7 +52,9 @@ public class UI_MissionPopup : UI_Popup
 
     private void Start()
     {
-
+        missionTitleText = Get<TMP_Text>((int)Texts.MissionTitleText);
+        missionDescription = Get<TMP_Text>((int)Texts.MissionDescription);
+        missionGoalText = Get<TMP_Text>((int)Texts.RewardText);
     }
 
     public override bool Init()
@@ -71,40 +81,63 @@ public class UI_MissionPopup : UI_Popup
     private void OnFirstMissionBtnClicked(PointerEventData eventData)
     {
         int missionNum = 1;
-
-        MissionData missionData = MissionData.MissionDataMap[missionNum];
-        Managers.Sound.Play("switch10", Sound.Effect);
-
+        SettingMissionState(missionNum);
     }
 
     private void OnSecondMissionBtnClicked(PointerEventData eventData)
     {
-
+        int missionNum = 2;
     }
 
     private void OnThirdMissionBtnClicked(PointerEventData eventData)
     {
-
+        int missionNum = 3;
     }
 
     private void OnFourthMissionBtnClicked(PointerEventData eventData)
     {
-
+        int missionNum = 4;
     }
 
     private void OnFifthMissionBtnClicked(PointerEventData eventData)
     {
-
+        int missionNum = 5;
     }
 
 
     private void OnRewardBtnClicked(PointerEventData eventData)
     {
-
+        Managers.Sound.Play("switch10", Sound.Effect);
     }
 
     private void OnExitBtnClicked(PointerEventData eventData)
     {
+        Managers.Sound.Play("switch10", Sound.Effect);
+        Managers.UI.ClosePopupUI(this);
+    }
+
+
+    private void SettingMissionState(int missionNum)
+    {
+        Managers.Sound.Play("switch10", Sound.Effect);
+
+        MissionData missionData = MissionData.MissionDataMap[missionNum];
+        clickedMission = missionData;
+
+        missionTitleText.text = missionData.MissionTitle;
+        missionDescription.text = missionData.Description;
+
+    }
+
+    private bool IsGoal()
+    {
+        //목표 달성 여부
+        return false;
+    }
+
+    private void ChangeTitleImage()
+    {
+        // 미션완료했으면 초록색 바. 그렇지 않으면 원래 이미지
 
     }
 }
