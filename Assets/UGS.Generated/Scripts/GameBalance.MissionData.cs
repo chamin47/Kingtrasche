@@ -59,6 +59,9 @@ namespace GameBalance
 		public System.Int32 MissionID;
 		public System.String MissionTitle;
 		public System.String Description;
+		public System.String Level;
+		public System.String GoalLevel;
+		public System.String Complete;
 		public System.String RewardImagePath;
 		public System.Int32 Goal;
 		public System.Int32 MaxGoal;
