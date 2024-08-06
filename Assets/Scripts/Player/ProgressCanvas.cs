@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 
 public class ProgressCanvas : MonoBehaviour
@@ -12,8 +11,7 @@ public class ProgressCanvas : MonoBehaviour
     private float homeEndX;
     private Vector3 initialMiniPlayerPosition;
 
-    public TMP_Text StageText;
-    private string stage = "Stage : ";
+
 
     void Start()
     {
@@ -22,8 +20,6 @@ public class ProgressCanvas : MonoBehaviour
         initialMiniPlayerPosition = miniPlayer.anchoredPosition;
 
         RunningMapManager.EndMapSpawn += Setting;
-
-        StageText.text = stage + PlayerPrefs.GetInt("StageNumber").ToString();
     }
 
     void Update()

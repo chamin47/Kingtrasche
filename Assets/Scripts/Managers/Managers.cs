@@ -19,6 +19,7 @@ public class Managers : MonoBehaviour
 
     //Player
     PlayerManager _player;
+    //PlayerSkinManager _playerSkin;
 
     public static GameManager Game { get { return Instance._game; } }
     public static TimeManager Time { get { return Instance._time; } }
@@ -28,6 +29,8 @@ public class Managers : MonoBehaviour
     public static SceneManagerEx Scene { get { return Instance._scene; } }
     public static PlayerManager Player { get { return Instance._player; } }
     public static DialogueManager Dialogue { get { return Instance._dialogue; } }
+    //public static PlayerSkinManager Skin { get { return Instance._playerSkin; } }
+
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void InitializeOnLoad()
@@ -56,6 +59,7 @@ public class Managers : MonoBehaviour
             s_instance._time = go.AddComponent<TimeManager>();
 
             s_instance._player = go.AddComponent<PlayerManager>();
+            //s_instance._playerSkin = go.AddComponent<PlayerSkinManager>();
         }
     }
 
