@@ -51,6 +51,13 @@ public class UI_ModeSelectPopup : UI_Popup
 
 	private void OnClickInfinityButton(PointerEventData eventData)
 	{
+		if (Managers.Game.RunningPlayCount <= 0)
+		{
+			Debug.Log("러닝 플레이권이 부족합니다.");
+			return;
+		}
+
+		Managers.Game.RunningPlayCount--;
 		Managers.Scene.LoadScene(Scene.InfinityRunningScene);
 	}
 

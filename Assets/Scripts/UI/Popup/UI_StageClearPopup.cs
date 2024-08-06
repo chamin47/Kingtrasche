@@ -61,7 +61,13 @@ public class UI_StageClearPopup : UI_Popup
 
     private void OnClickNextStageButton(PointerEventData eventData)
     {
-        Managers.Sound.Play("switch10", Sound.Effect);
+		if (Managers.Game.RunningPlayCount <= 0)
+		{
+			Debug.Log("러닝 플레이권이 부족합니다.");
+			return;
+		}
+		Managers.Game.RunningPlayCount--;
+		Managers.Sound.Play("switch10", Sound.Effect);
         UI_GameScene.currentScore = 0;
 
         if (currentStage == 4)
