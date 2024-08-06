@@ -310,6 +310,7 @@ public class WolfBossController : MonoBehaviour, IBossController
             int bossLevel = PlayerPrefs.GetInt("BossLevel");
             bossLevel += 1;
             PlayerPrefs.SetInt("BossLevel", bossLevel);
+            PlayerPrefs.Save();
 
             currentHealth = 0;
             Managers.Game.GameClear();

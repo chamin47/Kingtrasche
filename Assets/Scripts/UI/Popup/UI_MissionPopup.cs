@@ -150,6 +150,7 @@ public class UI_MissionPopup : UI_Popup
             GetReward();
             //보상버튼 받으면 목표 달성 초기화
             PlayerPrefs.SetInt(clickedMission.Complete, 0);
+            PlayerPrefs.Save();
             UpdateGoalAndReward();
         }
     }
@@ -241,6 +242,7 @@ public class UI_MissionPopup : UI_Popup
         {
             // 목표달성
             PlayerPrefs.SetInt(clickedMission.Complete, 1);
+            PlayerPrefs.Save();
             rewardBtn.interactable = true;
         }
         else if (currentLevel < goalLevel)
@@ -275,6 +277,7 @@ public class UI_MissionPopup : UI_Popup
                     reward += clickedMission.IncreadeReward;
                     PlayerPrefs.SetInt(clickedMission.GoalLevel, goalLevel);
                     PlayerPrefs.SetInt(clickedMission.Reward, reward);
+                    PlayerPrefs.Save();
                 }
                 else
                 {
@@ -306,6 +309,7 @@ public class UI_MissionPopup : UI_Popup
                 reward += clickedMission.IncreadeReward;
                 PlayerPrefs.SetInt(clickedMission.GoalLevel, goalLevel);
                 PlayerPrefs.SetInt(clickedMission.Reward, reward);
+                PlayerPrefs.Save();
                 break;
 
             default:
@@ -332,6 +336,7 @@ public class UI_MissionPopup : UI_Popup
                 reward += clickedMission.IncreadeReward;
                 PlayerPrefs.SetInt(clickedMission.GoalLevel, goalLevel);
                 PlayerPrefs.SetInt(clickedMission.Reward, reward);
+                PlayerPrefs.Save();
                 break;
         }
     }
@@ -345,11 +350,13 @@ public class UI_MissionPopup : UI_Popup
         {
             playTicket += PlayerPrefs.GetInt(clickedMission.Reward);
             PlayerPrefs.SetInt("RunningPlayCount", playTicket);
+            PlayerPrefs.Save();
         }
         else
         {
             coin += PlayerPrefs.GetInt(clickedMission.Reward);
             PlayerPrefs.SetInt("Gold", coin);
+            PlayerPrefs.Save();
         }
     }
 }

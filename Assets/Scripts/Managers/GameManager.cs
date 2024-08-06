@@ -23,8 +23,6 @@ public class GameManager
                                                                 //public int BestScore { get; set; } // 무한모드 최대점수
     public string Skin { get; set; } //적용스킨
 
-    public event Action<int> OnRunningPlayCountChanged;
-
     #region DogAdopt
     // 강아지 입양 여부
     public int AfghanHoundBlack { get; set; }
@@ -68,6 +66,7 @@ public class GameManager
     public int ShibaOrange { get; set; }
     #endregion
 
+    #region GameProgressData
     public int StoryLevel { get; set; } // 현재 진행중인 레벨
     public int StoryGoal { get; set; } // 목표 레벨
     public int StoryComplete { get; set; } //미션 클리어 여부
@@ -92,6 +91,9 @@ public class GameManager
     public int InfinityGoal { get; set; }
     public int InfinityComplete { get; set; }
     public int InfinityReward { get; set; }
+    #endregion
+
+    public event Action<int> OnRunningPlayCountChanged;
 
     public void Init()
     {
@@ -165,6 +167,7 @@ public class GameManager
         PlayerPrefs.SetInt("ShibaOrange", ShibaOrange);
         #endregion
 
+        #region GameProgressData
         PlayerPrefs.SetInt("StoryLevel", StoryLevel);
         PlayerPrefs.SetInt("StoryGoal", StoryGoal);
         PlayerPrefs.SetInt("StoryComplete", StoryComplete);
@@ -189,6 +192,7 @@ public class GameManager
         PlayerPrefs.SetInt("InfinityGoal", InfinityGoal);
         PlayerPrefs.SetInt("InfinityComplete", InfinityComplete);
         PlayerPrefs.SetInt("InfinityReward", InfinityReward);
+        #endregion
 
         PlayerPrefs.Save();
     }
