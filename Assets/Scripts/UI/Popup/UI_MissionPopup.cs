@@ -61,6 +61,7 @@ public class UI_MissionPopup : UI_Popup
     private Image thirdMission;
     private Image fourthMission;
     private Image fifthMission;
+    private Image rewardImage;
 
     private void Awake()
     {
@@ -79,6 +80,7 @@ public class UI_MissionPopup : UI_Popup
         thirdMission = Get<Image>((int)Images.ThirdMission);
         fourthMission = Get<Image>((int)Images.FourthMission);
         fifthMission = Get<Image>((int)Images.FifthMission);
+        rewardImage = Get<Image>((int)Images.RewardImage);
 
         SettingMissionState(1);
     }
@@ -138,13 +140,15 @@ public class UI_MissionPopup : UI_Popup
     private void OnRewardBtnClicked(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        SettingTitleImage();
+        SettingImage();
         if (IsGoal(clickedMission.Complete) == false)
         {
             return;
         }
         else
         {
+            //보상버튼 받으면 목표 달성 초기화
+            PlayerPrefs.SetInt(clickedMission.Complete, 0);
             UpdateGoalAndReward();
         }
     }
@@ -167,7 +171,7 @@ public class UI_MissionPopup : UI_Popup
         missionDescription.text = missionData.Description;
 
         // 미션완료 여부에 따라 타이틀 이미지 변경세팅
-        SettingTitleImage();
+        SettingImage();
         // 현재 달성중 및 목표치 업데이트
         SettingGoalText();
     }
@@ -182,8 +186,10 @@ public class UI_MissionPopup : UI_Popup
             return true;
     }
 
-    private void SettingTitleImage()
+    private void SettingImage()
     {
+        ChangeRewardImage(rewardImage, clickedMission.RewardImagePath);
+
         // 미션완료했으면 초록색 바. 그렇지 않으면 원래 이미지
         Image[] missionImage = { firstMission, secondMission, thirdMission, fourthMission, fifthMission };
         for (int i = 0; i < missionImage.Length; i++)
@@ -195,32 +201,42 @@ public class UI_MissionPopup : UI_Popup
             }
             else // 완료됐으면 이미지 교체
             {
-                ChangeImage(missionImage[i]);
+                ChangeTitleImage(missionImage[i]);
             }
         }
     }
 
-    private void ChangeImage(Image image)
+    private void ChangeTitleImage(Image image)
     {
         Sprite sprite = Resources.Load<Sprite>("Sprites/GreenBtnFrame");
         image.sprite = sprite;
     }
 
+    private void ChangeRewardImage(Image image, string path)
+    {
+        Sprite sprite = Resources.Load<Sprite>(path);
+        rewardImage.sprite = sprite;
+    }
+
     private void SettingGoalText()
     {
         Button rewardBtn = Get<Button>((int)Buttons.RewardBtn);
-        string slash = " / ";
         int currentLevel = PlayerPrefs.GetInt(clickedMission.Level);
         int goalLevel = PlayerPrefs.GetInt(clickedMission.GoalLevel);
         int reward = PlayerPrefs.GetInt(clickedMission.Reward);
+        string slash = " / ";
+        string currentLevelstr = currentLevel.ToString("#,##0");
+        string goalLevelStr = goalLevel.ToString("#,###");
 
-        missionGoalText.text = currentLevel.ToString("#,###") + slash + goalLevel.ToString("#,###");
+        missionGoalText.text = currentLevelstr + slash + goalLevelStr;
         rewardText.text = reward.ToString("#,###");
 
 
         // 목표달성 여부에 따라 보상버튼 활성/비활성화
         if (currentLevel >= goalLevel)
         {
+            // 목표달성
+            PlayerPrefs.SetInt(clickedMission.Complete, 1);
             rewardBtn.interactable = true;
         }
         else if (currentLevel < goalLevel)
@@ -309,5 +325,11 @@ public class UI_MissionPopup : UI_Popup
                 PlayerPrefs.SetInt(clickedMission.Reward, reward);
                 break;
         }
+    }
+
+    private void GetReward()
+    {
+        int coin = PlayerPrefs.GetInt("Gold");
+        //int playTicket = PlayerPrefs.GetInt
     }
 }

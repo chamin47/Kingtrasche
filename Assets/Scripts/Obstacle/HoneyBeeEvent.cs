@@ -122,6 +122,11 @@ public class HoneyBeeEvent : MonoBehaviour
         Managers.Sound.Play("harp strum 1", Sound.Effect);
         playerController.moveSpeed = tempSpeed;
         playerController.isPuzzlOn = false;
+
+        int beeLevel = PlayerPrefs.GetInt("BeeLevel");
+        beeLevel += 1;
+        PlayerPrefs.SetInt("BeeLevel", beeLevel);
+
         Destroy(this.gameObject);
     }
 }
