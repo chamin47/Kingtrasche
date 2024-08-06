@@ -147,6 +147,7 @@ public class UI_MissionPopup : UI_Popup
         }
         else
         {
+            GetReward();
             //보상버튼 받으면 목표 달성 초기화
             PlayerPrefs.SetInt(clickedMission.Complete, 0);
             UpdateGoalAndReward();
@@ -330,6 +331,17 @@ public class UI_MissionPopup : UI_Popup
     private void GetReward()
     {
         int coin = PlayerPrefs.GetInt("Gold");
-        //int playTicket = PlayerPrefs.GetInt
+        int playTicket = PlayerPrefs.GetInt("RunningPlayCount");
+
+        if (clickedMission.MissionID == 5)
+        {
+            playTicket += PlayerPrefs.GetInt(clickedMission.Reward);
+            PlayerPrefs.SetInt("RunningPlayCount", playTicket);
+        }
+        else
+        {
+            coin += PlayerPrefs.GetInt(clickedMission.Reward);
+            PlayerPrefs.SetInt("Gold", coin);
+        }
     }
 }
