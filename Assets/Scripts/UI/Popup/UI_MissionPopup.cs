@@ -1,6 +1,5 @@
 using GameBalance;
 using TMPro;
-using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -130,14 +129,10 @@ public class UI_MissionPopup : UI_Popup
 
     }
 
-    private bool IsGoal(string data)
+    private bool IsGoal()
     {
-        int goalComplete = PlayerPrefs.GetInt(data);
-
-        if (goalComplete == 0)
-            return false;
-        else
-            return true;
+        //목표 달성 여부
+        return false;
     }
 
     private void ChangeTitleImage()
