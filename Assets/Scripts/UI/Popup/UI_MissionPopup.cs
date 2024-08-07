@@ -61,7 +61,10 @@ public class UI_MissionPopup : UI_Popup
     private Image thirdMission;
     private Image fourthMission;
     private Image fifthMission;
+
     private Image rewardImage;
+    private Sprite originalSprite;
+    private Sprite changeSprite;
 
     private void Awake()
     {
@@ -80,9 +83,13 @@ public class UI_MissionPopup : UI_Popup
         thirdMission = Get<Image>((int)Images.ThirdMission);
         fourthMission = Get<Image>((int)Images.FourthMission);
         fifthMission = Get<Image>((int)Images.FifthMission);
+
         rewardImage = Get<Image>((int)Images.RewardImage);
+        originalSprite = Resources.Load<Sprite>("Sprites/GrayBtnFrame");
+        changeSprite = Resources.Load<Sprite>("Sprites/GreenBtnFrame");
 
         SettingMissionState(1);
+        SettingImage();
     }
 
     public override bool Init()
@@ -140,12 +147,8 @@ public class UI_MissionPopup : UI_Popup
     private void OnRewardBtnClicked(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        SettingImage();
-        if (IsGoal(clickedMission.Complete) == false)
-        {
-            return;
-        }
-        else
+
+        if (IsGoal(clickedMission.Complete) == true)
         {
             GetReward();
             //보상버튼 받으면 목표 달성 초기화
@@ -154,6 +157,11 @@ public class UI_MissionPopup : UI_Popup
             UpdateGoalAndReward();
             // 실시간 UI 업데이트
             SettingMissionState(clickedMission.MissionID);
+            SettingImage();
+        }
+        else
+        {
+            return;
         }
     }
 
@@ -174,10 +182,10 @@ public class UI_MissionPopup : UI_Popup
         missionTitleText.text = missionData.MissionTitle;
         missionDescription.text = missionData.Description;
 
-        // 미션완료 여부에 따라 타이틀 이미지 변경세팅
-        SettingImage();
         // 현재 달성중 및 목표치 업데이트
         SettingGoalText();
+        // 미션완료 여부에 따라 타이틀 이미지 변경세팅
+        SettingImage();
     }
 
     private bool IsGoal(string data)
@@ -198,22 +206,17 @@ public class UI_MissionPopup : UI_Popup
         Image[] missionImage = { firstMission, secondMission, thirdMission, fourthMission, fifthMission };
         for (int i = 0; i < missionImage.Length; i++)
         {
-            MissionData missionData = MissionData.MissionDataMap[i + 1];
-            if (IsGoal(missionData.Complete) == true) // 완료됐으면 이미지 교체
+            MissionData data = MissionData.MissionDataMap[i + 1];
+
+            if (IsGoal(data.Complete) == true) // 완료됐으면 이미지 교체
             {
-                ChangeTitleImage(missionImage[i]);
+                missionImage[i].sprite = changeSprite;
             }
             else // 미션이 완료되지 않았으면 그대로
             {
-                return;
+                missionImage[i].sprite = originalSprite;
             }
         }
-    }
-
-    private void ChangeTitleImage(Image image)
-    {
-        Sprite sprite = Resources.Load<Sprite>("Sprites/GreenBtnFrame");
-        image.sprite = sprite;
     }
 
     private void ChangeRewardImage(Image image, string path)
