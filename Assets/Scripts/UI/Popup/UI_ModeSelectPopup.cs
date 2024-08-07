@@ -35,7 +35,7 @@ public class UI_ModeSelectPopup : UI_Popup
 
 	private void OnclickStoryButton(PointerEventData eventData)
 	{
-		if (PlayerPrefs.GetInt("StoryFirstTimePlaying") == 1)
+		if (PlayerPrefs.GetInt("StoryFirstTimePlaying") == 0)
 		{
 			PlayerPrefs.SetInt("StoryFirstTimePlaying", 1);
 			PlayerPrefs.SetInt("StageNumber", 1001);
