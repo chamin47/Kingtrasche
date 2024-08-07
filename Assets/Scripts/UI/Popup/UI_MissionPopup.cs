@@ -341,22 +341,18 @@ public class UI_MissionPopup : UI_Popup
 
     private void GetReward()
     {
-        int coin = PlayerPrefs.GetInt("Gold");
-        //int playTicket = PlayerPrefs.GetInt("RunningPlayCount");
+        int coin = Managers.Game.Gold;
         int playTicket = Managers.Game.RunningPlayCount;
 
         if (clickedMission.MissionID == 5)
         {
             playTicket += PlayerPrefs.GetInt(clickedMission.Reward);
-            //PlayerPrefs.SetInt("RunningPlayCount", playTicket); 
             Managers.Game.RunningPlayCount = playTicket;
-            PlayerPrefs.Save();
         }
         else
         {
             coin += PlayerPrefs.GetInt(clickedMission.Reward);
-            PlayerPrefs.SetInt("Gold", coin);
-            PlayerPrefs.Save();
+            Managers.Game.Gold = coin;
         }
     }
 }
