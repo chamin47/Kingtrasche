@@ -52,7 +52,5 @@ public class RunningBackground : MonoBehaviour
             sunset.gameObject.SetActive(false);
             night.gameObject.SetActive(false);
         }
-
-
     }
 }
