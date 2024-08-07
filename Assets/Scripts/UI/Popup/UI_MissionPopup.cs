@@ -89,7 +89,7 @@ public class UI_MissionPopup : UI_Popup
         changeSprite = Resources.Load<Sprite>("Sprites/GreenBtnFrame");
 
         SettingMissionState(1);
-        SettingImage();
+        InitSettingMissionComplete();
     }
 
     public override bool Init()
@@ -155,6 +155,7 @@ public class UI_MissionPopup : UI_Popup
             PlayerPrefs.SetInt(clickedMission.Complete, 0);
             PlayerPrefs.Save();
             UpdateGoalAndReward();
+
             // 실시간 UI 업데이트
             SettingMissionState(clickedMission.MissionID);
             SettingImage();
@@ -172,6 +173,27 @@ public class UI_MissionPopup : UI_Popup
     }
 
 
+    private void InitSettingMissionComplete()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            MissionData InitData = MissionData.MissionDataMap[i + 1];
+            int currentLevel = PlayerPrefs.GetInt(InitData.Level);
+            int goalLevel = PlayerPrefs.GetInt(InitData.GoalLevel);
+
+            if (currentLevel >= goalLevel)
+            {
+                PlayerPrefs.SetInt(InitData.Complete, 1); // 완료로 설정
+            }
+            else
+            {
+                PlayerPrefs.SetInt(InitData.Complete, 0); // 미완료로 설정
+            }
+            PlayerPrefs.Save();
+        }
+        SettingImage();
+    }
+
     private void SettingMissionState(int missionNum)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
@@ -184,7 +206,8 @@ public class UI_MissionPopup : UI_Popup
 
         // 현재 달성중 및 목표치 업데이트
         SettingGoalText();
-
+        // 미션완료 여부에 따라 타이틀 이미지 변경세팅
+        SettingImage();
     }
 
     private bool IsGoal(string data)
@@ -237,15 +260,13 @@ public class UI_MissionPopup : UI_Popup
         missionGoalText.text = currentLevelstr + slash + goalLevelStr;
         rewardText.text = reward.ToString("#,##0");
 
-        // 미션완료 여부에 따라 타이틀 이미지 변경세팅
-        SettingImage();
-
         // 목표달성 여부에 따라 보상버튼 활성/비활성화
         if (currentLevel >= goalLevel)
         {
             // 목표달성
             PlayerPrefs.SetInt(clickedMission.Complete, 1);
             PlayerPrefs.Save();
+
             rewardBtn.interactable = true;
         }
         else if (currentLevel < goalLevel)
@@ -341,22 +362,18 @@ public class UI_MissionPopup : UI_Popup
 
     private void GetReward()
     {
-        int coin = PlayerPrefs.GetInt("Gold");
-        //int playTicket = PlayerPrefs.GetInt("RunningPlayCount");
+        int coin = Managers.Game.Gold;
         int playTicket = Managers.Game.RunningPlayCount;
 
         if (clickedMission.MissionID == 5)
         {
             playTicket += PlayerPrefs.GetInt(clickedMission.Reward);
-            //PlayerPrefs.SetInt("RunningPlayCount", playTicket); 
             Managers.Game.RunningPlayCount = playTicket;
-            PlayerPrefs.Save();
         }
         else
         {
             coin += PlayerPrefs.GetInt(clickedMission.Reward);
-            PlayerPrefs.SetInt("Gold", coin);
-            PlayerPrefs.Save();
+            Managers.Game.Gold = coin;
         }
     }
 }

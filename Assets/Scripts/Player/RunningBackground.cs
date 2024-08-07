@@ -19,21 +19,21 @@ public class RunningBackground : MonoBehaviour
 
     private void ChangeBackground()
     {
-        if (stageNumber == 1 || stageNumber == 2 || stageNumber == 3 || stageNumber == 4)
+        if (stageNumber >= 1 || stageNumber < 7)
         {
             Managers.Sound.Play("ArcadeGameBGM#17", Sound.Bgm);
             sunset.gameObject.SetActive(false);
             night.gameObject.SetActive(false);
 
         }
-        else if (stageNumber == 6 || stageNumber == 7 || stageNumber == 8 || stageNumber == 9)
+        else if (stageNumber > 7 || stageNumber < 14)
         {
             Managers.Sound.Play("Happy walk", Sound.Bgm);
             morning.gameObject.SetActive(false);
             night.gameObject.SetActive(false);
 
         }
-        else if (stageNumber == 11 || stageNumber == 12 || stageNumber == 13 || stageNumber == 14)
+        else if (stageNumber > 14 || stageNumber < 21)
         {
             Managers.Sound.Play("one_0", Sound.Bgm);
             morning.gameObject.SetActive(false);

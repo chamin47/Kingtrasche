@@ -264,24 +264,24 @@ public class GameManager
         StoryReward = PlayerPrefs.GetInt("StoryReward", 100);
 
         BossLevel = PlayerPrefs.GetInt("BossLevel", 0);
-        BossGoal = PlayerPrefs.GetInt("BossGoal", 1);
+        BossGoal = PlayerPrefs.GetInt("BossGoal", 5);
         BossComplete = PlayerPrefs.GetInt("BossComplete", 0);
         BossReward = PlayerPrefs.GetInt("BossReward", 300);
 
         BeeLevel = PlayerPrefs.GetInt("BeeLevel", 0);
-        BeeGoal = PlayerPrefs.GetInt("BeeGoal", 1);
+        BeeGoal = PlayerPrefs.GetInt("BeeGoal", 5);
         BeeComplete = PlayerPrefs.GetInt("BeeComplete", 0);
         BeeReward = PlayerPrefs.GetInt("BeeReward", 100);
 
         PuzzleLevel = PlayerPrefs.GetInt("PuzzleLevel", 0);
-        PuzzleGoal = PlayerPrefs.GetInt("PuzzleGoal", 1);
+        PuzzleGoal = PlayerPrefs.GetInt("PuzzleGoal", 5);
         PuzzleComplete = PlayerPrefs.GetInt("PuzzleComplete", 0);
         PuzzleReward = PlayerPrefs.GetInt("PuzzleReward", 100);
 
         InfinityLevel = PlayerPrefs.GetInt("InfinityLevel", 0);
-        InfinityGoal = PlayerPrefs.GetInt("InfinityGoal", 10);
+        InfinityGoal = PlayerPrefs.GetInt("InfinityGoal", 1000);
         InfinityComplete = PlayerPrefs.GetInt("InfinityComplete", 0);
-        InfinityReward = PlayerPrefs.GetInt("InfinityReward", 3);
+        InfinityReward = PlayerPrefs.GetInt("InfinityReward", 1);
         #endregion
     }
 
