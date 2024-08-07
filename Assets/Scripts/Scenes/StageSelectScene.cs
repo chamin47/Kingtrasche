@@ -8,7 +8,7 @@ public class StageSelectScene : BaseScene
 
         SceneType = Scene.StageScene;
         Time.timeScale = 1.0f;
-        Managers.UI.ShowSceneUI<UI_StageSelectScene>();
+        Managers.UI.ShowSceneUI<UI_ChapterScene>();
         Managers.Sound.Play("BGM_04", Sound.Bgm);
     }
 
