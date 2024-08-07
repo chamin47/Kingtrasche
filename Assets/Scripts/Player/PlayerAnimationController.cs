@@ -56,7 +56,7 @@ public class PlayerAnimationController : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().name == "RunningTutorialScene")
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            RunningTutorialManager.Instance.OnPlayerDead();
         }
         else
         {

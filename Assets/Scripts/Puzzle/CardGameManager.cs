@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CardGameManager : MonoBehaviour
 {
@@ -15,7 +13,7 @@ public class CardGameManager : MonoBehaviour
     public TextMeshProUGUI timeText;
 
     public int cardCount = 0;
-	float time = 10.0f;
+    float time = 10.0f;
     float TimeoutTimer = 0f;
 
     public Action OnEndEvent;
@@ -75,10 +73,18 @@ public class CardGameManager : MonoBehaviour
     {
         if (time <= TimeoutTimer)
         {
-            Managers.Game.GameOver();
-            Destroy(gameObject);
+            if (SceneManager.GetActiveScene().name == "RunningTutorialScene")
+            {
+                RunningTutorialManager.Instance.OnPlayerDead();
+                Destroy(gameObject);
+            }
+            else
+            {
+                Managers.Game.GameOver();
+                Destroy(gameObject);
+            }
         }
-	}
+    }
 
     private void GameClear()
     {

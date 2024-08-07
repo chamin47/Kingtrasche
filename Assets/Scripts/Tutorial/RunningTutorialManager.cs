@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class RunningTutorialManager : UI_Popup
@@ -8,6 +9,8 @@ public class RunningTutorialManager : UI_Popup
 
     private GameObject player;
     private PlayerController playerController;
+    public EventObstacle eventObstacle;
+    public HoneyBeeEvent honeyBeeEvent;
 
     public GameObject firstTutorial;
     public GameObject secondTutorial;
@@ -21,6 +24,14 @@ public class RunningTutorialManager : UI_Popup
     private float eventDistane = 7f;
     private float tempSpeed;
     private int stopCount = 1;
+
+    private Vector3 respawnPosition;
+    private float backDistance = -8f; // 뒤쪽으로 5만큼 이동
+
+    private bool isFirstComplete = false;
+    public bool isSecondComplete = false;
+    public bool isThirdComplete = false;
+    public bool isFourthComplete = false;
 
     enum Texts
     {
@@ -66,6 +77,7 @@ public class RunningTutorialManager : UI_Popup
 
     private void Update()
     {
+        RespawnPosition();
         distanceFromTree = Vector3.Distance(Tree.transform.position, player.transform.position);
         if (distanceFromTree <= eventDistane && stopCount == 1)
         {
@@ -99,6 +111,7 @@ public class RunningTutorialManager : UI_Popup
     private void CloseFirstTutorial()
     {
         firstTutorial.SetActive(false);
+        isFirstComplete = true;
     }
 
     private void ChangeAlphaColor(Image image)
@@ -126,5 +139,44 @@ public class RunningTutorialManager : UI_Popup
         firstDescription.gameObject.SetActive(false);
         secondDescription.gameObject.SetActive(true);
         playerController.moveSpeed = tempSpeed;
+    }
+
+    public void OnPlayerDead()
+    {
+        RespawnPlayer();
+    }
+
+    private void RespawnPosition()
+    {
+        respawnPosition = player.transform.position;
+        respawnPosition.x += backDistance;
+    }
+
+    private void RespawnPlayer()
+    {
+
+        if (isFirstComplete == false)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        else if (isSecondComplete == false)
+        {
+            Managers.Player.SpawnPlayer();
+            player.transform.position = respawnPosition;
+            player.gameObject.SetActive(true);
+            playerController.isDead = false;
+            SecondTutorialStart();
+        }
+        else if (isThirdComplete == false)
+        {
+            player.gameObject.SetActive(true);
+            playerController.moveSpeed = tempSpeed;
+            eventObstacle.StartEvent();
+        }
+        else
+        {
+            playerController.moveSpeed = tempSpeed;
+            honeyBeeEvent.SpawnBee();
+        }
     }
 }

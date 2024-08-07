@@ -42,7 +42,7 @@ public class HoneyBeeEvent : MonoBehaviour
         popupScript.OnEndEvent += EndEvent;
     }
 
-    private void SpawnBee()
+    public void SpawnBee()
     {
         playerController.moveSpeed = 0f;
         playerController.isPuzzlOn = true;
@@ -102,6 +102,7 @@ public class HoneyBeeEvent : MonoBehaviour
             yield return null;
         }
         honeyBee.transform.position = originalPosition;
+        Destroy(honeyBee);
     }
 
     private Vector3 GetRandomFlyPosition()

@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 13f;
     private int jumpCount = 0;
     public int life = 3;
-    private bool isDead = false;
+    public bool isDead = false;
 
     private Vector2 inputVector;
     private Vector3 moveVector;
