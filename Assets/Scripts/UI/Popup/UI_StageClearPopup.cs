@@ -91,7 +91,8 @@ public class UI_StageClearPopup : UI_Popup
         else
         {
             PlayerPrefs.SetInt("StageNumber", ++currentStage);
-            Managers.Scene.LoadScene(Scene.StoryScene);
+			PlayerPrefs.SetInt("StartFrom", 3);
+			Managers.Scene.LoadScene(Scene.StoryScene);
         }
     }
 
