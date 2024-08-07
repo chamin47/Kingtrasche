@@ -20,7 +20,7 @@ public class GameManager
     public int NaturalRunningPlayCount { get; set; } // 자연 충전된 러닝플레이권
     public int MaxRunningPlayCount { get; set; } = 5; // 최대 자연 충전 런닝플레이권
     public int MaxPurchaseRunningPlayCount { get; set; } = 999; // 최대 구매 가능 러닝플레이권
-                                                                //public int BestScore { get; set; } // 무한모드 최대점수
+    //public int BestScore { get; set; } // 무한모드 최대점수
     public string Skin { get; set; } //적용스킨
 
     #region DogAdopt
@@ -98,6 +98,7 @@ public class GameManager
     public void Init()
     {
         LoadGame();
+        SaveGame();
     }
 
     private void OnApplicationQuit()
@@ -199,7 +200,7 @@ public class GameManager
 
     private void LoadGame()
     {
-        Gold = PlayerPrefs.GetInt("Gold", 0);
+        Gold = PlayerPrefs.GetInt("Gold", 99999);
         Diamond = PlayerPrefs.GetInt("Diamond", 0);
         _runningPlayCount = PlayerPrefs.GetInt("RunningPlayCount", 0);
         NaturalRunningPlayCount = PlayerPrefs.GetInt("NaturalRunningPlayCount", 0);
@@ -246,6 +247,7 @@ public class GameManager
         ShibaOrange = PlayerPrefs.GetInt("ShibaOrange", 0);
         #endregion
 
+        #region GameProgressData
         StoryLevel = PlayerPrefs.GetInt("StoryLevel", 0);
         StoryGoal = PlayerPrefs.GetInt("StoryGoal", 1);
         StoryComplete = PlayerPrefs.GetInt("StoryComplete", 0);
@@ -267,9 +269,10 @@ public class GameManager
         PuzzleReward = PlayerPrefs.GetInt("PuzzleReward", 100);
 
         InfinityLevel = PlayerPrefs.GetInt("InfinityLevel", 0);
-        InfinityGoal = PlayerPrefs.GetInt("InfinityGoal", 1000);
+        InfinityGoal = PlayerPrefs.GetInt("InfinityGoal", 10);
         InfinityComplete = PlayerPrefs.GetInt("InfinityComplete", 1);
         InfinityReward = PlayerPrefs.GetInt("InfinityReward", 3);
+        #endregion
     }
 
     public void GameOver()

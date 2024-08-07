@@ -12,5 +12,4 @@ public class ResetPlayerPrefs : MonoBehaviour
             PlayerPrefs.DeleteAll();
         }
     }
-
 }

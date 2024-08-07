@@ -152,6 +152,8 @@ public class UI_MissionPopup : UI_Popup
             PlayerPrefs.SetInt(clickedMission.Complete, 0);
             PlayerPrefs.Save();
             UpdateGoalAndReward();
+            // 실시간 UI 업데이트
+            SettingMissionState(clickedMission.MissionID);
         }
     }
 
@@ -224,11 +226,8 @@ public class UI_MissionPopup : UI_Popup
     {
         Button rewardBtn = Get<Button>((int)Buttons.RewardBtn);
         int currentLevel = PlayerPrefs.GetInt(clickedMission.Level);
-        Debug.Log(clickedMission.Level);
         int goalLevel = PlayerPrefs.GetInt(clickedMission.GoalLevel);
-        Debug.Log(clickedMission.GoalLevel);
         int reward = PlayerPrefs.GetInt(clickedMission.Reward);
-        Debug.Log(clickedMission.Reward);
         string slash = " / ";
         string currentLevelstr = currentLevel.ToString("#,##0");
         string goalLevelStr = goalLevel.ToString("#,##0");
@@ -253,11 +252,6 @@ public class UI_MissionPopup : UI_Popup
         {
             rewardBtn.interactable = false;
         }
-
-        Debug.Log("Current Level: " + PlayerPrefs.GetInt(clickedMission.Level));
-        Debug.Log("Goal Level: " + PlayerPrefs.GetInt(clickedMission.GoalLevel));
-        Debug.Log("Reward: " + PlayerPrefs.GetInt(clickedMission.Reward));
-        Debug.Log("Complete: " + PlayerPrefs.GetInt(clickedMission.Complete));
     }
 
     private void UpdateGoalAndReward()
