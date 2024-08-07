@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UI_BeeQuizPopup : UI_Popup
@@ -60,8 +61,16 @@ public class UI_BeeQuizPopup : UI_Popup
     private void IncorrectButton(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        Destroy(this.gameObject);
-        Managers.Game.GameOver();
+        if (SceneManager.GetActiveScene().name == "RunningTutorialScene")
+        {
+            RunningTutorialManager.Instance.OnPlayerDead();
+            Destroy(gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+            Managers.Game.GameOver();
+        }
     }
 
     public void SetCorrectOrIncorrectBeeNumber(int correctNumber)
@@ -116,8 +125,16 @@ public class UI_BeeQuizPopup : UI_Popup
     {
         if (time <= timeoutTimer)
         {
-            Managers.Game.GameOver();
-            Destroy(gameObject);
+            if (SceneManager.GetActiveScene().name == "RunningTutorialScene")
+            {
+                RunningTutorialManager.Instance.OnPlayerDead();
+                Destroy(gameObject);
+            }
+            else
+            {
+                Managers.Game.GameOver();
+                Destroy(gameObject);
+            }
         }
     }
 }

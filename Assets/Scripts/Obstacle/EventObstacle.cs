@@ -29,7 +29,7 @@ public class EventObstacle : MonoBehaviour
         }
     }
 
-    private void StartEvent()
+    public void StartEvent()
     {
         playerController.moveSpeed = 0f;
         playerController.isPuzzlOn = true;
@@ -39,6 +39,7 @@ public class EventObstacle : MonoBehaviour
         {
             RunningTutorialManager.Instance.secondTutorial.SetActive(false);
             RunningTutorialManager.Instance.thirdTutorial.SetActive(true);
+            RunningTutorialManager.Instance.isSecondComplete = true;
             Invoke("InstantiateGO", 2f);
         }
         else
@@ -67,6 +68,11 @@ public class EventObstacle : MonoBehaviour
         puzzleLevel += 1;
         PlayerPrefs.SetInt("PuzzleLevel", puzzleLevel);
         PlayerPrefs.Save();
+
+        if (SceneManager.GetActiveScene().name == "RunningTutorialScene")
+        {
+            RunningTutorialManager.Instance.isThirdComplete = true;
+        }
 
         Destroy(this.gameObject);
     }
