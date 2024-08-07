@@ -514,11 +514,11 @@ public class UI_DogSkinPopup : UI_Popup
     {
         if (IsAdopted(skinName) == false) //입양 안된경우
         {
-            int gold = PlayerPrefs.GetInt("Gold");
+            int gold = Managers.Game.Gold;  /*PlayerPrefs.GetInt("Gold");*/
             if (gold >= cost)
             {
                 gold -= cost;
-                PlayerPrefs.SetInt("Gold", gold);
+                Managers.Game.Gold = gold; /*PlayerPrefs.SetInt("Gold", gold);*/
                 PlayerPrefs.SetInt(skinName, 1);
                 PlayerPrefs.Save();
 
