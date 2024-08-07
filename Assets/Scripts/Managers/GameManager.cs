@@ -210,9 +210,9 @@ public class GameManager
 
     private void LoadGame()
     {
-        Gold = PlayerPrefs.GetInt("Gold", 99999);
+        Gold = PlayerPrefs.GetInt("Gold", 10000);
         Diamond = PlayerPrefs.GetInt("Diamond", 0);
-        _runningPlayCount = PlayerPrefs.GetInt("RunningPlayCount", 0);
+        _runningPlayCount = PlayerPrefs.GetInt("RunningPlayCount", 50);
         NaturalRunningPlayCount = PlayerPrefs.GetInt("NaturalRunningPlayCount", 0);
         MaxRunningPlayCount = PlayerPrefs.GetInt("MaxRunningPlayCount", 5);
         MaxPurchaseRunningPlayCount = PlayerPrefs.GetInt("MaxPurchaseRunningPlayCount", 999);

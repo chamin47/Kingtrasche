@@ -38,15 +38,15 @@ public class RunningBackground : MonoBehaviour
             Managers.Sound.Play("one_0", Sound.Bgm);
             morning.gameObject.SetActive(false);
             sunset.gameObject.SetActive(false);
-
         }
-        else if (SceneManager.GetActiveScene().name == "InfinityRunningScene")
+
+        if (SceneManager.GetActiveScene().name == "InfinityRunningScene")
         {
             Managers.Sound.Play("Sunny paradise act 1", Sound.Bgm);
             sunset.gameObject.SetActive(false);
             night.gameObject.SetActive(false);
         }
-        else
+        else if (SceneManager.GetActiveScene().name == "RunningTutorialScene")
         {
             Managers.Sound.Play("SummerChallenge", Sound.Bgm);
             sunset.gameObject.SetActive(false);
