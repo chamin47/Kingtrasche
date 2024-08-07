@@ -10,6 +10,7 @@ public class UI_ChapterScene : UI_Scene
 	#region
 	enum GameObjects
 	{
+		ResourceContainer
 	}
 	enum Texts
 	{
@@ -43,6 +44,7 @@ public class UI_ChapterScene : UI_Scene
 		Bind<Button>(typeof(Buttons));
 		Bind<TMP_Text>(typeof(Texts));
 		Bind<Image>(typeof(Images));
+		Bind<GameObject>(typeof(GameObjects));
 
 
 		Get<Button>((int)Buttons.Chapter1Button).gameObject.BindEvent(OnClickChapter1Button);
@@ -50,7 +52,11 @@ public class UI_ChapterScene : UI_Scene
 		Get<Button>((int)Buttons.Chapter3Button).gameObject.BindEvent(OnClickChapter3Button);
 		Get<Button>((int)Buttons.BackButton).gameObject.BindEvent(OnClickBackButton);
 
-
+		GameObject ResourceContainer = Get<GameObject>((int)GameObjects.ResourceContainer);
+		UI_ResourceItem item = Managers.UI.MakeSubItem<UI_ResourceItem>(ResourceContainer.transform);
+		RectTransform rectTransform = item.GetComponent<RectTransform>();
+		rectTransform.anchoredPosition = Vector2.zero;
+		rectTransform.localScale = Vector3.one;
 
 		return true;
 	}

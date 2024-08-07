@@ -10,7 +10,7 @@ public class UI_Chapter1Popup : UI_Popup
 	#region
 	enum GameObjects
 	{
-
+		ResourceContainer
 	}
 	enum Texts
 	{
@@ -71,6 +71,7 @@ public class UI_Chapter1Popup : UI_Popup
 		Bind<Button>(typeof(Buttons));
 		Bind<TMP_Text>(typeof(Texts));
 		Bind<Image>(typeof(Images));
+		Bind<GameObject>(typeof(GameObjects));
 
 		Get<Button>((int)Buttons.BackButton).gameObject.BindEvent(OnClickBackButton);
 		Get<Button>((int)Buttons.Level1).gameObject.BindEvent(OnClickLevel1Button);
@@ -80,6 +81,12 @@ public class UI_Chapter1Popup : UI_Popup
 		Get<Button>((int)Buttons.Level5).gameObject.BindEvent(OnClickLevel5Button);
 		Get<Button>((int)Buttons.Level6).gameObject.BindEvent(OnClickLevel6Button);
 		Get<Button>((int)Buttons.Level7).gameObject.BindEvent(OnClickLevel7Button);
+
+		GameObject ResourceContainer = Get<GameObject>((int)GameObjects.ResourceContainer);
+		UI_ResourceItem item = Managers.UI.MakeSubItem<UI_ResourceItem>(ResourceContainer.transform);
+		RectTransform rectTransform = item.GetComponent<RectTransform>();
+		rectTransform.anchoredPosition = Vector2.zero;
+		rectTransform.localScale = Vector3.one;
 
 		return true;
 	}
@@ -95,9 +102,10 @@ public class UI_Chapter1Popup : UI_Popup
 		{
 			Managers.Sound.Play("switch10", Sound.Effect);
 			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
-			Managers.Scene.LoadScene(Scene.RunningScene);
+			Managers.Scene.LoadScene(Scene.StoryScene);
 			PlayerPrefs.SetInt("StageNumber", 1);
-			//PlayerPrefs.SetInt("StartFrom", 3);
+			PlayerPrefs.Save();
+			PlayerPrefs.SetInt("StartFrom", 3);
 		}
 		else
 		{
@@ -112,6 +120,7 @@ public class UI_Chapter1Popup : UI_Popup
 			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
 			Managers.Scene.LoadScene(Scene.RunningScene);
 			PlayerPrefs.SetInt("StageNumber", 2);
+			PlayerPrefs.Save();
 		}
 		else
 		{
@@ -126,6 +135,7 @@ public class UI_Chapter1Popup : UI_Popup
 			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
 			Managers.Scene.LoadScene(Scene.RunningScene);
 			PlayerPrefs.SetInt("StageNumber", 3);
+			PlayerPrefs.Save();
 			//PlayerPrefs.SetInt("StartFrom", 3);
 		}
 		else
@@ -142,6 +152,7 @@ public class UI_Chapter1Popup : UI_Popup
 			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
 			Managers.Scene.LoadScene(Scene.RunningScene);
 			PlayerPrefs.SetInt("StageNumber", 4);
+			PlayerPrefs.Save();
 		}
 		else
 		{
@@ -154,9 +165,10 @@ public class UI_Chapter1Popup : UI_Popup
 		{
 			Managers.Sound.Play("switch10", Sound.Effect);
 			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
-			Managers.Scene.LoadScene(Scene.RunningScene);
+			Managers.Scene.LoadScene(Scene.StoryScene);
 			PlayerPrefs.SetInt("StageNumber", 5);
-			//PlayerPrefs.SetInt("StartFrom", 4);
+			PlayerPrefs.Save();
+			PlayerPrefs.SetInt("StartFrom", 3);
 		}
 		else
 		{
@@ -171,6 +183,7 @@ public class UI_Chapter1Popup : UI_Popup
 			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
 			Managers.Scene.LoadScene(Scene.RunningScene);
 			PlayerPrefs.SetInt("StageNumber", 6);
+			PlayerPrefs.Save();
 			//PlayerPrefs.SetInt("StartFrom", 3);
 		}
 		else
@@ -184,9 +197,10 @@ public class UI_Chapter1Popup : UI_Popup
 		{
 			Managers.Sound.Play("switch10", Sound.Effect);
 			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
-			Managers.Scene.LoadScene(Scene.BossScene1);
+			Managers.Scene.LoadScene(Scene.StoryScene);
 			PlayerPrefs.SetInt("StageNumber", 7);
-			//PlayerPrefs.SetInt("StartFrom", 3);
+			PlayerPrefs.Save();
+			PlayerPrefs.SetInt("StartFrom", 4);
 		}
 		else
 		{
