@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public GameObject JoystickUI;
 
     private Rigidbody2D rigid;
+    private BoxCollider2D collider;
     private PlayerShooting playerShooting;
     private PlayerAnimationController animController;
 
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         playerShooting = GetComponent<PlayerShooting>();
         animController = GetComponent<PlayerAnimationController>();
+        collider = GetComponent<BoxCollider2D>();
 
         var playerActionMap = inputActionAsset.FindActionMap("PlayerActions");
         moveAction = playerActionMap.FindAction("Move");
@@ -298,6 +300,7 @@ public class PlayerController : MonoBehaviour
 
     public void DirectDying()
     {
+        moveSpeed = 0f;
         isDead = true;
         Managers.Sound.Play("wind down 2", Sound.Effect);
         animController.DyingAnim();

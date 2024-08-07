@@ -10,6 +10,7 @@ public class UI_DogSkinPopup : UI_Popup
     enum Buttons
     {
         // 강아지 종 선택 -> 각 첫번째 색의 강아지로 첫 화면
+        MountainDogBtn,
         AfghanHoundBtn,
         BloodHoundBtn,
         DalmationBtn,
@@ -17,7 +18,6 @@ public class UI_DogSkinPopup : UI_Popup
         GreatDaneBtn,
         GreyHoundBtn,
         HuskyBtn,
-        MountainDogBtn,
         ShepherdBtn,
         ShibaBtn,
 
@@ -34,6 +34,7 @@ public class UI_DogSkinPopup : UI_Popup
 
     enum Images
     {
+        MountainDogBtn,
         AfghanHoundBtn,
         BloodHoundBtn,
         DalmationBtn,
@@ -41,7 +42,6 @@ public class UI_DogSkinPopup : UI_Popup
         GreatDaneBtn,
         GreyHoundBtn,
         HuskyBtn,
-        MountainDogBtn,
         ShepherdBtn,
         ShibaBtn,
 
@@ -109,9 +109,9 @@ public class UI_DogSkinPopup : UI_Popup
         PurchaseBtn = GetButton((int)Buttons.PurchaseBtn);
 
         // 초기는 MountainDogBernese
-        int skinID1 = 22;
-        int skinID2 = 23;
-        int skinID3 = 24;
+        int skinID1 = 1;
+        int skinID2 = 2;
+        int skinID3 = 3;
         // 북마크
         ChangeBookmark(GetImage((int)Images.MountainDogBtn));
         //세팅
@@ -128,6 +128,7 @@ public class UI_DogSkinPopup : UI_Popup
         Bind<TMP_Text>(typeof(Texts));
         Bind<Image>(typeof(Images));
 
+        Get<Button>((int)Buttons.MountainDogBtn).gameObject.BindEvent(OnMountainDogBtnClicked); ;
         Get<Button>((int)Buttons.AfghanHoundBtn).gameObject.BindEvent(OnAfghanHoundBtnClicked);
         Get<Button>((int)Buttons.BloodHoundBtn).gameObject.BindEvent(OnBloodHoundBtnClicked);
         Get<Button>((int)Buttons.DalmationBtn).gameObject.BindEvent(OnDalmationBtnClicked); ;
@@ -135,7 +136,6 @@ public class UI_DogSkinPopup : UI_Popup
         Get<Button>((int)Buttons.GreatDaneBtn).gameObject.BindEvent(OnGreatDaneBtnClicked); ;
         Get<Button>((int)Buttons.GreyHoundBtn).gameObject.BindEvent(OnGreyHoundBtnClicked); ;
         Get<Button>((int)Buttons.HuskyBtn).gameObject.BindEvent(OnHuskyBtnClicked); ;
-        Get<Button>((int)Buttons.MountainDogBtn).gameObject.BindEvent(OnMountainDogBtnClicked); ;
         Get<Button>((int)Buttons.ShepherdBtn).gameObject.BindEvent(OnShepherdBtnClicked); ;
         Get<Button>((int)Buttons.ShibaBtn).gameObject.BindEvent(OnShibaBtnClicked); ;
 
@@ -152,11 +152,27 @@ public class UI_DogSkinPopup : UI_Popup
     }
 
     #region SkinBtn
-    private void OnAfghanHoundBtnClicked(PointerEventData eventData)
+    private void OnMountainDogBtnClicked(PointerEventData eventData)
     {
         int skinID1 = 1;
         int skinID2 = 2;
         int skinID3 = 3;
+
+        Managers.Sound.Play("switch10", Sound.Effect);
+
+        // 원래 북마크 이미지 변경
+        RestoreOriginalBookmark();
+        // 북마크
+        ChangeBookmark(GetImage((int)Images.MountainDogBtn));
+        //세팅
+        SkinSetting(skinID1, skinID2, skinID3);
+    }
+
+    private void OnAfghanHoundBtnClicked(PointerEventData eventData)
+    {
+        int skinID1 = 4;
+        int skinID2 = 5;
+        int skinID3 = 6;
 
         Managers.Sound.Play("switch10", Sound.Effect);
 
@@ -170,9 +186,9 @@ public class UI_DogSkinPopup : UI_Popup
 
     private void OnBloodHoundBtnClicked(PointerEventData eventData)
     {
-        int skinID1 = 4;
-        int skinID2 = 5;
-        int skinID3 = 6;
+        int skinID1 = 7;
+        int skinID2 = 8;
+        int skinID3 = 9;
 
         Managers.Sound.Play("switch10", Sound.Effect);
 
@@ -186,9 +202,9 @@ public class UI_DogSkinPopup : UI_Popup
 
     private void OnDalmationBtnClicked(PointerEventData eventData)
     {
-        int skinID1 = 7;
-        int skinID2 = 8;
-        int skinID3 = 9;
+        int skinID1 = 10;
+        int skinID2 = 11;
+        int skinID3 = 12;
 
         Managers.Sound.Play("switch10", Sound.Effect);
 
@@ -202,9 +218,9 @@ public class UI_DogSkinPopup : UI_Popup
 
     private void OnDobermanBtnClicked(PointerEventData eventData)
     {
-        int skinID1 = 10;
-        int skinID2 = 11;
-        int skinID3 = 12;
+        int skinID1 = 13;
+        int skinID2 = 14;
+        int skinID3 = 15;
 
         Managers.Sound.Play("switch10", Sound.Effect);
 
@@ -218,9 +234,9 @@ public class UI_DogSkinPopup : UI_Popup
 
     private void OnGreatDaneBtnClicked(PointerEventData eventData)
     {
-        int skinID1 = 13;
-        int skinID2 = 14;
-        int skinID3 = 15;
+        int skinID1 = 16;
+        int skinID2 = 17;
+        int skinID3 = 18;
 
         Managers.Sound.Play("switch10", Sound.Effect);
 
@@ -234,9 +250,9 @@ public class UI_DogSkinPopup : UI_Popup
 
     private void OnGreyHoundBtnClicked(PointerEventData eventData)
     {
-        int skinID1 = 16;
-        int skinID2 = 17;
-        int skinID3 = 18;
+        int skinID1 = 19;
+        int skinID2 = 20;
+        int skinID3 = 21;
 
         Managers.Sound.Play("switch10", Sound.Effect);
 
@@ -250,22 +266,6 @@ public class UI_DogSkinPopup : UI_Popup
 
     private void OnHuskyBtnClicked(PointerEventData eventData)
     {
-        int skinID1 = 19;
-        int skinID2 = 20;
-        int skinID3 = 21;
-
-        Managers.Sound.Play("switch10", Sound.Effect);
-
-        // 원래 북마크 이미지 변경
-        RestoreOriginalBookmark();
-        // 북마크
-        ChangeBookmark(GetImage((int)Images.HuskyBtn));
-        //세팅
-        SkinSetting(skinID1, skinID2, skinID3);
-    }
-
-    private void OnMountainDogBtnClicked(PointerEventData eventData)
-    {
         int skinID1 = 22;
         int skinID2 = 23;
         int skinID3 = 24;
@@ -275,7 +275,7 @@ public class UI_DogSkinPopup : UI_Popup
         // 원래 북마크 이미지 변경
         RestoreOriginalBookmark();
         // 북마크
-        ChangeBookmark(GetImage((int)Images.MountainDogBtn));
+        ChangeBookmark(GetImage((int)Images.HuskyBtn));
         //세팅
         SkinSetting(skinID1, skinID2, skinID3);
     }
