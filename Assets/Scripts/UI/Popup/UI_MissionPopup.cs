@@ -89,6 +89,7 @@ public class UI_MissionPopup : UI_Popup
         changeSprite = Resources.Load<Sprite>("Sprites/GreenBtnFrame");
 
         SettingMissionState(1);
+        InitSettingMissionComplete();
     }
 
     public override bool Init()
@@ -172,6 +173,27 @@ public class UI_MissionPopup : UI_Popup
     }
 
 
+    private void InitSettingMissionComplete()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            MissionData InitData = MissionData.MissionDataMap[i + 1];
+            int currentLevel = PlayerPrefs.GetInt(InitData.Level);
+            int goalLevel = PlayerPrefs.GetInt(InitData.GoalLevel);
+
+            if (currentLevel >= goalLevel)
+            {
+                PlayerPrefs.SetInt(InitData.Complete, 1); // 완료로 설정
+            }
+            else
+            {
+                PlayerPrefs.SetInt(InitData.Complete, 0); // 미완료로 설정
+            }
+            PlayerPrefs.Save();
+        }
+        SettingImage();
+    }
+
     private void SettingMissionState(int missionNum)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
@@ -184,6 +206,8 @@ public class UI_MissionPopup : UI_Popup
 
         // 현재 달성중 및 목표치 업데이트
         SettingGoalText();
+        // 미션완료 여부에 따라 타이틀 이미지 변경세팅
+        SettingImage();
     }
 
     private bool IsGoal(string data)
@@ -243,8 +267,6 @@ public class UI_MissionPopup : UI_Popup
             PlayerPrefs.SetInt(clickedMission.Complete, 1);
             PlayerPrefs.Save();
 
-            // 미션완료 여부에 따라 타이틀 이미지 변경세팅
-            SettingImage();
             rewardBtn.interactable = true;
         }
         else if (currentLevel < goalLevel)
