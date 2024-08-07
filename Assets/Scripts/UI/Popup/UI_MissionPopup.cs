@@ -89,7 +89,6 @@ public class UI_MissionPopup : UI_Popup
         changeSprite = Resources.Load<Sprite>("Sprites/GreenBtnFrame");
 
         SettingMissionState(1);
-        SettingImage();
     }
 
     public override bool Init()
@@ -155,6 +154,7 @@ public class UI_MissionPopup : UI_Popup
             PlayerPrefs.SetInt(clickedMission.Complete, 0);
             PlayerPrefs.Save();
             UpdateGoalAndReward();
+
             // 실시간 UI 업데이트
             SettingMissionState(clickedMission.MissionID);
             SettingImage();
@@ -184,7 +184,6 @@ public class UI_MissionPopup : UI_Popup
 
         // 현재 달성중 및 목표치 업데이트
         SettingGoalText();
-
     }
 
     private bool IsGoal(string data)
@@ -237,15 +236,15 @@ public class UI_MissionPopup : UI_Popup
         missionGoalText.text = currentLevelstr + slash + goalLevelStr;
         rewardText.text = reward.ToString("#,##0");
 
-        // 미션완료 여부에 따라 타이틀 이미지 변경세팅
-        SettingImage();
-
         // 목표달성 여부에 따라 보상버튼 활성/비활성화
         if (currentLevel >= goalLevel)
         {
             // 목표달성
             PlayerPrefs.SetInt(clickedMission.Complete, 1);
             PlayerPrefs.Save();
+
+            // 미션완료 여부에 따라 타이틀 이미지 변경세팅
+            SettingImage();
             rewardBtn.interactable = true;
         }
         else if (currentLevel < goalLevel)
