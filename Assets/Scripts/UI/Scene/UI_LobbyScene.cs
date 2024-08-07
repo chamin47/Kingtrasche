@@ -1,8 +1,14 @@
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UI_LobbyScene : UI_Scene
 {
+    enum GameObjects
+    {
+		UI_Lobby
+	}
+
     enum Buttons
     {
         Setting,
@@ -28,6 +34,7 @@ public class UI_LobbyScene : UI_Scene
             return false;
 
         Bind<Button>(typeof(Buttons));
+        Bind<GameObject>(typeof(GameObjects));
 
         Get<Button>((int)Buttons.Setting).gameObject.BindEvent(OnOptionButtonClicked);
         Get<Button>((int)Buttons.Shop).gameObject.BindEvent(OnShopButtonClicked);
@@ -38,7 +45,13 @@ public class UI_LobbyScene : UI_Scene
         Get<Button>((int)Buttons.Back).gameObject.BindEvent(OnBackButtonClicked);
         Get<Button>((int)Buttons.Start).gameObject.BindEvent(OnStartButtonClicked);
 
-        return true;
+        GameObject ResourceContainer = Get<GameObject>((int)GameObjects.UI_Lobby);
+        UI_ResourceItem item = Managers.UI.MakeSubItem<UI_ResourceItem>(ResourceContainer.transform);
+		RectTransform rectTransform = item.GetComponent<RectTransform>();
+		rectTransform.anchoredPosition = Vector2.zero;
+		rectTransform.localScale = Vector3.one;
+
+		return true;
     }
 
     private void OnOptionButtonClicked(PointerEventData eventData)
