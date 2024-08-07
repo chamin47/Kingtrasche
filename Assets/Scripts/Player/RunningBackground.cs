@@ -40,11 +40,19 @@ public class RunningBackground : MonoBehaviour
             sunset.gameObject.SetActive(false);
 
         }
+        else if (SceneManager.GetActiveScene().name == "InfinityRunningScene")
+        {
+            Managers.Sound.Play("Sunny paradise act 1", Sound.Bgm);
+            sunset.gameObject.SetActive(false);
+            night.gameObject.SetActive(false);
+        }
         else
         {
             Managers.Sound.Play("SummerChallenge", Sound.Bgm);
             sunset.gameObject.SetActive(false);
             night.gameObject.SetActive(false);
         }
+
+
     }
 }
