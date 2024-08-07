@@ -1,6 +1,5 @@
 using System;
 using TMPro;
-using UnityEngine;
 
 public class UI_Resouce : UI_Popup
 {
@@ -15,9 +14,10 @@ public class UI_Resouce : UI_Popup
     private void Awake()
     {
         Init();
-		Managers.Game.OnRunningPlayCountChanged += UpdateRunningPlayCountUI;
-		TimeManager.OnStaminaTimeChanged += UpdateStaminaTimeUI;
-	}
+        Managers.Game.OnRunningPlayCountChanged += UpdateRunningPlayCountUI;
+        TimeManager.OnStaminaTimeChanged += UpdateStaminaTimeUI;
+        Managers.Game.OnGoldCountChanged += UpdateGoldCount;
+    }
 
     public override bool Init()
     {
@@ -37,13 +37,14 @@ public class UI_Resouce : UI_Popup
         ShowActiveAbility();
     }
 
-	private void OnDestroy()
-	{
-		Managers.Game.OnRunningPlayCountChanged -= UpdateRunningPlayCountUI;
-		TimeManager.OnStaminaTimeChanged -= UpdateStaminaTimeUI;
-	}
+    private void OnDestroy()
+    {
+        Managers.Game.OnRunningPlayCountChanged -= UpdateRunningPlayCountUI;
+        TimeManager.OnStaminaTimeChanged -= UpdateStaminaTimeUI;
+        Managers.Game.OnGoldCountChanged -= UpdateGoldCount;
+    }
 
-	private void ShowYouTheMoney()
+    private void ShowYouTheMoney()
     {
         TMP_Text coinTxt = GetText((int)Texts.CoinTxt);
         TMP_Text rubyTxt = GetText((int)Texts.RubyTxt);
@@ -75,6 +76,26 @@ public class UI_Resouce : UI_Popup
         }
     }
 
+    private void UpdateGoldCount(int newCount)
+    {
+        TMP_Text coinTxt = GetText((int)Texts.CoinTxt);
+
+        int max = 99999; // 최대 표기
+        string zero = "0";
+        string maxText = "+";
+
+        //int coin = Managers.Game.Gold;
+        coinTxt.text = newCount.ToString("#,###");
+        if (newCount > 99999)
+        {
+            coinTxt.text = max.ToString("#,###") + maxText;
+        }
+        else if (newCount == 0)
+        {
+            coinTxt.text = zero;
+        }
+    }
+
     private void ShowActiveAbility()
     {
         TMP_Text activeAbilityNumberTxt = Get<TMP_Text>((int)Texts.ActiveAbilityNumberTxt);
@@ -84,17 +105,17 @@ public class UI_Resouce : UI_Popup
         activeAbilityNumberTxt.text = x + ability.ToString();
     }
 
-	private void UpdateRunningPlayCountUI(int newCount)
-	{
-		TMP_Text activeAbilityNumberTxt = Get<TMP_Text>((int)Texts.ActiveAbilityNumberTxt);
-		string x = " X ";
-		activeAbilityNumberTxt.text = x + newCount.ToString();
-	}
+    private void UpdateRunningPlayCountUI(int newCount)
+    {
+        TMP_Text activeAbilityNumberTxt = Get<TMP_Text>((int)Texts.ActiveAbilityNumberTxt);
+        string x = " X ";
+        activeAbilityNumberTxt.text = x + newCount.ToString();
+    }
 
-	private void UpdateStaminaTimeUI(float staminaTime)
-	{
-		TMP_Text addAbilityTimeTxt = GetText((int)Texts.AddAbilityTimeTxt);
-		TimeSpan time = TimeSpan.FromSeconds(staminaTime);
-		addAbilityTimeTxt.text = string.Format("{0:D2}:{1:D2}", time.Minutes, time.Seconds);
-	}
+    private void UpdateStaminaTimeUI(float staminaTime)
+    {
+        TMP_Text addAbilityTimeTxt = GetText((int)Texts.AddAbilityTimeTxt);
+        TimeSpan time = TimeSpan.FromSeconds(staminaTime);
+        addAbilityTimeTxt.text = string.Format("{0:D2}:{1:D2}", time.Minutes, time.Seconds);
+    }
 }

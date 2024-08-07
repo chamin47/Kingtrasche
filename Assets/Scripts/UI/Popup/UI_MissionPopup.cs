@@ -184,8 +184,7 @@ public class UI_MissionPopup : UI_Popup
 
         // 현재 달성중 및 목표치 업데이트
         SettingGoalText();
-        // 미션완료 여부에 따라 타이틀 이미지 변경세팅
-        SettingImage();
+
     }
 
     private bool IsGoal(string data)
@@ -238,6 +237,8 @@ public class UI_MissionPopup : UI_Popup
         missionGoalText.text = currentLevelstr + slash + goalLevelStr;
         rewardText.text = reward.ToString("#,##0");
 
+        // 미션완료 여부에 따라 타이틀 이미지 변경세팅
+        SettingImage();
 
         // 목표달성 여부에 따라 보상버튼 활성/비활성화
         if (currentLevel >= goalLevel)

@@ -3,7 +3,18 @@ using UnityEngine;
 
 public class GameManager
 {
-    public int Gold { get; set; }               // 무료재화
+    private int _Gold;
+    public int Gold
+    {
+        get => _Gold;
+        set
+        {
+            _Gold = value;
+            PlayerPrefs.SetInt("Gold", value);
+            PlayerPrefs.Save();
+            OnGoldCountChanged?.Invoke(_Gold);
+        }
+    }               // 무료재화
     public int Diamond { get; set; }            // 유료재화
     private int _runningPlayCount;
     public int RunningPlayCount
@@ -20,7 +31,6 @@ public class GameManager
     public int NaturalRunningPlayCount { get; set; } // 자연 충전된 러닝플레이권
     public int MaxRunningPlayCount { get; set; } = 5; // 최대 자연 충전 런닝플레이권
     public int MaxPurchaseRunningPlayCount { get; set; } = 999; // 최대 구매 가능 러닝플레이권
-    //public int BestScore { get; set; } // 무한모드 최대점수
     public string Skin { get; set; } //적용스킨
 
     #region DogAdopt
@@ -94,6 +104,7 @@ public class GameManager
     #endregion
 
     public event Action<int> OnRunningPlayCountChanged;
+    public event Action<int> OnGoldCountChanged;
 
     public void Init()
     {
@@ -114,7 +125,7 @@ public class GameManager
         }
     }
 
-    private void SaveGame()
+    public void SaveGame()
     {
         PlayerPrefs.SetInt("Gold", Gold);
         PlayerPrefs.SetInt("Diamond", Diamond);
@@ -122,7 +133,6 @@ public class GameManager
         PlayerPrefs.SetInt("NaturalRunningPlayCount", NaturalRunningPlayCount);
         PlayerPrefs.SetInt("MaxRunningPlayCount", MaxRunningPlayCount);
         PlayerPrefs.SetInt("MaxPurchaseRunningPlayCount", MaxPurchaseRunningPlayCount);
-        //PlayerPrefs.SetInt("BestScore", BestScore);
         PlayerPrefs.SetString("Skin", Skin);
 
         #region SkinName
