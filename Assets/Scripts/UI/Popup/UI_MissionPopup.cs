@@ -61,7 +61,10 @@ public class UI_MissionPopup : UI_Popup
     private Image thirdMission;
     private Image fourthMission;
     private Image fifthMission;
+
     private Image rewardImage;
+    private Sprite originalSprite;
+    private Sprite changeSprite;
 
     private void Awake()
     {
@@ -80,9 +83,13 @@ public class UI_MissionPopup : UI_Popup
         thirdMission = Get<Image>((int)Images.ThirdMission);
         fourthMission = Get<Image>((int)Images.FourthMission);
         fifthMission = Get<Image>((int)Images.FifthMission);
+
         rewardImage = Get<Image>((int)Images.RewardImage);
+        originalSprite = Resources.Load<Sprite>("Sprites/GrayBtnFrame");
+        changeSprite = Resources.Load<Sprite>("Sprites/GreenBtnFrame");
 
         SettingMissionState(1);
+        SettingImage();
     }
 
     public override bool Init()
@@ -140,16 +147,21 @@ public class UI_MissionPopup : UI_Popup
     private void OnRewardBtnClicked(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-        SettingImage();
-        if (IsGoal(clickedMission.Complete) == false)
+
+        if (IsGoal(clickedMission.Complete) == true)
         {
-            return;
+            GetReward();
+            //보상버튼 받으면 목표 달성 초기화
+            PlayerPrefs.SetInt(clickedMission.Complete, 0);
+            PlayerPrefs.Save();
+            UpdateGoalAndReward();
+            // 실시간 UI 업데이트
+            SettingMissionState(clickedMission.MissionID);
+            SettingImage();
         }
         else
         {
-            //보상버튼 받으면 목표 달성 초기화
-            PlayerPrefs.SetInt(clickedMission.Complete, 0);
-            UpdateGoalAndReward();
+            return;
         }
     }
 
@@ -170,10 +182,10 @@ public class UI_MissionPopup : UI_Popup
         missionTitleText.text = missionData.MissionTitle;
         missionDescription.text = missionData.Description;
 
-        // 미션완료 여부에 따라 타이틀 이미지 변경세팅
-        SettingImage();
         // 현재 달성중 및 목표치 업데이트
         SettingGoalText();
+        // 미션완료 여부에 따라 타이틀 이미지 변경세팅
+        SettingImage();
     }
 
     private bool IsGoal(string data)
@@ -194,22 +206,17 @@ public class UI_MissionPopup : UI_Popup
         Image[] missionImage = { firstMission, secondMission, thirdMission, fourthMission, fifthMission };
         for (int i = 0; i < missionImage.Length; i++)
         {
-            MissionData missionData = MissionData.MissionDataMap[i + 1];
-            if (IsGoal(missionData.Complete) == false) // 미션이 완료되지 않았으면 그대로
+            MissionData data = MissionData.MissionDataMap[i + 1];
+
+            if (IsGoal(data.Complete) == true) // 완료됐으면 이미지 교체
             {
-                return;
+                missionImage[i].sprite = changeSprite;
             }
-            else // 완료됐으면 이미지 교체
+            else // 미션이 완료되지 않았으면 그대로
             {
-                ChangeTitleImage(missionImage[i]);
+                missionImage[i].sprite = originalSprite;
             }
         }
-    }
-
-    private void ChangeTitleImage(Image image)
-    {
-        Sprite sprite = Resources.Load<Sprite>("Sprites/GreenBtnFrame");
-        image.sprite = sprite;
     }
 
     private void ChangeRewardImage(Image image, string path)
@@ -226,10 +233,10 @@ public class UI_MissionPopup : UI_Popup
         int reward = PlayerPrefs.GetInt(clickedMission.Reward);
         string slash = " / ";
         string currentLevelstr = currentLevel.ToString("#,##0");
-        string goalLevelStr = goalLevel.ToString("#,###");
+        string goalLevelStr = goalLevel.ToString("#,##0");
 
         missionGoalText.text = currentLevelstr + slash + goalLevelStr;
-        rewardText.text = reward.ToString("#,###");
+        rewardText.text = reward.ToString("#,##0");
 
 
         // 목표달성 여부에 따라 보상버튼 활성/비활성화
@@ -237,6 +244,7 @@ public class UI_MissionPopup : UI_Popup
         {
             // 목표달성
             PlayerPrefs.SetInt(clickedMission.Complete, 1);
+            PlayerPrefs.Save();
             rewardBtn.interactable = true;
         }
         else if (currentLevel < goalLevel)
@@ -266,6 +274,7 @@ public class UI_MissionPopup : UI_Popup
                     reward += clickedMission.IncreadeReward;
                     PlayerPrefs.SetInt(clickedMission.GoalLevel, goalLevel);
                     PlayerPrefs.SetInt(clickedMission.Reward, reward);
+                    PlayerPrefs.Save();
                 }
                 else
                 {
@@ -297,6 +306,7 @@ public class UI_MissionPopup : UI_Popup
                 reward += clickedMission.IncreadeReward;
                 PlayerPrefs.SetInt(clickedMission.GoalLevel, goalLevel);
                 PlayerPrefs.SetInt(clickedMission.Reward, reward);
+                PlayerPrefs.Save();
                 break;
 
             default:
@@ -323,6 +333,7 @@ public class UI_MissionPopup : UI_Popup
                 reward += clickedMission.IncreadeReward;
                 PlayerPrefs.SetInt(clickedMission.GoalLevel, goalLevel);
                 PlayerPrefs.SetInt(clickedMission.Reward, reward);
+                PlayerPrefs.Save();
                 break;
         }
     }
@@ -330,6 +341,19 @@ public class UI_MissionPopup : UI_Popup
     private void GetReward()
     {
         int coin = PlayerPrefs.GetInt("Gold");
-        //int playTicket = PlayerPrefs.GetInt
+        int playTicket = PlayerPrefs.GetInt("RunningPlayCount");
+
+        if (clickedMission.MissionID == 5)
+        {
+            playTicket += PlayerPrefs.GetInt(clickedMission.Reward);
+            PlayerPrefs.SetInt("RunningPlayCount", playTicket);
+            PlayerPrefs.Save();
+        }
+        else
+        {
+            coin += PlayerPrefs.GetInt(clickedMission.Reward);
+            PlayerPrefs.SetInt("Gold", coin);
+            PlayerPrefs.Save();
+        }
     }
 }

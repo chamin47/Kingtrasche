@@ -65,6 +65,7 @@ public class UI_GameScene : UI_Scene
             int getGold = PlayerPrefs.GetInt("Gold");
             getGold++;
             PlayerPrefs.SetInt("Gold", getGold);
+            PlayerPrefs.Save();
         }
         currentMeat.text = currentScore.ToString();
     }
