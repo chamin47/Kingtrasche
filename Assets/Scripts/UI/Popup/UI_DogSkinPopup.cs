@@ -520,6 +520,7 @@ public class UI_DogSkinPopup : UI_Popup
                 gold -= cost;
                 PlayerPrefs.SetInt("Gold", gold);
                 PlayerPrefs.SetInt(skinName, 1);
+                PlayerPrefs.Save();
 
                 string adopt = "ÀÔ¾ç Áß";
                 adoptText.text = adopt;

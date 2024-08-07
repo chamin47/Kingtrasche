@@ -20,11 +20,18 @@ public class UI_Popup : UI_Base
 
     protected void OnClickRetryButton(PointerEventData eventData)
     {
-        Managers.Sound.Play("switch10", Sound.Effect);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Time.timeScale = 1.0f;
-        // 목줄 하나 감소하는 로직 필요
-        UI_GameScene.currentScore = 0;
+        if (Managers.Game.RunningPlayCount > 0)
+        {
+            Managers.Sound.Play("switch10", Sound.Effect);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Time.timeScale = 1.0f;
+            Managers.Game.RunningPlayCount--;
+            UI_GameScene.currentScore = 0;
+        }
+        else
+        {
+			Debug.Log("러닝 플레이권이 부족합니다.");
+		}
     }
 
     protected void OnClickBackStageButton(PointerEventData eventData)

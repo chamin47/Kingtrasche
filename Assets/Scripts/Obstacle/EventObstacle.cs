@@ -66,6 +66,7 @@ public class EventObstacle : MonoBehaviour
         int puzzleLevel = PlayerPrefs.GetInt("PuzzleLevel");
         puzzleLevel += 1;
         PlayerPrefs.SetInt("PuzzleLevel", puzzleLevel);
+        PlayerPrefs.Save();
 
         Destroy(this.gameObject);
     }

@@ -59,6 +59,7 @@ public class UI_InfinityGameOverPopup : UI_Popup
                 _bestScore = _currentScore;
                 SetBestScore.text = _currentScore.ToString();
                 PlayerPrefs.SetInt("InfinityLevel", _bestScore);
+                PlayerPrefs.Save();
             }
             else
             {
@@ -71,6 +72,7 @@ public class UI_InfinityGameOverPopup : UI_Popup
             _bestScore = _currentScore;
             SetBestScore.text = _currentScore.ToString();
             PlayerPrefs.SetInt("InfinityLevel", _bestScore);
+            PlayerPrefs.Save();
         }
     }
 }

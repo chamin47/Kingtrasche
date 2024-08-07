@@ -126,6 +126,7 @@ public class HoneyBeeEvent : MonoBehaviour
         int beeLevel = PlayerPrefs.GetInt("BeeLevel");
         beeLevel += 1;
         PlayerPrefs.SetInt("BeeLevel", beeLevel);
+        PlayerPrefs.Save();
 
         Destroy(this.gameObject);
     }
