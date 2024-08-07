@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class LoadingManager : MonoBehaviour
 {
-    public static Scene nextScene;
+    public static string nextScene;
     public Slider loadingBar;
 
     void Start()
@@ -13,7 +13,7 @@ public class LoadingManager : MonoBehaviour
         StartCoroutine(LoadScene());
     }
 
-    public static void LoadScene(Scene type)
+    public static void LoadScene(string type)
     {
         nextScene = type;
         SceneManager.LoadScene("LoadingScene");
@@ -21,7 +21,7 @@ public class LoadingManager : MonoBehaviour
 
     private IEnumerator LoadScene()
     {
-        AsyncOperation operation = SceneManager.LoadSceneAsync((int)nextScene);
+        AsyncOperation operation = SceneManager.LoadSceneAsync(nextScene);
 
         while (!operation.isDone)
         {

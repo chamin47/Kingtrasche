@@ -53,11 +53,11 @@ public class UI_TitleScene : UI_Scene
             PlayerPrefs.SetInt("StartFrom", 1);
             PlayerPrefs.Save();
 
-            LoadingManager.LoadScene(Scene.StoryScene);
+            LoadingManager.LoadScene("StoryScene");
         }
         else
         {
-            LoadingManager.LoadScene(Scene.LobbyScene);
+            LoadingManager.LoadScene("LobbyScene");
             //Managers.Scene.LoadScene(Scene.LobbyScene);
         }
     }
