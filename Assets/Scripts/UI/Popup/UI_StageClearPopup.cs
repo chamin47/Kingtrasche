@@ -70,19 +70,19 @@ public class UI_StageClearPopup : UI_Popup
 		Managers.Sound.Play("switch10", Sound.Effect);
         UI_GameScene.currentScore = 0;
 
-        if (currentStage == 4)
+        if (currentStage == 6)
         {
             Managers.Scene.LoadScene(Scene.StoryScene);
 			PlayerPrefs.SetInt("StartFrom", 4);
 			PlayerPrefs.SetInt("StageNumber", ++currentStage);
         }
-        else if (currentStage == 9)
+        else if (currentStage == 13)
         {
             Managers.Scene.LoadScene(Scene.StoryScene);
 			PlayerPrefs.SetInt("StartFrom", 5);
 			PlayerPrefs.SetInt("StageNumber", ++currentStage);
         }
-        else if (currentStage == 14)
+        else if (currentStage == 20)
         {
             Managers.Scene.LoadScene(Scene.StoryScene);
 			PlayerPrefs.SetInt("StartFrom", 6);

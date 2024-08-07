@@ -104,7 +104,6 @@ public class UI_Chapter1Popup : UI_Popup
 			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
 			Managers.Scene.LoadScene(Scene.StoryScene);
 			PlayerPrefs.SetInt("StageNumber", 1);
-			PlayerPrefs.Save();
 			PlayerPrefs.SetInt("StartFrom", 3);
 		}
 		else
@@ -120,7 +119,6 @@ public class UI_Chapter1Popup : UI_Popup
 			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
 			Managers.Scene.LoadScene(Scene.RunningScene);
 			PlayerPrefs.SetInt("StageNumber", 2);
-			PlayerPrefs.Save();
 		}
 		else
 		{
@@ -135,8 +133,6 @@ public class UI_Chapter1Popup : UI_Popup
 			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
 			Managers.Scene.LoadScene(Scene.RunningScene);
 			PlayerPrefs.SetInt("StageNumber", 3);
-			PlayerPrefs.Save();
-			//PlayerPrefs.SetInt("StartFrom", 3);
 		}
 		else
 		{
@@ -152,7 +148,6 @@ public class UI_Chapter1Popup : UI_Popup
 			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
 			Managers.Scene.LoadScene(Scene.RunningScene);
 			PlayerPrefs.SetInt("StageNumber", 4);
-			PlayerPrefs.Save();
 		}
 		else
 		{
@@ -167,7 +162,6 @@ public class UI_Chapter1Popup : UI_Popup
 			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
 			Managers.Scene.LoadScene(Scene.StoryScene);
 			PlayerPrefs.SetInt("StageNumber", 5);
-			PlayerPrefs.Save();
 			PlayerPrefs.SetInt("StartFrom", 3);
 		}
 		else
@@ -183,8 +177,6 @@ public class UI_Chapter1Popup : UI_Popup
 			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
 			Managers.Scene.LoadScene(Scene.RunningScene);
 			PlayerPrefs.SetInt("StageNumber", 6);
-			PlayerPrefs.Save();
-			//PlayerPrefs.SetInt("StartFrom", 3);
 		}
 		else
 		{
@@ -199,7 +191,6 @@ public class UI_Chapter1Popup : UI_Popup
 			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
 			Managers.Scene.LoadScene(Scene.StoryScene);
 			PlayerPrefs.SetInt("StageNumber", 7);
-			PlayerPrefs.Save();
 			PlayerPrefs.SetInt("StartFrom", 4);
 		}
 		else
