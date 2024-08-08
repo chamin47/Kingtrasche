@@ -21,12 +21,23 @@ public class StageManager
         return PlayerPrefs.GetInt("Stage" + stageNumber) == 1;
     }
 
+
     public void UnlockStage(int stageNumber)
     {
         PlayerPrefs.SetInt("Stage" + stageNumber, 1);
     }
 
-    public void OnStageClear(int currentStageNumber)
+	public void SaveStarCount(int stageNumber, int starCount)
+	{
+		PlayerPrefs.SetInt("Stage" + stageNumber + "Stars", starCount);
+	}
+
+	public int GetStarCount(int stageNumber)
+	{
+		return PlayerPrefs.GetInt("Stage" + stageNumber + "Stars", 0);
+	}
+
+	public void OnStageClear(int currentStageNumber, int starCount)
     {
         int nextStageNumber = currentStageNumber + 1;
         if (nextStageNumber <= 21)
@@ -45,5 +56,7 @@ public class StageManager
             PlayerPrefs.SetInt("StoryLevel", storyLevel);
             PlayerPrefs.Save();
         }
-    }
+
+		SaveStarCount(currentStageNumber, starCount);
+	}
 }
