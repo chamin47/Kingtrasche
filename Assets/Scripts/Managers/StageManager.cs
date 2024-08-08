@@ -46,6 +46,7 @@ public class StageManager
             Debug.Log("스테이지 " + nextStageNumber + "이 해금되었습니다.");
         }
 
+        // 스테이지 최초 클리어 할 때만 업적스토리 카운트 올라감.
         if (!PlayerPrefs.HasKey("StageCleared" + currentStageNumber))
         {
             PlayerPrefs.SetInt("StageCleared" + currentStageNumber, 1);
