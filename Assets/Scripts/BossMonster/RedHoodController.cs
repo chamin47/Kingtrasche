@@ -33,7 +33,7 @@ public class RedHoodController : MonoBehaviour, IBossController
 
     private void Awake()
     {
-        maxHealth = 500;
+        maxHealth = 400;
     }
 
     private void Start()
@@ -163,35 +163,47 @@ public class RedHoodController : MonoBehaviour, IBossController
         yield return new WaitForSeconds(1.5f);
     }
 
-    private IEnumerator AppleDrop()
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            // 빨간 사과 떨어질 곳 표시
-            Vector3 redApplePosition = new Vector3(Random.Range(-8f, 8f), 0.7291f, 0);
-            GameObject redAppleIndicator = Instantiate(redAppleIndicatorPrefab, redApplePosition, Quaternion.identity); // 빨간 사과 표시
+	private IEnumerator AppleDrop()
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			// 빨간 사과 떨어질 곳 표시
+			Vector3 redApplePosition = new Vector3(Random.Range(-8f, 8f), 0.7291f, 0);
+			while (Mathf.Abs(redApplePosition.x - transform.position.x) < 1.0f)
+			{
+				redApplePosition = new Vector3(Random.Range(-8f, 8f), 0.7291f, 0);
+			}
+			GameObject redAppleIndicator = Instantiate(redAppleIndicatorPrefab, redApplePosition, Quaternion.identity); // 빨간 사과 표시
 
-            yield return new WaitForSeconds(2f);
-            Destroy(redAppleIndicator);
+			yield return new WaitForSeconds(2f);
+			Destroy(redAppleIndicator);
 
-            // 빨간 사과 떨어짐
-            Instantiate(redApplePrefab, new Vector3(redApplePosition.x, 5f, 0f), Quaternion.identity);
-            yield return new WaitForSeconds(1f);
+			// 빨간 사과 떨어짐
+			Instantiate(redApplePrefab, new Vector3(redApplePosition.x, 5f, 0f), Quaternion.identity);
+			Instantiate(redApplePrefab, new Vector3(redApplePosition.x - 1f, 5f, 0f), Quaternion.identity);
+			Instantiate(redApplePrefab, new Vector3(redApplePosition.x + 1f, 5f, 0f), Quaternion.identity);
+			yield return new WaitForSeconds(1f);
 
-            // 초록 사과 떨어질 곳 표시
-            Vector3 greenApplePosition = new Vector3(Random.Range(-8f, 8f), 0.7291f, 0);
-            GameObject greenAppleIndicator = Instantiate(greenAppleIndicatorPrefab, greenApplePosition, Quaternion.identity); // 초록 사과 표시
+			// 초록 사과 떨어질 곳 표시
+			Vector3 greenApplePosition = new Vector3(Random.Range(-8f, 8f), 0.7291f, 0);
+			while (Mathf.Abs(greenApplePosition.x - transform.position.x) < 1.0f)
+			{
+				greenApplePosition = new Vector3(Random.Range(-8f, 8f), 0.7291f, 0);
+			}
+			GameObject greenAppleIndicator = Instantiate(greenAppleIndicatorPrefab, greenApplePosition, Quaternion.identity); // 초록 사과 표시
 
-            yield return new WaitForSeconds(2f);
-            Destroy(greenAppleIndicator);
+			yield return new WaitForSeconds(2f);
+			Destroy(greenAppleIndicator);
 
-            // 초록 사과 떨어짐
-            Instantiate(greenApplePrefab, new Vector3(greenApplePosition.x, 5f, 0f), Quaternion.identity);
-            yield return new WaitForSeconds(1f);
-        }
-    }
+			// 초록 사과 떨어짐
+			Instantiate(greenApplePrefab, new Vector3(greenApplePosition.x, 5f, 0f), Quaternion.identity);
+			Instantiate(greenApplePrefab, new Vector3(greenApplePosition.x - 1f, 5f, 0f), Quaternion.identity);
+			Instantiate(greenApplePrefab, new Vector3(greenApplePosition.x + 1f, 5f, 0f), Quaternion.identity);
+			yield return new WaitForSeconds(1f);
+		}
+	}
 
-    private IEnumerator BasketThrow()
+	private IEnumerator BasketThrow()
     {
         for (int i = 0; i < 3; i++)
         {
@@ -206,40 +218,40 @@ public class RedHoodController : MonoBehaviour, IBossController
         }
     }
 
-    private IEnumerator LaserAttack()
-    {
-        // 점멸 및 레이저 준비
-        for (int i = 0; i < 3; i++)
-        {
-            // 점멸 효과
-            gameObject.GetComponent<SpriteRenderer>().enabled = !gameObject.GetComponent<SpriteRenderer>().enabled;
-            yield return new WaitForSeconds(1f);
-        }
+	private IEnumerator LaserAttack()
+	{
+		// 발판 생성
+		Vector3 platformPosition = new Vector3(Random.Range(-5.5f, 1.1f), Random.Range(0.5f, 1.2f), 0);
+		GameObject platform = Instantiate(platformPrefab, platformPosition, Quaternion.identity);
 
-        // 레이저 발사
-        gameObject.GetComponent<SpriteRenderer>().enabled = true;
-        GameObject laser = Instantiate(laserPrefab, transform.position, Quaternion.identity);
-        laser.GetComponent<Laser>().SetDirection(facingRight ? Vector2.right : Vector2.left);
+		// 점멸 및 레이저 준비
+		for (int i = 0; i < 3; i++)
+		{
+			// 점멸 효과
+			gameObject.GetComponent<SpriteRenderer>().enabled = !gameObject.GetComponent<SpriteRenderer>().enabled;
+			yield return new WaitForSeconds(1f);
+		}
 
-        // 랜덤 발판 생성
-        Vector3 platformPosition = new Vector3(Random.Range(-5.5f, 1.1f), Random.Range(0.5f, 1.2f), 0);
-        GameObject platform = Instantiate(platformPrefab, platformPosition, Quaternion.identity);
+		// 레이저 발사
+		gameObject.GetComponent<SpriteRenderer>().enabled = true;
+		GameObject laser = Instantiate(laserPrefab, transform.position, Quaternion.identity);
+		laser.GetComponent<Laser>().SetDirection(facingRight ? Vector2.right : Vector2.left);
 
-        // 화면 흔들림 효과
-        StartCoroutine(ShakeCamera(1.0f, 0.1f));
+		// 화면 흔들림 효과
+		StartCoroutine(ShakeCamera(1.0f, 0.1f));
 
-        yield return new WaitForSeconds(3f);
+		yield return new WaitForSeconds(3f);
 
-        // 레이저 제거
-        Destroy(laser);
+		// 레이저 제거
+		Destroy(laser);
 
-        yield return new WaitForSeconds(1f);
+		yield return new WaitForSeconds(1f);
 
-        // 발판 제거
-        Destroy(platform);
-    }
+		// 발판 제거
+		Destroy(platform);
+	}
 
-    private IEnumerator ShakeCamera(float duration, float magnitude)
+	private IEnumerator ShakeCamera(float duration, float magnitude)
     {
         Vector3 originalPos = Camera.main.transform.localPosition;
         float elapsed = 0.0f;
@@ -315,7 +327,9 @@ public class RedHoodController : MonoBehaviour, IBossController
             PlayerPrefs.Save();
 
             currentHealth = 0;
-            Managers.Game.GameClear();
+			PlayerPrefs.SetInt("StartFrom", 7);
+			PlayerPrefs.SetInt("StageNumber", 1160);
+			Managers.Scene.LoadScene(Scene.StoryScene);
             Destroy(gameObject);
         }
     }

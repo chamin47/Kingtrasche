@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -29,6 +30,7 @@ public class UI_Chapter3Popup : UI_Popup
     enum Images
     {
         Background,
+        BossImg,
         Level15,
         Level16,
         Level17,
@@ -126,7 +128,7 @@ public class UI_Chapter3Popup : UI_Popup
         if (isUnlocked)
         {
             buttonText.enabled = true; // 텍스트를 활성화합니다.
-
+            Get<Image>((int)Images.BossImg).enabled = true;
             int starCount = Managers.Stage.GetStarCount(stageNumber);
             SetStarImages(stageNumber, starCount, true);
         }
@@ -135,28 +137,33 @@ public class UI_Chapter3Popup : UI_Popup
             // 잠긴 상태의 이미지를 설정합니다.
             buttonImage.sprite = Resources.Load<Sprite>("Sprites/LockStageImg");
             buttonText.enabled = false; // 텍스트를 비활성화합니다.
-            SetStarImages(stageNumber, 0, false); // 잠긴 스테이지의 별 이미지를 비활성화합니다.
+			Get<Image>((int)Images.BossImg).enabled = false;
+			SetStarImages(stageNumber, 0, false); // 잠긴 스테이지의 별 이미지를 비활성화합니다.
         }
     }
 
-    private void SetStarImages(int stageNumber, int starCount, bool isUnlocked)
-    {
-        string stageWord = ConvertNumberToWord(stageNumber);
-        for (int i = 1; i <= 3; i++)
-        {
-            Image starImage = Get<Image>((int)System.Enum.Parse(typeof(Images), $"{stageWord}Star{i}"));
-            if (isUnlocked)
-            {
-                starImage.enabled = i <= starCount; // 별 이미지를 활성화
-            }
-            else
-            {
-                starImage.enabled = false; // 별 이미지를 비활성화
-            }
-        }
-    }
+	private void SetStarImages(int stageNumber, int starCount, bool isUnlocked)
+	{
+		string stageWord = ConvertNumberToWord(stageNumber);
+		for (int i = 1; i <= 3; i++)
+		{
+			string enumName = $"{stageWord}Star{i}";
+			if (Enum.TryParse(typeof(Images), enumName, out var result))
+			{
+				Image starImage = Get<Image>((int)result);
+				if (starImage != null)
+				{
+					starImage.enabled = isUnlocked && i <= starCount;
+				}
+			}
+			else
+			{
+				Debug.LogWarning($"Enum value '{enumName}' not found in Images enum. Skipping.");
+			}
+		}
+	}
 
-    private void OnClickBackButton(PointerEventData eventData)
+	private void OnClickBackButton(PointerEventData eventData)
     {
         Managers.UI.ClosePopupUI();
     }
@@ -175,8 +182,8 @@ public class UI_Chapter3Popup : UI_Popup
             }
             else
             {
-                Debug.Log("러닝 플레이권이 부족합니다.");
-            }
+				Managers.UI.ShowPopupUI<UI_NoPlayPopup>();
+			}
         }
         else
         {
@@ -197,8 +204,8 @@ public class UI_Chapter3Popup : UI_Popup
             }
             else
             {
-                Debug.Log("러닝 플레이권이 부족합니다.");
-            }
+				Managers.UI.ShowPopupUI<UI_NoPlayPopup>();
+			}
         }
         else
         {
@@ -219,8 +226,8 @@ public class UI_Chapter3Popup : UI_Popup
             }
             else
             {
-                Debug.Log("러닝 플레이권이 부족합니다.");
-            }
+				Managers.UI.ShowPopupUI<UI_NoPlayPopup>();
+			}
         }
         else
         {
@@ -241,8 +248,8 @@ public class UI_Chapter3Popup : UI_Popup
             }
             else
             {
-                Debug.Log("러닝 플레이권이 부족합니다.");
-            }
+				Managers.UI.ShowPopupUI<UI_NoPlayPopup>();
+			}
         }
         else
         {
@@ -262,8 +269,8 @@ public class UI_Chapter3Popup : UI_Popup
             }
             else
             {
-                Debug.Log("러닝 플레이권이 부족합니다.");
-            }
+				Managers.UI.ShowPopupUI<UI_NoPlayPopup>();
+			}
         }
         else
         {
@@ -283,8 +290,8 @@ public class UI_Chapter3Popup : UI_Popup
             }
             else
             {
-                Debug.Log("러닝 플레이권이 부족합니다.");
-            }
+				Managers.UI.ShowPopupUI<UI_NoPlayPopup>();
+			}
         }
         else
         {
@@ -305,8 +312,8 @@ public class UI_Chapter3Popup : UI_Popup
             }
             else
             {
-                Debug.Log("러닝 플레이권이 부족합니다.");
-            }
+				Managers.UI.ShowPopupUI<UI_NoPlayPopup>();
+			}
         }
         else
         {

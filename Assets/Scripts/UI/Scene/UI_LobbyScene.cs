@@ -28,7 +28,7 @@ public class UI_LobbyScene : UI_Scene
         Managers.Sound.Play("Caketown 1", Sound.Bgm);
     }
 
-    public override bool Init()
+	public override bool Init()
     {
         if (base.Init() == false)
             return false;
@@ -47,8 +47,8 @@ public class UI_LobbyScene : UI_Scene
 
         GameObject ResourceContainer = Get<GameObject>((int)GameObjects.UI_Lobby);
         UI_ResourceItem item = Managers.UI.MakeSubItem<UI_ResourceItem>(ResourceContainer.transform);
-		RectTransform rectTransform = item.GetComponent<RectTransform>();
-		rectTransform.anchoredPosition = Vector2.zero;
+		RectTransform rectTransform = item.GetComponent<RectTransform>();		
+		rectTransform.anchoredPosition = Vector2.zero; // 부모의 중앙에 위치		
 		rectTransform.localScale = Vector3.one;
 
 		return true;
