@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -29,6 +30,7 @@ public class UI_Chapter2Popup : UI_Popup
     enum Images
     {
         Background,
+        BossImg,
         Level8,
         Level9,
         Level10,
@@ -55,9 +57,11 @@ public class UI_Chapter2Popup : UI_Popup
         SixStar2,
         SixStar3,
     }
-    #endregion
+	#endregion
 
-    private void Awake()
+	private Image bossImg;
+
+	private void Awake()
     {
         Init();
     }
@@ -81,7 +85,9 @@ public class UI_Chapter2Popup : UI_Popup
         Get<Button>((int)Buttons.Level13).gameObject.BindEvent(OnClickLevel13Button);
         Get<Button>((int)Buttons.Level14).gameObject.BindEvent(OnClickLevel14Button);
 
-        SetButtonState((int)Buttons.Level8, 8);
+		bossImg = Get<Image>((int)Images.BossImg);
+
+		SetButtonState((int)Buttons.Level8, 8);
         SetButtonState((int)Buttons.Level9, 9);
         SetButtonState((int)Buttons.Level10, 10);
         SetButtonState((int)Buttons.Level11, 11);
@@ -126,8 +132,8 @@ public class UI_Chapter2Popup : UI_Popup
         if (isUnlocked)
         {
             buttonText.enabled = true; // 텍스트를 활성화합니다.
-
-            int starCount = Managers.Stage.GetStarCount(stageNumber);
+			bossImg.enabled = true;
+			int starCount = Managers.Stage.GetStarCount(stageNumber);
             SetStarImages(stageNumber, starCount, true);
         }
         else
@@ -135,28 +141,33 @@ public class UI_Chapter2Popup : UI_Popup
             // 잠긴 상태의 이미지를 설정합니다.
             buttonImage.sprite = Resources.Load<Sprite>("Sprites/LockStageImg");
             buttonText.enabled = false; // 텍스트를 비활성화합니다.
-            SetStarImages(stageNumber, 0, false); // 잠긴 스테이지의 별 이미지를 비활성화합니다.
+			bossImg.enabled = false;
+			SetStarImages(stageNumber, 0, false); // 잠긴 스테이지의 별 이미지를 비활성화합니다.
         }
     }
 
-    private void SetStarImages(int stageNumber, int starCount, bool isUnlocked)
-    {
-        string stageWord = ConvertNumberToWord(stageNumber);
-        for (int i = 1; i <= 3; i++)
-        {
-            Image starImage = Get<Image>((int)System.Enum.Parse(typeof(Images), $"{stageWord}Star{i}"));
-            if (isUnlocked)
-            {
-                starImage.enabled = i <= starCount; // 별 이미지를 활성화
-            }
-            else
-            {
-                starImage.enabled = false; // 별 이미지를 비활성화
-            }
-        }
-    }
+	private void SetStarImages(int stageNumber, int starCount, bool isUnlocked)
+	{
+		string stageWord = ConvertNumberToWord(stageNumber);
+		for (int i = 1; i <= 3; i++)
+		{
+			string enumName = $"{stageWord}Star{i}";
+			if (Enum.TryParse(typeof(Images), enumName, out var result))
+			{
+				Image starImage = Get<Image>((int)result);
+				if (starImage != null)
+				{
+					starImage.enabled = isUnlocked && i <= starCount;
+				}
+			}
+			else
+			{
+				Debug.LogWarning($"Enum value '{enumName}' not found in Images enum. Skipping.");
+			}
+		}
+	}
 
-    private void OnClickBackButton(PointerEventData eventData)
+	private void OnClickBackButton(PointerEventData eventData)
     {
         Managers.UI.ClosePopupUI();
     }

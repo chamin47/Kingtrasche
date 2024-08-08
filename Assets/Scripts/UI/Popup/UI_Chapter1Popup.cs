@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -29,6 +30,7 @@ public class UI_Chapter1Popup : UI_Popup
     enum Images
     {
         Background,
+        BossImg,
         Level1,
         Level2,
         Level3,
@@ -57,6 +59,8 @@ public class UI_Chapter1Popup : UI_Popup
     }
     #endregion
 
+    private Image bossImg;
+
     private void Awake()
     {
         Init();
@@ -80,6 +84,8 @@ public class UI_Chapter1Popup : UI_Popup
         Get<Button>((int)Buttons.Level5).gameObject.BindEvent(OnClickLevel5Button);
         Get<Button>((int)Buttons.Level6).gameObject.BindEvent(OnClickLevel6Button);
         Get<Button>((int)Buttons.Level7).gameObject.BindEvent(OnClickLevel7Button);
+
+        bossImg = Get<Image>((int)Images.BossImg);
 
         SetButtonState((int)Buttons.Level1, 1);
         SetButtonState((int)Buttons.Level2, 2);
@@ -126,7 +132,7 @@ public class UI_Chapter1Popup : UI_Popup
         if (isUnlocked)
         {
             buttonText.enabled = true; // 텍스트를 활성화합니다.
-
+			bossImg.enabled = true;
 			int starCount = Managers.Stage.GetStarCount(stageNumber);
 			SetStarImages(stageNumber, starCount, true);
 		}
@@ -135,6 +141,7 @@ public class UI_Chapter1Popup : UI_Popup
             // 잠긴 상태의 이미지를 설정합니다.
             buttonImage.sprite = Resources.Load<Sprite>("Sprites/LockStageImg");
             buttonText.enabled = false; // 텍스트를 비활성화합니다.
+            bossImg.enabled = false;
 			SetStarImages(stageNumber, 0, false); // 잠긴 스테이지의 별 이미지를 비활성화합니다.
 		}
 	}
@@ -144,14 +151,18 @@ public class UI_Chapter1Popup : UI_Popup
 		string stageWord = ConvertNumberToWord(stageNumber);
 		for (int i = 1; i <= 3; i++)
 		{
-			Image starImage = Get<Image>((int)System.Enum.Parse(typeof(Images), $"{stageWord}Star{i}"));
-			if (isUnlocked)
+			string enumName = $"{stageWord}Star{i}";
+			if (Enum.TryParse(typeof(Images), enumName, out var result))
 			{
-				starImage.enabled = i <= starCount; // 별 이미지를 활성화
+				Image starImage = Get<Image>((int)result);
+				if (starImage != null)
+				{
+					starImage.enabled = isUnlocked && i <= starCount;
+				}
 			}
 			else
 			{
-				starImage.enabled = false; // 별 이미지를 비활성화
+				Debug.LogWarning($"Enum value '{enumName}' not found in Images enum. Skipping.");
 			}
 		}
 	}
