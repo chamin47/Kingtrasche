@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -12,19 +14,19 @@ public class UI_TitleScene : UI_Scene
 
     enum Buttons
     {
-        StartButton,
+		Background,
         OptionButton,
-        MissionButton,
     }
 
     enum Texts
     {
         StartText,
-        OptionText,
-        MissionText,
     }
 
-    public override bool Init()
+	private TMP_Text startText;
+	private Coroutine blinkCoroutine;
+
+	public override bool Init()
     {
         if (base.Init() == false)
             return false;
@@ -33,9 +35,14 @@ public class UI_TitleScene : UI_Scene
         Bind<Button>(typeof(Buttons));
         Bind<GameObject>(typeof(GameObjects));
 
-        Get<Button>((int)Buttons.StartButton).gameObject.BindEvent(OnStartButtonClicked);
+        Get<Button>((int)Buttons.Background).gameObject.BindEvent(OnStartButtonClicked);
         Get<Button>((int)Buttons.OptionButton).gameObject.BindEvent(OnOptionButtonClicked);
-        return true;
+
+		startText = Get<TMP_Text>((int)Texts.StartText);
+
+		blinkCoroutine = StartCoroutine(BlinkText());
+
+		return true;
     }
 
     private void Awake()
@@ -67,4 +74,23 @@ public class UI_TitleScene : UI_Scene
         Managers.Sound.Play("switch10", Sound.Effect);
         Managers.UI.ShowPopupUI<UI_SettingPopup>();
     }
+
+	private IEnumerator BlinkText()
+	{
+		while (true)
+		{
+			startText.alpha = 1; // Show text
+			yield return new WaitForSeconds(0.5f); // Wait for 0.5 seconds
+			startText.alpha = 0; // Hide text
+			yield return new WaitForSeconds(0.5f); // Wait for 0.5 seconds
+		}
+	}
+
+	private void OnDestroy()
+	{
+		if (blinkCoroutine != null)
+		{
+			StopCoroutine(blinkCoroutine);
+		}
+	}
 }
