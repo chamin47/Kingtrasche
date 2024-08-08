@@ -25,23 +25,26 @@ public class UI_StageClearPopup : UI_Popup
 
     enum Images
     {
-        DogImage
-    }
+        DogImage,
+		StarImg
+	}
 
     #endregion
 
     private int currentStage;
+    private int StarPoint;
 
     private void Awake()
     {
-        Init();
+		currentStage = PlayerPrefs.GetInt("StageNumber");
+		Debug.Log($"currentStage : {currentStage}");
+		StarPoint = ShowStarLevel(); // 별 1개는 1, 2개는 2, 3개는 3으로 숫자로 반환됨.
+		Init();
     }
 
     private void Start()
     {
-        currentStage = PlayerPrefs.GetInt("StageNumber");
-        Debug.Log($"currentStage : {currentStage}");
-        ShowStarLevel(); // 별 1개는 1, 2개는 2, 3개는 3으로 숫자로 반환됨.
+       
     }
 
     public override bool Init()
@@ -55,6 +58,23 @@ public class UI_StageClearPopup : UI_Popup
         Get<Button>((int)Buttons.NextStageButton).gameObject.BindEvent(OnClickNextStageButton);
         Get<Button>((int)Buttons.RetryButton).gameObject.BindEvent(OnClickRetryButton);
         Get<Button>((int)Buttons.BackStageButton).gameObject.BindEvent(OnClickBackStageButton);
+
+
+        switch (StarPoint)
+        {
+            case 0: 
+                Get<Image>((int)Images.StarImg).sprite = Resources.Load<Sprite>("Sprites/Starzero");
+                break;
+            case 1:
+				Get<Image>((int)Images.StarImg).sprite = Resources.Load<Sprite>("Sprites/Starone");
+				break;
+            case 2:
+				Get<Image>((int)Images.StarImg).sprite = Resources.Load<Sprite>("Sprites/Startwo");
+				break;
+            case 3:
+				Get<Image>((int)Images.StarImg).sprite = Resources.Load<Sprite>("Sprites/Starthree");
+				break;
+        }
 
         return true;
     }
@@ -96,8 +116,8 @@ public class UI_StageClearPopup : UI_Popup
         }
     }
 
-    private void ShowStarLevel()
+    private int ShowStarLevel()
     {
-        RunningMapManager.Instance.CheckStarLevel();
+        return RunningMapManager.Instance.CheckStarLevel();
     }
 }

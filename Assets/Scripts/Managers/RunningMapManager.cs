@@ -63,7 +63,7 @@ public class RunningMapManager : MonoBehaviour
         if (ratio >= 0.9f)
         {
             Debug.Log("별 3개!");
-            return oneStar;
+            return threeStar;
         }
         else if (ratio >= 0.5f)
         {
@@ -73,7 +73,7 @@ public class RunningMapManager : MonoBehaviour
         else
         {
             Debug.Log("별 1개!");
-            return threeStar;
+            return oneStar;
         }
     }
 }
