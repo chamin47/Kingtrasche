@@ -186,7 +186,7 @@ public class UI_Chapter2Popup : UI_Popup
             }
             else
             {
-                Debug.Log("러닝 플레이권이 부족합니다.");
+                Managers.UI.ShowPopupUI<UI_NoPlayPopup>();
             }
         }
         else
@@ -208,7 +208,7 @@ public class UI_Chapter2Popup : UI_Popup
             }
             else
             {
-                Debug.Log("러닝 플레이권이 부족합니다.");
+                Managers.UI.ShowPopupUI<UI_NoPlayPopup>();
             }
         }
         else
@@ -230,7 +230,7 @@ public class UI_Chapter2Popup : UI_Popup
             }
             else
             {
-                Debug.Log("러닝 플레이권이 부족합니다.");
+                Managers.UI.ShowPopupUI<UI_NoPlayPopup>();
             }
         }
         else
@@ -253,7 +253,7 @@ public class UI_Chapter2Popup : UI_Popup
             }
             else
             {
-                Debug.Log("러닝 플레이권이 부족합니다.");
+                Managers.UI.ShowPopupUI<UI_NoPlayPopup>();
             }
         }
         else
@@ -275,7 +275,7 @@ public class UI_Chapter2Popup : UI_Popup
             }
             else
             {
-                Debug.Log("러닝 플레이권이 부족합니다.");
+                Managers.UI.ShowPopupUI<UI_NoPlayPopup>();
             }
         }
         else
@@ -297,7 +297,7 @@ public class UI_Chapter2Popup : UI_Popup
             }
             else
             {
-                Debug.Log("러닝 플레이권이 부족합니다.");
+                Managers.UI.ShowPopupUI<UI_NoPlayPopup>();
             }
         }
         else
@@ -320,7 +320,7 @@ public class UI_Chapter2Popup : UI_Popup
             }
             else
             {
-                Debug.Log("러닝 플레이권이 부족합니다.");
+                Managers.UI.ShowPopupUI<UI_NoPlayPopup>();
             }
         }
         else

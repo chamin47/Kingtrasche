@@ -83,7 +83,7 @@ public class UI_StageClearPopup : UI_Popup
     {
 		if (Managers.Game.RunningPlayCount <= 0)
 		{
-			Debug.Log("러닝 플레이권이 부족합니다.");
+			Managers.UI.ShowPopupUI<UI_NoPlayPopup>();
 			return;
 		}
 		Managers.Game.RunningPlayCount--;
