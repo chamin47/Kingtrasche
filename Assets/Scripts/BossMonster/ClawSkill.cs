@@ -59,4 +59,13 @@ public class ClawSkill : MonoBehaviour
 	{
 		direction = initialDirection.normalized; // 방향을 정규화하여 설정
 	}
+
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if (collision.gameObject.CompareTag("Player"))
+		{
+			Destroy(this.gameObject);
+			collision.gameObject.GetComponent<PlayerController>().TakeDamage(1);
+		}
+	}
 }
