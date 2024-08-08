@@ -33,7 +33,7 @@ public class RedHoodController : MonoBehaviour, IBossController
 
     private void Awake()
     {
-        maxHealth = 500;
+        maxHealth = 400;
     }
 
     private void Start()
@@ -327,7 +327,9 @@ public class RedHoodController : MonoBehaviour, IBossController
             PlayerPrefs.Save();
 
             currentHealth = 0;
-            Managers.Game.GameClear();
+			PlayerPrefs.SetInt("StartFrom", 7);
+			PlayerPrefs.SetInt("StageNumber", 1160);
+			Managers.Scene.LoadScene(Scene.StoryScene);
             Destroy(gameObject);
         }
     }

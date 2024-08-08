@@ -39,6 +39,7 @@ public class StoryScene : BaseScene
             {22, 1160},
             {1000, 1000},
             {1001, 1001},
+            {1160, 1160}
         };
     }
 
@@ -111,6 +112,10 @@ public class StoryScene : BaseScene
             {
                 LoadingManager.LoadScene("BossScene3");
             }
+            else if (startFrom == 7)
+            {
+				Managers.Scene.LoadScene(Scene.LobbyScene);
+			}
         }
     }
 }
