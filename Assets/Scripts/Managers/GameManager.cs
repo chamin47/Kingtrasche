@@ -291,15 +291,16 @@ public class GameManager
         Time.timeScale = 0;
     }
 
-    public void GameClear()
-    {
-        int currentStageNumber = PlayerPrefs.GetInt("StageNumber");
-        Managers.Stage.OnStageClear(currentStageNumber);
+	public void GameClear()
+	{
+		int currentStageNumber = PlayerPrefs.GetInt("StageNumber");
+		int starCount = RunningMapManager.Instance.CheckStarLevel();
+		Managers.Stage.OnStageClear(currentStageNumber, starCount);
 		Managers.UI.ShowPopupUI<UI_StageClearPopup>();
-        Time.timeScale = 0;
-    }
+		Time.timeScale = 0;
+	}
 
-    public void InfinityGameOver()
+	public void InfinityGameOver()
     {
         Managers.UI.ShowPopupUI<UI_InfinityGameOverPopup>();
         Time.timeScale = 0;

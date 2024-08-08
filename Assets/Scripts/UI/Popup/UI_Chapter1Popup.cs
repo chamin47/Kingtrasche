@@ -98,7 +98,23 @@ public class UI_Chapter1Popup : UI_Popup
         return true;
     }
 
-    private void SetButtonState(int buttonIndex, int stageNumber)
+	private string ConvertNumberToWord(int number)
+	{
+		switch (number)
+		{
+			case 1: return "One";
+			case 2: return "Two";
+			case 3: return "Three";
+			case 4: return "Four";
+			case 5: return "Five";
+			case 6: return "Six";
+			case 7: return "Seven";
+			// 필요한 만큼 추가
+			default: return number.ToString();
+		}
+	}
+
+	private void SetButtonState(int buttonIndex, int stageNumber)
     {
         Button button = Get<Button>(buttonIndex);
         bool isUnlocked = Managers.Stage.IsStageUnlocked(stageNumber);
@@ -110,16 +126,37 @@ public class UI_Chapter1Popup : UI_Popup
         if (isUnlocked)
         {
             buttonText.enabled = true; // 텍스트를 활성화합니다.
-        }
+
+			int starCount = Managers.Stage.GetStarCount(stageNumber);
+			SetStarImages(stageNumber, starCount, true);
+		}
         else
         {
             // 잠긴 상태의 이미지를 설정합니다.
             buttonImage.sprite = Resources.Load<Sprite>("Sprites/LockStageImg");
             buttonText.enabled = false; // 텍스트를 비활성화합니다.
-        }
-    }
+			SetStarImages(stageNumber, 0, false); // 잠긴 스테이지의 별 이미지를 비활성화합니다.
+		}
+	}
 
-    private void OnClickBackButton(PointerEventData eventData)
+	private void SetStarImages(int stageNumber, int starCount, bool isUnlocked)
+	{
+		string stageWord = ConvertNumberToWord(stageNumber);
+		for (int i = 1; i <= 3; i++)
+		{
+			Image starImage = Get<Image>((int)System.Enum.Parse(typeof(Images), $"{stageWord}Star{i}"));
+			if (isUnlocked)
+			{
+				starImage.enabled = i <= starCount; // 별 이미지를 활성화
+			}
+			else
+			{
+				starImage.enabled = false; // 별 이미지를 비활성화
+			}
+		}
+	}
+
+	private void OnClickBackButton(PointerEventData eventData)
     {
         Managers.UI.ClosePopupUI();
     }
@@ -275,5 +312,5 @@ public class UI_Chapter1Popup : UI_Popup
         {
             Debug.Log("스테이지가 잠겨 있습니다.");
         }
-    }
+    }	
 }
