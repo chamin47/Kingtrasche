@@ -8,8 +8,7 @@ public class House : MonoBehaviour
         {
             Managers.Sound.Play("harp strum 1", Sound.Effect);
             other.gameObject.SetActive(false);
-            GameObject stageClear = Managers.Resource.Load<GameObject>("UI/Popup/UI_StageClearPopup");
-            Instantiate(stageClear);
+            Managers.Game.GameClear();
         }
     }
 

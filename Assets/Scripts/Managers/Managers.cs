@@ -10,6 +10,7 @@ public class Managers : MonoBehaviour
     GameManager _game = new GameManager();
     DialogueManager _dialogue = new DialogueManager();
     TimeManager _time;
+    StageManager _stage = new StageManager();
 
     // Core
     SoundManager _sound = new SoundManager();
@@ -28,6 +29,7 @@ public class Managers : MonoBehaviour
     public static SceneManagerEx Scene { get { return Instance._scene; } }
     public static PlayerManager Player { get { return Instance._player; } }
     public static DialogueManager Dialogue { get { return Instance._dialogue; } }
+    public static StageManager Stage { get { return Instance._stage; } }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void InitializeOnLoad()
@@ -54,6 +56,7 @@ public class Managers : MonoBehaviour
             s_instance._game.Init();
             s_instance._sound.Init();
             s_instance._dialogue.Init();
+            s_instance._stage.Init();
             s_instance._time = go.AddComponent<TimeManager>();
 
             s_instance._player = go.AddComponent<PlayerManager>();
