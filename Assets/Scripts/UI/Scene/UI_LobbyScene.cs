@@ -63,7 +63,7 @@ public class UI_LobbyScene : UI_Scene
     private void OnShopButtonClicked(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
-
+        Managers.UI.ShowPopupUI<UI_OpenWaitPopup>();
     }
 
     private void OnDogCollectionButtonClicked(PointerEventData eventData)
@@ -81,8 +81,9 @@ public class UI_LobbyScene : UI_Scene
     private void OnClueCollectionButtonClicked(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
+		Managers.UI.ShowPopupUI<UI_OpenWaitPopup>();
 
-    }
+	}
 
     private void OnMissionButtonClicked(PointerEventData eventData)
     {
