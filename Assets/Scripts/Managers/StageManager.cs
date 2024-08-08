@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StageManager
@@ -28,13 +26,17 @@ public class StageManager
         PlayerPrefs.SetInt("Stage" + stageNumber, 1);
     }
 
-	public void OnStageClear(int currentStageNumber)
-	{
-		int nextStageNumber = currentStageNumber + 1;
-		if (nextStageNumber <= 21)
-		{
-			UnlockStage(nextStageNumber);
-			Debug.Log("스테이지 " + nextStageNumber + "이 해금되었습니다.");
-		}
-	}
+    public void OnStageClear(int currentStageNumber)
+    {
+        int nextStageNumber = currentStageNumber + 1;
+        if (nextStageNumber <= 21)
+        {
+            UnlockStage(nextStageNumber);
+            int storyLevel = PlayerPrefs.GetInt("StoryLevel");
+            storyLevel += 1;
+            PlayerPrefs.SetInt("StoryLevel", storyLevel);
+            PlayerPrefs.Save();
+            Debug.Log("스테이지 " + nextStageNumber + "이 해금되었습니다.");
+        }
+    }
 }
