@@ -82,6 +82,14 @@ public class UI_Chapter1Popup : UI_Popup
 		Get<Button>((int)Buttons.Level6).gameObject.BindEvent(OnClickLevel6Button);
 		Get<Button>((int)Buttons.Level7).gameObject.BindEvent(OnClickLevel7Button);
 
+		SetButtonState((int)Buttons.Level1, 1);
+		SetButtonState((int)Buttons.Level2, 2);
+		SetButtonState((int)Buttons.Level3, 3);
+		SetButtonState((int)Buttons.Level4, 4);
+		SetButtonState((int)Buttons.Level5, 5);
+		SetButtonState((int)Buttons.Level6, 6);
+		SetButtonState((int)Buttons.Level7, 7);
+
 		GameObject ResourceContainer = Get<GameObject>((int)GameObjects.ResourceContainer);
 		UI_ResourceItem item = Managers.UI.MakeSubItem<UI_ResourceItem>(ResourceContainer.transform);
 		RectTransform rectTransform = item.GetComponent<RectTransform>();
@@ -91,6 +99,27 @@ public class UI_Chapter1Popup : UI_Popup
 		return true;
 	}
 
+	private void SetButtonState(int buttonIndex, int stageNumber)
+	{
+		Button button = Get<Button>(buttonIndex);
+		bool isUnlocked = Managers.Stage.IsStageUnlocked(stageNumber);
+		button.interactable = isUnlocked;
+
+		Image buttonImage = button.GetComponent<Image>();
+		TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
+
+		if (isUnlocked)
+		{
+			buttonText.enabled = true; // 텍스트를 활성화합니다.
+		}
+		else
+		{
+			// 잠긴 상태의 이미지를 설정합니다.
+			buttonImage.sprite = Resources.Load<Sprite>("Sprites/LockStageImg");
+			buttonText.enabled = false; // 텍스트를 비활성화합니다.
+		}
+	}
+
 	private void OnClickBackButton(PointerEventData eventData)
 	{
 		Managers.UI.ClosePopupUI();
@@ -98,104 +127,154 @@ public class UI_Chapter1Popup : UI_Popup
 
 	private void OnClickLevel1Button(PointerEventData eventData)
 	{
-		if (Managers.Game.RunningPlayCount > 0)
+		if (Managers.Stage.IsStageUnlocked(1))
 		{
-			Managers.Sound.Play("switch10", Sound.Effect);
-			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
-			Managers.Scene.LoadScene(Scene.StoryScene);
-			PlayerPrefs.SetInt("StageNumber", 1);
-			PlayerPrefs.SetInt("StartFrom", 3);
+			if (Managers.Game.RunningPlayCount > 0)
+			{
+				Managers.Sound.Play("switch10", Sound.Effect);
+				Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
+				Managers.Scene.LoadScene(Scene.StoryScene);
+				PlayerPrefs.SetInt("StageNumber", 1);
+				PlayerPrefs.SetInt("StartFrom", 3);
+			}
+			else
+			{
+				Debug.Log("러닝 플레이권이 부족합니다.");
+			}
 		}
 		else
 		{
-			Debug.Log("러닝 플레이권이 부족합니다.");
+			Debug.Log("스테이지가 잠겨 있습니다.");
 		}
 	}
+
 	private void OnClickLevel2Button(PointerEventData eventData)
 	{
-		if (Managers.Game.RunningPlayCount > 0)
+		if (Managers.Stage.IsStageUnlocked(2))
 		{
-			Managers.Sound.Play("switch10", Sound.Effect);
-			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
-			Managers.Scene.LoadScene(Scene.RunningScene);
-			PlayerPrefs.SetInt("StageNumber", 2);
+			if (Managers.Game.RunningPlayCount > 0)
+			{
+				Managers.Sound.Play("switch10", Sound.Effect);
+				Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
+				Managers.Scene.LoadScene(Scene.RunningScene);
+				PlayerPrefs.SetInt("StageNumber", 2);
+			}
+			else
+			{
+				Debug.Log("러닝 플레이권이 부족합니다.");
+			}
 		}
 		else
 		{
-			Debug.Log("러닝 플레이권이 부족합니다.");
+			Debug.Log("스테이지가 잠겨 있습니다.");
 		}
 	}
 	private void OnClickLevel3Button(PointerEventData eventData)
 	{
-		if (Managers.Game.RunningPlayCount > 0)
+		if (Managers.Stage.IsStageUnlocked(3))
 		{
-			Managers.Sound.Play("switch10", Sound.Effect);
-			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
-			Managers.Scene.LoadScene(Scene.RunningScene);
-			PlayerPrefs.SetInt("StageNumber", 3);
+			if (Managers.Game.RunningPlayCount > 0)
+			{
+				Managers.Sound.Play("switch10", Sound.Effect);
+				Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
+				Managers.Scene.LoadScene(Scene.RunningScene);
+				PlayerPrefs.SetInt("StageNumber", 3);
+			}
+			else
+			{
+				Debug.Log("러닝 플레이권이 부족합니다.");
+			}
 		}
 		else
 		{
-			Debug.Log("러닝 플레이권이 부족합니다.");
+			Debug.Log("스테이지가 잠겨 있습니다.");
 		}
 	}
 
 	private void OnClickLevel4Button(PointerEventData eventData)
 	{
-		if (Managers.Game.RunningPlayCount > 0)
+		if (Managers.Stage.IsStageUnlocked(4))
 		{
-			Managers.Sound.Play("switch10", Sound.Effect);
-			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
-			Managers.Scene.LoadScene(Scene.RunningScene);
-			PlayerPrefs.SetInt("StageNumber", 4);
+			if (Managers.Game.RunningPlayCount > 0)
+			{
+				Managers.Sound.Play("switch10", Sound.Effect);
+				Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
+				Managers.Scene.LoadScene(Scene.RunningScene);
+				PlayerPrefs.SetInt("StageNumber", 4);
+			}
+			else
+			{
+				Debug.Log("러닝 플레이권이 부족합니다.");
+			}
 		}
 		else
 		{
-			Debug.Log("러닝 플레이권이 부족합니다.");
+			Debug.Log("스테이지가 잠겨 있습니다.");
 		}
 	}
 	private void OnClickLevel5Button(PointerEventData eventData)
 	{
-		if (Managers.Game.RunningPlayCount > 0)
+		if (Managers.Stage.IsStageUnlocked(5))
 		{
-			Managers.Sound.Play("switch10", Sound.Effect);
-			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
-			Managers.Scene.LoadScene(Scene.StoryScene);
-			PlayerPrefs.SetInt("StageNumber", 5);
-			PlayerPrefs.SetInt("StartFrom", 3);
+			if (Managers.Game.RunningPlayCount > 0)
+			{
+				Managers.Sound.Play("switch10", Sound.Effect);
+				Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
+				Managers.Scene.LoadScene(Scene.StoryScene);
+				PlayerPrefs.SetInt("StageNumber", 5);
+				PlayerPrefs.SetInt("StartFrom", 3);
+			}
+			else
+			{
+				Debug.Log("러닝 플레이권이 부족합니다.");
+			}
 		}
 		else
 		{
-			Debug.Log("러닝 플레이권이 부족합니다.");
+			Debug.Log("스테이지가 잠겨 있습니다.");
 		}
 	}
 	private void OnClickLevel6Button(PointerEventData eventData)
 	{
-		if (Managers.Game.RunningPlayCount > 0)
+		if (Managers.Stage.IsStageUnlocked(6))
 		{
-			Managers.Sound.Play("switch10", Sound.Effect);
-			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
-			Managers.Scene.LoadScene(Scene.RunningScene);
-			PlayerPrefs.SetInt("StageNumber", 6);
+			if (Managers.Game.RunningPlayCount > 0)
+			{
+				Managers.Sound.Play("switch10", Sound.Effect);
+				Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
+				Managers.Scene.LoadScene(Scene.RunningScene);
+				PlayerPrefs.SetInt("StageNumber", 6);
+			}
+			else
+			{
+				Debug.Log("러닝 플레이권이 부족합니다.");
+			}
 		}
 		else
 		{
-			Debug.Log("러닝 플레이권이 부족합니다.");
+			Debug.Log("스테이지가 잠겨 있습니다.");
 		}
 	}
 	private void OnClickLevel7Button(PointerEventData eventData)
 	{
-		if (Managers.Game.RunningPlayCount > 0)
+		if (Managers.Stage.IsStageUnlocked(7))
 		{
-			Managers.Sound.Play("switch10", Sound.Effect);
-			Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
-			Managers.Scene.LoadScene(Scene.StoryScene);
-			PlayerPrefs.SetInt("StageNumber", 7);
-			PlayerPrefs.SetInt("StartFrom", 4);
+			if (Managers.Game.RunningPlayCount > 0)
+			{
+				Managers.Sound.Play("switch10", Sound.Effect);
+				Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
+				Managers.Scene.LoadScene(Scene.StoryScene);
+				PlayerPrefs.SetInt("StageNumber", 7);
+				PlayerPrefs.SetInt("StartFrom", 4);
+			}
+			else
+			{
+				Debug.Log("러닝 플레이권이 부족합니다.");
+			}
 		}
 		else
 		{
-			Debug.Log("러닝 플레이권이 부족합니다.");
+			Debug.Log("스테이지가 잠겨 있습니다.");
 		}
 	}
 }

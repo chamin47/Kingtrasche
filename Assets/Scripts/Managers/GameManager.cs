@@ -293,8 +293,9 @@ public class GameManager
 
     public void GameClear()
     {
-
-        Managers.UI.ShowPopupUI<UI_StageClearPopup>();
+        int currentStageNumber = PlayerPrefs.GetInt("StageNumber");
+        Managers.Stage.OnStageClear(currentStageNumber);
+		Managers.UI.ShowPopupUI<UI_StageClearPopup>();
         Time.timeScale = 0;
     }
 
@@ -324,5 +325,5 @@ public class GameManager
         {
             Debug.Log("유료재화가 부족합니다.");
         }
-    }
+    }   
 }
