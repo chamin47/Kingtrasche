@@ -24,10 +24,6 @@ public class StageManager
     public void UnlockStage(int stageNumber)
     {
         PlayerPrefs.SetInt("Stage" + stageNumber, 1);
-        int storyLevel = PlayerPrefs.GetInt("StoryLevel");
-        storyLevel += 1;
-        PlayerPrefs.SetInt("StoryLevel", storyLevel);
-        PlayerPrefs.Save();
     }
 
     public void OnStageClear(int currentStageNumber)
@@ -37,6 +33,16 @@ public class StageManager
         {
             UnlockStage(nextStageNumber);
             Debug.Log("스테이지 " + nextStageNumber + "이 해금되었습니다.");
+        }
+
+        if (!PlayerPrefs.HasKey("StageCleared" + currentStageNumber))
+        {
+            PlayerPrefs.SetInt("StageCleared" + currentStageNumber, 1);
+
+            int storyLevel = PlayerPrefs.GetInt("StoryLevel");
+            storyLevel += 1;
+            PlayerPrefs.SetInt("StoryLevel", storyLevel);
+            PlayerPrefs.Save();
         }
     }
 }
