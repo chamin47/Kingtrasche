@@ -192,7 +192,7 @@ public class UI_Chapter1Popup : UI_Popup
             {
                 Managers.Sound.Play("switch10", Sound.Effect);
                 Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
-                Managers.Scene.LoadScene(Scene.RunningScene);
+                LoadingManager.LoadScene("RunningScene");
                 PlayerPrefs.SetInt("StageNumber", 2);
             }
             else
@@ -213,7 +213,7 @@ public class UI_Chapter1Popup : UI_Popup
             {
                 Managers.Sound.Play("switch10", Sound.Effect);
                 Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
-                Managers.Scene.LoadScene(Scene.RunningScene);
+                LoadingManager.LoadScene("RunningScene");
                 PlayerPrefs.SetInt("StageNumber", 3);
             }
             else
@@ -235,7 +235,7 @@ public class UI_Chapter1Popup : UI_Popup
             {
                 Managers.Sound.Play("switch10", Sound.Effect);
                 Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
-                Managers.Scene.LoadScene(Scene.RunningScene);
+                LoadingManager.LoadScene("RunningScene");
                 PlayerPrefs.SetInt("StageNumber", 4);
             }
             else
@@ -278,7 +278,7 @@ public class UI_Chapter1Popup : UI_Popup
             {
                 Managers.Sound.Play("switch10", Sound.Effect);
                 Managers.Game.RunningPlayCount--; // 러닝 플레이권 차감
-                Managers.Scene.LoadScene(Scene.RunningScene);
+                LoadingManager.LoadScene("RunningScene");
                 PlayerPrefs.SetInt("StageNumber", 6);
             }
             else
