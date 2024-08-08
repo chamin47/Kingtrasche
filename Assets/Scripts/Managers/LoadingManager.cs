@@ -1,12 +1,11 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class LoadingManager : MonoBehaviour
 {
     public static string nextScene;
-    public Slider loadingBar;
+    //public Slider loadingBar;
 
     void Start()
     {
@@ -23,14 +22,14 @@ public class LoadingManager : MonoBehaviour
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(nextScene);
 
-        while (!operation.isDone)
-        {
-            if (loadingBar != null)
-            {
-                loadingBar.value = operation.progress;
-            }
+        //while (!operation.isDone)
+        //{
+        //    if (loadingBar != null)
+        //    {
+        //        loadingBar.value = operation.progress;
+        //    }
 
-            yield return null;
-        }
+        //}
+        yield return null;
     }
 }
