@@ -10,7 +10,9 @@ public class TimeManager : MonoBehaviour
 
     public static event Action<float> OnStaminaTimeChanged;
 
-    private void Awake()
+	private Coroutine timerCoroutine;
+
+	private void Awake()
     {
         Init();
     }
@@ -37,8 +39,11 @@ public class TimeManager : MonoBehaviour
 
     public void TimerStart()
     {
-        StartCoroutine(CoStartTimer());
-    }
+		if (timerCoroutine == null) // 타이머 중복 실행 방지
+		{
+			timerCoroutine = StartCoroutine(CoStartTimer());
+		}
+	}
 
     private IEnumerator CoStartTimer()
     {
@@ -95,11 +100,16 @@ public class TimeManager : MonoBehaviour
         SaveState();
     }
 
-    private void OnApplicationPause(bool pause)
-    {
-        if (pause)
-        {
-            SaveState();
-        }
-    }
+	private void OnApplicationPause(bool pause)
+	{
+		if (pause)
+		{
+			SaveState();
+		}
+		else
+		{
+			// 앱이 재개되었을 때, 오프라인 동안의 스태미나를 다시 계산합니다.
+			CalcOfflineStamina();
+		}
+	}
 }

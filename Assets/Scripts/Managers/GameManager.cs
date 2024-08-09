@@ -212,7 +212,7 @@ public class GameManager
     {
         Gold = PlayerPrefs.GetInt("Gold", 10000);
         Diamond = PlayerPrefs.GetInt("Diamond", 0);
-        _runningPlayCount = PlayerPrefs.GetInt("RunningPlayCount", 50);
+        _runningPlayCount = PlayerPrefs.GetInt("RunningPlayCount", 100);
         NaturalRunningPlayCount = PlayerPrefs.GetInt("NaturalRunningPlayCount", 0);
         MaxRunningPlayCount = PlayerPrefs.GetInt("MaxRunningPlayCount", 5);
         MaxPurchaseRunningPlayCount = PlayerPrefs.GetInt("MaxPurchaseRunningPlayCount", 999);
@@ -291,16 +291,26 @@ public class GameManager
         Time.timeScale = 0;
     }
 
-	public void GameClear()
-	{
-		int currentStageNumber = PlayerPrefs.GetInt("StageNumber");
-		int starCount = RunningMapManager.Instance.CheckStarLevel();
-		Managers.Stage.OnStageClear(currentStageNumber, starCount);
-		Managers.UI.ShowPopupUI<UI_StageClearPopup>();
-		Time.timeScale = 0;
-	}
+    public void GameClear()
+    {
+        int currentStageNumber = PlayerPrefs.GetInt("StageNumber");
+        int starCount;
 
-	public void InfinityGameOver()
+        if (currentStageNumber == 7 || currentStageNumber == 14 || currentStageNumber == 21)
+        {
+            starCount = 3;
+        }
+        else
+        {
+            starCount = RunningMapManager.Instance.CheckStarLevel();
+        }
+
+        Managers.Stage.OnStageClear(currentStageNumber, starCount);
+        Managers.UI.ShowPopupUI<UI_StageClearPopup>();
+        Time.timeScale = 0;
+    }
+
+    public void InfinityGameOver()
     {
         Managers.UI.ShowPopupUI<UI_InfinityGameOverPopup>();
         Time.timeScale = 0;
@@ -326,5 +336,5 @@ public class GameManager
         {
             Debug.Log("유료재화가 부족합니다.");
         }
-    }   
+    }
 }

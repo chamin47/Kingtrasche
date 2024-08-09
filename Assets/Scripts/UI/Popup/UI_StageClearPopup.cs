@@ -38,7 +38,14 @@ public class UI_StageClearPopup : UI_Popup
     {
 		currentStage = PlayerPrefs.GetInt("StageNumber");
 		Debug.Log($"currentStage : {currentStage}");
-		StarPoint = ShowStarLevel(); // 별 1개는 1, 2개는 2, 3개는 3으로 숫자로 반환됨.
+		if (currentStage == 7 || currentStage == 14 || currentStage == 21)
+		{
+			StarPoint = 3;
+		}
+		else
+		{
+			StarPoint = ShowStarLevel();
+		}
 		Init();
     }
 

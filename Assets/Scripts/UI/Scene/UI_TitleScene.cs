@@ -50,7 +50,24 @@ public class UI_TitleScene : UI_Scene
         Init();
     }
 
-    private void OnStartButtonClicked(PointerEventData eventData)
+	private void Update()
+	{
+		if (Application.platform == RuntimePlatform.Android)
+		{
+			if (Input.GetKeyDown(KeyCode.Escape))
+			{
+				OnBackButtonPressed();
+			}
+		}
+	}
+
+	private void OnBackButtonPressed()
+	{
+		// 게임 종료 팝업 표시
+		Managers.UI.ShowPopupUI<UI_GameQuitPopup>();
+	}
+
+	private void OnStartButtonClicked(PointerEventData eventData)
     {
         Managers.Sound.Play("switch10", Sound.Effect);
         if (PlayerPrefs.GetInt("TitleFirstTimePlaying") == 0)
