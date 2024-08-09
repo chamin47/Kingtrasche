@@ -62,10 +62,9 @@ public class UI_GameScene : UI_Scene
         else // ÀÏ¹Ý ·¯´×¾ÀÀº +1Á¡, µ·¿¡ Ãß°¡µÊ
         {
             currentScore++;
-            int getGold = PlayerPrefs.GetInt("Gold");
+            int getGold = Managers.Game.Gold;
             getGold++;
-            PlayerPrefs.SetInt("Gold", getGold);
-            PlayerPrefs.Save();
+            Managers.Game.Gold = getGold;
         }
         currentMeat.text = currentScore.ToString();
     }
