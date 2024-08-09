@@ -294,7 +294,17 @@ public class GameManager
 	public void GameClear()
 	{
 		int currentStageNumber = PlayerPrefs.GetInt("StageNumber");
-		int starCount = RunningMapManager.Instance.CheckStarLevel();
+        int starCount;
+		
+		if (currentStageNumber == 7 || currentStageNumber == 14 || currentStageNumber == 21)
+		{
+			starCount = 3;
+		}
+		else
+		{
+			starCount = RunningMapManager.Instance.CheckStarLevel();
+		}
+
 		Managers.Stage.OnStageClear(currentStageNumber, starCount);
 		Managers.UI.ShowPopupUI<UI_StageClearPopup>();
 		Time.timeScale = 0;
